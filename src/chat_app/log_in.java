@@ -29,18 +29,15 @@ public class log_in extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("log_in.fxml"));
 
-
-        primaryStage.setTitle("Log In ");
-        primaryStage.setScene(new Scene(root,500,400));
-        primaryStage.show();
-
         GridPane grid = generateLoginPage();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25,25,25,25));
-        Scene scene = new Scene(grid,400,400);
-        primaryStage.setScene(scene);
+
+        primaryStage.setTitle("Log In ");
+        primaryStage.setScene(new Scene(root,500,400));
+        primaryStage.show();
 
 
 
