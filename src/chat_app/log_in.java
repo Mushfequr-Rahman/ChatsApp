@@ -3,105 +3,137 @@ package chat_app;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
+import javafx.scene.layout.Priority;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-
-import java.io.IOException;
+import javafx.stage.Window;
 
 public class log_in extends Application {
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        primaryStage.setTitle("Chatsapp");
+
+        // Create the registration form grid pane
+        GridPane gridPane = LoginPane();
+        // Add UI controls to the registration form grid pane
+        addUIControls(gridPane);
+        // Create a scene with registration form grid pane as the root node
+        Scene scene = new Scene(gridPane, 800, 500);
+        scene.getStylesheets().add(getClass().getClassLoader().getResource("log_in.css").toExternalForm());
+        // Set the scene in primary stage
+        primaryStage.setScene(scene);
+
+        primaryStage.show();
+    }
+
+
+    private GridPane LoginPane() {
+        // Instantiate a new Grid Pane
+        GridPane gridPane = new GridPane();
+
+        // Position the pane at the center of the screen, both vertically and horizontally
+        gridPane.setAlignment(Pos.CENTER);
+
+        // Set a padding of 20px on each side
+        gridPane.setPadding(new Insets(40, 40, 40, 40));
+
+        // Set the horizontal gap between columns
+        gridPane.setHgap(10);
+
+        // Set the vertical gap between rows
+        gridPane.setVgap(10);
+
+        // Add Column Constraints
+
+        // columnOneConstraints will be applied to all the nodes placed in column one.
+        ColumnConstraints columnOneConstraints = new ColumnConstraints(100, 100, Double.MAX_VALUE);
+        columnOneConstraints.setHalignment(HPos.RIGHT);
+
+        // columnTwoConstraints will be applied to all the nodes placed in column two.
+        ColumnConstraints columnTwoConstrains = new ColumnConstraints(200,200, Double.MAX_VALUE);
+        columnTwoConstrains.setHgrow(Priority.ALWAYS);
+
+        gridPane.getColumnConstraints().addAll(columnOneConstraints, columnTwoConstrains);
+
+        return gridPane;
+    }
+
+    private void addUIControls(GridPane gridPane) {
+        // Add Header
+        Label headerLabel = new Label("Chatsapp");
+        headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        gridPane.add(headerLabel, 0,0,2,1);
+        GridPane.setHalignment(headerLabel, HPos.CENTER);
+        GridPane.setMargin(headerLabel, new Insets(20, 0,20,0));
+
+        // Add Name Label
+        Label nameLabel = new Label("Username : ");
+        gridPane.add(nameLabel, 0,1);
+
+        // Add Name Text Field
+        TextField nameField = new TextField();
+        nameField.setPrefHeight(40);
+        gridPane.add(nameField, 1,1);
+
+        // Add Password Label
+        Label passwordLabel = new Label("Password : ");
+        gridPane.add(passwordLabel, 0, 3);
+
+        // Add Password Field
+        PasswordField passwordField = new PasswordField();
+        passwordField.setPrefHeight(40);
+        gridPane.add(passwordField, 1, 3);
+
+        // Add Submit Button
+        Button loginButton = new Button("Login");
+        loginButton.setId("loginButton");
+        loginButton.setPrefHeight(40);
+        loginButton.setDefaultButton(true);
+        loginButton.setPrefWidth(100);
+        gridPane.add(loginButton, 0, 4, 2, 1);
+        GridPane.setHalignment(loginButton, HPos.CENTER);
+        GridPane.setMargin(loginButton, new Insets(20, 0,20,0));
+
+        loginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(nameField.getText().isEmpty()) {
+                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "Please enter your username");
+                    return;
+                }
+                if(passwordField.getText().isEmpty()) {
+                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "Please enter your password");
+                    return;
+                }
+
+                showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(), "Login Successful!", "Welcome " + nameField.getText());
+            }
+        });
+    }
+
+    private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.initOwner(owner);
+        alert.show();
+    }
 
     public static void main(String[] args) {
         launch(args);
     }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-
-
-        Parent root = FXMLLoader.load(getClass().getResource("log_in.fxml"));
-
-        GridPane grid = generateLoginPage();
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(25,25,25,25));
-
-        primaryStage.setTitle("Log In ");
-        primaryStage.setScene(new Scene(root,500,400));
-        primaryStage.show();
-
-
-
-
-
-
-    }
-
-    private GridPane generateLoginPage() {
-
-        GridPane LogIn = new GridPane();
-
-        javafx.scene.text.Text name_prompt = new Text("Username:");
-        LogIn.add(name_prompt, 0,1 );
-
-        TextField username_entry = new TextField();
-        LogIn.add(username_entry,1,1);
-
-        Text password_prompt = new Text("Password:");
-
-        LogIn.add(password_prompt,0,2);
-
-        PasswordField password_entry = new PasswordField();
-        LogIn.add(password_entry,1,2);
-
-        Button log_in_button = new Button("Log In");
-        LogIn.add(log_in_button,1,3);
-
-        Button Register_button = new Button("Register");
-        LogIn.add(Register_button,2,3);
-
-
-        log_in_button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                BeginLogIn(username_entry.getText(),password_entry.getText());
-            }
-        });
-
-        Register_button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                Begin_Registration();
-            }
-        });
-
-
-
-
-
-        return LogIn;
-
-
-    }
-
-    private void BeginLogIn(String text, String text1) {
-
-        //TODO: Set Up User Verification
-    }
-
-    private void Begin_Registration() {
-
-        //TODO: Create Registration Event and Classes
-    }
-
 
 }
