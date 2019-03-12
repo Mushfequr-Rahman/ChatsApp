@@ -9,16 +9,27 @@ Final assignment repository for CSCI 2040
 ## Registration
 ### Completed:
 - Writing into CSV file (Auto-incremented ID, Email Address, Username, Password, TimeStamp)
-- Validation (null value, length, username/email format, mismatch between password and re-enter password
+- Validation:
+    - Null value
+    - Insufficient length
+    - Email format (xx@xx.com)
+    - Duplicate username/email
+    - Mismatch between password and re-enter password
+    - Comma (due to use of csv)
 ### WIP:
-- Validation against existing usernames
-- Validation for comma (potentially breaking the csv)
 ### To be done:
-- Display warning for invalid registration 
+- A file that only contains id & username (?)
+- Add column for profile image (?)
 
 
 ## Login (TBC)
+### To be done:
+- Username/email validation
+- Password validation
 
+## Chat (TBC)
+### To be done:
+- Backup of history
 
 # Server Side
 
