@@ -15,8 +15,9 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Pattern;
+
 
 public class register extends Application {
 
@@ -75,20 +76,27 @@ public class register extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
 
-                if(!validate(username_entry,email_entry,password_entry,password_entry2, Reg)){
-                    /*
-                    * TODO:
-                    * >> VALIDATE AGAINST EXISTING USERNAMES
-                    * >> VALIDATE AGAINST POSSIBLE COMMA EXCEPTION (POTENTIAL CSV PARSING BREAKING)
-                    * */
-                    return;
+                //Saving into csv
+                String fileName= "Database.csv";
+                FileWriter file;
+
+                try {
+                    if(!new File(fileName).exists()){
+                        if (!validate(username_entry,email_entry,password_entry,password_entry2, Reg)) {
+                            return;
+                        }
+                    }
+                    else{
+                        if (!validate(username_entry,email_entry,password_entry,password_entry2, Reg, new File(fileName))) {
+                            return;
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
-                //Saving into csv
-                String fileName= "sample.csv";
-                FileWriter file;
                 //txt to keep track of data easier
-                String fileName2= "sample.txt";
+                String fileName2= "Database.txt";
                 FileWriter f2;
                 StringBuilder sb = new StringBuilder();
                 try {
@@ -128,6 +136,7 @@ public class register extends Application {
                         f2.close();
 
                     }
+                    //TODO: "USER HAS BEEN REGISTERED" DISPLAY
                 }catch (Exception e){
                     System.out.println("Dunno something caught");
                     System.exit(0);
@@ -140,6 +149,57 @@ public class register extends Application {
         return Reg;
     }
 
+    Boolean validate(TextField u, TextField e, TextField p1, TextField p2, GridPane pane, File f) throws Exception{
+        //Check textfield values against possible issues
+        Boolean key = true;
+        if(!validateEmpty(u,e,p1,p2)){
+            //TODO: DISPLAY NULL VALUE WARNING
+            key = false;
+        }
+        if(!p1.getText().equals(p2.getText())){
+            //TODO: DISPLAY MISMATCH PASSWORD WARNING
+            System.out.println("PASS MISMATCH");
+            key = false;
+        }
+        if(!validateUser(u,f)){
+            //TODO: ERROR SAME USERNAME CHOOSE ANOTHER ONE
+            System.out.println("OVERLAPPING USERNAME");
+            key = false;
+        }
+        if(!validateEmail(e,f)){
+            //TODO: ERROR SAME EMAIL USE ANOTHER ONE
+            System.out.println("1 EMAIL 1 ACCOUNT THX");
+            key = false;
+        }
+        if(!validateLength(u,6,20)){
+            //TODO: DISPLAY (USERNAME must be between 8-20 characters) WARNING (temporary req up to change)
+            System.out.println("INSUFFICIENT LENGTH USERNAME");
+            key = false;
+        }
+        if(!validateLength(p1,8,20)){
+            System.out.println("INSUFFICIENT LENGTH PASSWORD");
+            key = false;
+            //TODO: DISPLAY (PASSWORD must be between 8-20 characters) WARNING (temporary req up to change)
+        }
+        if(p1.getText().contains(",")){
+            System.out.println("DO NOT USE COMMA FOR PASSWORD THX ");
+            key = false;
+            //TODO: DO NOT USE COMMA FOR PASSWORD THX
+        }
+        if(!Pattern.matches("^(?![_.,])(?!.*[_.,]{2})[a-zA-Z0-9._]+(?<![_.,])$", u.getText())){
+            System.out.println("WRONG USERNAME FORMAT");
+            key = false;
+            //TODO: DISPLAY WRONG USERNAME FORMAT
+        }
+        if(!Pattern.matches("\\b[\\w.%-]+@[-.\\w]+\\.[A-Za-z]{2,4}\\b", e.getText())){
+            System.out.println("WRONG EMAIL FORMAT"); //also comma not allowed
+            key = false;
+            //TODO: DISPLAY WRONG EMAIL FORMAT
+        }
+        return key;
+    }
+
+    //overload: very first user give this user a trophy
     Boolean validate(TextField u, TextField e, TextField p1, TextField p2, GridPane pane){
         //Check textfield values against possible issues
         Boolean key = true;
@@ -162,13 +222,18 @@ public class register extends Application {
             key = false;
             //TODO: DISPLAY (PASSWORD must be between 8-20 characters) WARNING (temporary req up to change)
         }
-        if(!Pattern.matches("^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$", u.getText())){
+        if(!Pattern.matches("^(?![,])(?!.*[,]{2})[a-zA-Z0-9._]+(?<![,])$", p1.getText())){
+            System.out.println("DO NOT USE COMMA FOR PASSWORD THX ");
+            key = false;
+            //TODO: DO NOT USE COMMA FOR PASSWORD THX
+        }
+        if(!Pattern.matches("^(?![_.,])(?!.*[_.,]{2})[a-zA-Z0-9._]+(?<![_.,])$", u.getText())){
             System.out.println("WRONG USERNAME FORMAT");
             key = false;
             //TODO: DISPLAY WRONG USERNAME FORMAT
         }
         if(!Pattern.matches("\\b[\\w.%-]+@[-.\\w]+\\.[A-Za-z]{2,4}\\b", e.getText())){
-            System.out.println("WRONG EMAIL FORMAT");
+            System.out.println("WRONG EMAIL FORMAT"); //also comma not allowed
             key = false;
             //TODO: DISPLAY WRONG EMAIL FORMAT
         }
@@ -187,6 +252,29 @@ public class register extends Application {
     Boolean validateLength(TextField tf, int min, int max){
         //Check for length of string in textfield
         if(tf.getText().length() < min || tf.getText().length() > max) return false;
+        return true;
+    }
+
+    Boolean validateUser(TextField u,File f) throws Exception{
+        Map<Integer,String> users = getUsernames(f);
+        String userName = u.getText();
+        for (String names: users.values()){
+            //System.out.println("Existing names:" + names);
+            if(userName.equals(names)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    Boolean validateEmail(TextField e,File f) throws Exception{
+        Map<Integer,String> users = getEmails(f);
+        String email = e.getText();
+        for (String names: users.values()){
+            if(email.equals(names)){
+                return false;
+            }
+        }
         return true;
     }
 
@@ -227,7 +315,49 @@ public class register extends Application {
             line = input.nextLine();
         }
         String[] words = line.split(",");
+        input.close();
         return Integer.parseInt(words[0])+ 1;
+    }
+
+    String readAll(File f)throws Exception{
+        //get all data, return as String[] comma splitted (csv)
+        Scanner input = new Scanner(f);
+        String line = "";
+        int index = 0;
+        while(input.hasNextLine()) {
+            line += input.nextLine() + "\n";
+        }
+        return line;
+    }
+
+    Map<Integer,String> getUsernames(File f)throws Exception {
+        //get all usernames for validation
+        String data = readAll(f);
+        //System.out.println("DATA:\n" + data);
+        String[] splitted = data.split(",");
+        Map<Integer,String> users = new HashMap<Integer,String>(); //unique id and username
+        Scanner s = new Scanner(data).useDelimiter("\n");
+        s.nextLine(); //skip header
+        while(s.hasNextLine()){
+            String[] words = s.nextLine().split(",");
+            //System.out.println("ID:" + words[0] + "Name:" + words[2]);
+            users.put(Integer.parseInt(words[0]),words[2]);
+        }
+        return users;
+    }
+
+    Map<Integer,String> getEmails(File f)throws Exception {
+        //get all emails for validation too
+        String data = readAll(f);
+        String[] splitted = data.split(",");
+        Map<Integer,String> users = new HashMap<Integer,String>(); //unique id and email
+        Scanner s = new Scanner(data).useDelimiter("\n");
+        s.nextLine(); //skip header
+        while(s.hasNextLine()){
+            String[] words = s.nextLine().split(",");
+            users.put(Integer.parseInt(words[0]),words[1]);
+        }
+        return users;
     }
 
 
