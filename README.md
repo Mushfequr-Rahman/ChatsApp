@@ -20,12 +20,16 @@ Final assignment repository for CSCI 2040
 ### To be done:
 - A file that only contains id & username (?)
 - Add column for profile image (?)
+- Encrypt password before saving to csv
 
 
-## Login (TBC)
-### To be done:
+## Login 
+### Completed:
 - Username/email validation
 - Password validation
+### WIP:
+### To be done:
+
 
 ## Chat (TBC)
 ### To be done:
