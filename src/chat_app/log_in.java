@@ -20,6 +20,12 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
 public class log_in extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -117,8 +123,46 @@ public class log_in extends Application {
                     showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "Please enter your password");
                     return;
                 }
-
-                showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(), "Login Successful!", "Welcome " + nameField.getText());
+                //check if username/password matches (copy pasta same code)
+                File f = new File("Database.csv");
+                Scanner input = null;
+                try {
+                    input = new Scanner(f);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                String line = "";
+                while(input.hasNextLine()) {
+                    line += input.nextLine() + "\n";
+                }
+                input.close();
+                String[] sp = line.split(",");
+                Scanner s = new Scanner(line).useDelimiter("\n");
+                s.nextLine(); //skip header
+                Boolean key = false;
+                if(nameField.getText().contains("@")){
+                    //email - password combination
+                    while(s.hasNextLine()){
+                        String[] words = s.nextLine().split(",");
+                        if(nameField.getText().equals(words[1]) && passwordField.getText().equals(words[3])){
+                            key = true;
+                        }
+                    }
+                }
+                else {
+                    //username - password combination
+                    while (s.hasNextLine()) {
+                        String[] words = s.nextLine().split(",");
+                        if (nameField.getText().equals(words[2]) && passwordField.getText().equals(words[3])) {
+                            key = true;
+                        }
+                    }
+                }
+                if(key) showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(), "Login Successful!", "Welcome " + nameField.getText());
+                else{
+                    //TODO: DISPLAY WARNING
+                    System.out.println("INVALID USERNAME/PASSWORD");
+                }
             }
         });
     }

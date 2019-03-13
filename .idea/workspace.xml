@@ -2,34 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/csci_2040_final_assignment.iml" beforeDir="false" afterPath="$PROJECT_DIR$/csci_2040_final_assignment.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/Controller.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/log_in$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/log_in$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/log_in.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/log_in.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/register$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/register$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/register.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/register.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/Client$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/Client$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/Client$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/Client$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/ClientApplication$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/ClientApplication$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/ClientApplication$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/ClientApplication$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/ClientApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/ClientApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/ClientThread$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/ClientThread$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/ClientThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/ClientThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/Server$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/Server$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/Server$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/Server$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/Server$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/Server$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/Server.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/ServerTest$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/ServerTest$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/ServerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/ServerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/Server_test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/Server_test.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/message.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/message.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/messagetype.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/server/messagetype.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chat_app/register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chat_app/register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chat_app/log_in.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chat_app/log_in.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -86,29 +60,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/chat_app/log_in.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="38" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/chat_app/register.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
+            <state relative-caret-position="194">
+              <caret line="158" column="21" lean-forward="true" selection-start-line="158" selection-start-column="21" selection-end-line="158" selection-end-column="21" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#6889#6890#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/chat_app/server/ServerTest.java">
+        <entry file="file://$PROJECT_DIR$/src/chat_app/register.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="65" column="18" selection-start-line="65" selection-start-column="18" selection-end-line="65" selection-end-column="18" />
+            <state relative-caret-position="3720">
+              <caret line="344" column="9" lean-forward="true" selection-start-line="340" selection-start-column="8" selection-end-line="344" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -117,10 +86,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/chat_app/Main.java">
+        <entry file="file://$PROJECT_DIR$/src/chat_app/chatUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="28" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
+            <state relative-caret-position="270">
+              <caret line="29" column="43" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/chat_app/server/ServerTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="645">
+              <caret line="67" column="42" selection-start-line="67" selection-start-column="42" selection-end-line="67" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -162,16 +140,17 @@
         <option value="$PROJECT_DIR$/src/chat_app/sample.fxml" />
         <option value="$PROJECT_DIR$/src/chat_app/log_in.fxml" />
         <option value="$PROJECT_DIR$/src/chat_app/Main.java" />
-        <option value="$PROJECT_DIR$/src/chat_app/log_in.java" />
         <option value="$PROJECT_DIR$/src/chat_app/register.java" />
+        <option value="$PROJECT_DIR$/src/chat_app/log_in.java" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1236" />
-    <option name="height" value="1027" />
+    <option name="x" value="37" />
+    <option name="y" value="34" />
+    <option name="width" value="1137" />
+    <option name="height" value="831" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
@@ -182,7 +161,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -205,7 +184,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -244,7 +223,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Register">
+  <component name="RunManager" selected="Application.log_in">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -305,6 +284,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="chatUI" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="chat_app.chatUI" />
+      <module name="csci_2040_final_assignment" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="log_in" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="chat_app.log_in" />
       <module name="csci_2040_final_assignment" />
@@ -350,6 +336,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.chatUI" />
       <item itemvalue="Application.Main" />
       <item itemvalue="Application.Register" />
       <item itemvalue="Application.log_in" />
@@ -376,12 +363,15 @@
       <workItem from="1549640758702" duration="2375000" />
       <workItem from="1551808589751" duration="119000" />
       <workItem from="1552160877495" duration="13078000" />
-      <workItem from="1552352673793" duration="914000" />
+      <workItem from="1552352673793" duration="1104000" />
+      <workItem from="1552410050666" duration="366000" />
+      <workItem from="1552414865061" duration="115000" />
+      <workItem from="1552452171954" duration="1159000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17788000" />
+    <option name="totallyTimeSpent" value="19618000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -393,10 +383,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1236" height="1027" extended-state="0" />
+    <frame x="37" y="34" width="1137" height="831" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.37185928" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.28219178" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -407,7 +397,7 @@
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Database Changes" order="2" />
       <window_info anchor="bottom" id="Find" order="3" />
-      <window_info active="true" anchor="bottom" id="Run" order="4" visible="true" weight="0.24919786" />
+      <window_info active="true" anchor="bottom" id="Run" order="4" visible="true" weight="0.24763194" />
       <window_info anchor="bottom" id="Debug" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
@@ -479,30 +469,6 @@
     <entry file="file://$PROJECT_DIR$/src/chat_app/testfirebase.java" />
     <entry file="file://$PROJECT_DIR$/../LAB/csci2020u/lab07/src/lab07/Lab07.java" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/javafx-src.zip!/javafx/application/Application.java" />
-    <entry file="file://$PROJECT_DIR$/src/chat_app/log_in.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="38" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/log_in.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/chat_app/server/ServerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="65" column="18" selection-start-line="65" selection-start-column="18" selection-end-line="65" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/chat_app/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -513,10 +479,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/chat_app/server/ServerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="67" column="42" selection-start-line="67" selection-start-column="42" selection-end-line="67" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/log_in.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/chat_app/chatUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="29" column="43" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/chat_app/register.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
+        <state relative-caret-position="3720">
+          <caret line="344" column="9" lean-forward="true" selection-start-line="340" selection-start-column="8" selection-end-line="344" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/chat_app/log_in.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="158" column="21" lean-forward="true" selection-start-line="158" selection-start-column="21" selection-end-line="158" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6889#6890#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
