@@ -1,8 +1,11 @@
 package chat_app;
 
 import java.util.ArrayList;
+
+import chat_app.server.Client;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -15,25 +18,8 @@ import javafx.scene.text.Text;
 
 public class chatUI extends Application
 {
-    private int width = 900;
-    private int height = 650;
 
-    private ArrayList<String> contacts = new ArrayList<String>();
-    private ListView<String> listView = new ListView<>(FXCollections.observableArrayList(contacts));
-
-    private BorderPane mainPane = new BorderPane();
-
-    private ScrollPane contactScroll = new ScrollPane();
-
-    private VBox chatBox = new VBox(5);
-
-    private ScrollPane chatScroll = new ScrollPane();
-
-    private HBox FieldAndButton = new HBox(5);
-
-    private VBox contactPane = new VBox(10);
-
-    private  Scene scene = new Scene(mainPane,width,height);
+    private ArrayList<Thread> threads;
 
 
 
@@ -41,8 +27,61 @@ public class chatUI extends Application
         launch(args);
     }
 
-    private void initMainPane()
+
+
+    private Scene LogIn(Stage primaryStage)
     {
+
+
+        GridPane gridPane = new GridPane();
+        TextField text = new TextField();
+        Button login = new Button("Login");
+        gridPane.add(text,0,0);
+        gridPane.add(login,1,0);
+
+        login.setOnAction(e->{
+            String Username = text.getText();
+            try {
+                System.out.println("With User:" + Username);
+                Client client = new Client("localhost", 9001, Username);
+                Thread ClientThread = new Thread(client);
+                ClientThread.setDaemon(true);
+                ClientThread.start();
+                threads.add(ClientThread);
+                primaryStage.close();
+                primaryStage.setScene(initMainPane(client));
+                primaryStage.show();
+
+            }catch (Exception ex)
+            {
+                ex.printStackTrace();
+            }
+        });
+
+        return new Scene(gridPane,300,300);
+    }
+    private Scene initMainPane(Client client)
+    {
+
+         int width = 900;
+        int height = 650;
+
+         ArrayList<String> contacts = new ArrayList<String>();
+        ListView<String> listView = new ListView<>(FXCollections.observableArrayList(contacts));
+
+        BorderPane mainPane = new BorderPane();
+
+        ScrollPane contactScroll = new ScrollPane();
+
+         VBox chatBox = new VBox(5);
+
+         ScrollPane chatScroll = new ScrollPane();
+
+         HBox FieldAndButton = new HBox(5);
+
+        VBox contactPane = new VBox(10);
+
+         Scene scene = new Scene(mainPane,width,height);
 /////////////////////////////////////////////////////////////////////////////////////////////
 
         mainPane.setPadding(new Insets(10,10,10,10));
@@ -89,6 +128,12 @@ public class chatUI extends Application
         textfield.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER)
             {
+
+                System.out.println("Message:"+textfield.getText());
+                client.writeToServer(textfield.getText());
+                textfield.clear();
+                System.out.println("Outputing to server: " + client.chatLog);
+                /*
                 if(!textfield.getText().equals(""))
                 {
                     System.out.println(textfield.getText());
@@ -97,6 +142,22 @@ public class chatUI extends Application
                     textfield.setText("");
                     chatBox.getChildren().add(message);
                 }
+                */
+
+
+                /*
+                VBox ChatBox = new VBox(5);
+                ObservableList<String> Log = client.chatLog;
+                System.out.println(Log);
+                for(String Msg : Log)
+                {
+                    Text Message = new Text( Msg);
+                    Message.wrappingWidthProperty().bind(chatScroll.widthProperty().subtract(25));
+                    ChatBox.getChildren().add(Message);
+
+
+                }
+                */
                 e.consume();
             }
         });
@@ -126,7 +187,7 @@ public class chatUI extends Application
                 if(!addUserIDField.getText().equals(""))
                 {
                     System.out.println("User " + addUserIDField.getText() + " added.");
-                    addContact(addUserIDField.getText());
+                    //addContact(addUserIDField.getText(),contacts,);
                     addUserIDField.clear();
                 }
                 e.consume();
@@ -135,23 +196,42 @@ public class chatUI extends Application
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
+
+        ListView<String> history = new ListView<>();
+        history.setItems(client.chatLog);
+        System.out.println("Adding stuff to scroll Pane");
+        System.out.println("Current Log:"+client.chatLog);
+
+
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(history);
+        mainPane.setCenter(history);
         mainPane.setRight(contactPane);
         mainPane.setBottom(FieldAndButton);
-        mainPane.setCenter(chatScroll);
+       // mainPane.setCenter(chatScroll);
+
+        return scene;
 
 /////////////////////////////////////////////////////////////////////////////////////////////
     }
-    private void addContact(String name)
+
+   /*
+    private void addContact(String name,ArrayList<String> contacts,ListView<ObservableList> listView)
     {
         contacts.add(name);
         listView.getItems().clear();
         listView.getItems().addAll(contacts);
     }
+    */
+
+
 
     //@Override
     public void start(Stage primaryStage) {
-        initMainPane();
-        primaryStage.setScene(scene);
+        //initMainPane();
+        threads =new ArrayList<Thread>();
+        primaryStage.setScene(LogIn(primaryStage));
         primaryStage.setTitle("ChatsApp");
         primaryStage.show();
 
