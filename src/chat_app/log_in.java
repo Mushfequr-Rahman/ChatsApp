@@ -46,6 +46,9 @@ public class log_in extends Application {
 
 
     private GridPane LoginPane() {
+
+        double WIDTH = 800;
+        double HEIGHT = 500;
         // Instantiate a new Grid Pane
         GridPane gridPane = new GridPane();
 

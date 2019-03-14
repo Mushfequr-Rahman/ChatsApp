@@ -1,20 +1,29 @@
 package chat_app;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import chat_app.server.Client;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyCode;
 import javafx.geometry.Insets;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
+import javafx.stage.Window;
 
 public class chatUI extends Application
 {
@@ -29,37 +38,162 @@ public class chatUI extends Application
 
 
 
-    private Scene LogIn(Stage primaryStage)
-    {
+    private Scene LoginScene(Stage primaryStage) {
 
-
+        double WIDTH = 800;
+        double HEIGHT = 500;
+        // Instantiate a new Grid Pane
         GridPane gridPane = new GridPane();
-        TextField text = new TextField();
-        Button login = new Button("Login");
-        gridPane.add(text,0,0);
-        gridPane.add(login,1,0);
+        Scene scene = new Scene(gridPane,WIDTH,HEIGHT);
 
-        login.setOnAction(e->{
-            String Username = text.getText();
-            try {
-                System.out.println("With User:" + Username);
-                Client client = new Client("localhost", 9001, Username);
-                Thread ClientThread = new Thread(client);
-                ClientThread.setDaemon(true);
-                ClientThread.start();
-                threads.add(ClientThread);
-                primaryStage.close();
-                primaryStage.setScene(initMainPane(client));
-                primaryStage.show();
+        // Position the pane at the center of the screen, both vertically and horizontally
+        gridPane.setAlignment(Pos.CENTER);
 
-            }catch (Exception ex)
-            {
-                ex.printStackTrace();
+        // Set a padding of 20px on each side
+        gridPane.setPadding(new Insets(40, 40, 40, 40));
+
+        // Set the horizontal gap between columns
+        gridPane.setHgap(10);
+
+        // Set the vertical gap between rows
+        gridPane.setVgap(10);
+
+        // Add Column Constraints
+
+        // columnOneConstraints will be applied to all the nodes placed in column one.
+        ColumnConstraints columnOneConstraints = new ColumnConstraints(100, 100, Double.MAX_VALUE);
+        columnOneConstraints.setHalignment(HPos.RIGHT);
+
+        // columnTwoConstraints will be applied to all the nodes placed in column two.
+        ColumnConstraints columnTwoConstrains = new ColumnConstraints(200,200, Double.MAX_VALUE);
+        columnTwoConstrains.setHgrow(Priority.ALWAYS);
+
+        gridPane.getColumnConstraints().addAll(columnOneConstraints, columnTwoConstrains);
+        addUIControls(gridPane,primaryStage);
+
+        return scene;
+    }
+
+    private void addUIControls(GridPane gridPane,Stage primaryStage) {
+        // Add Header
+        Label headerLabel = new Label("Chatsapp");
+        headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        gridPane.add(headerLabel, 0,0,2,1);
+        GridPane.setHalignment(headerLabel, HPos.CENTER);
+        GridPane.setMargin(headerLabel, new Insets(20, 0,20,0));
+
+        // Add Name Label
+        Label nameLabel = new Label("Username : ");
+        gridPane.add(nameLabel, 0,1);
+
+        // Add Name Text Field
+        TextField nameField = new TextField();
+        nameField.setPrefHeight(40);
+        gridPane.add(nameField, 1,1);
+
+        // Add Password Label
+        Label passwordLabel = new Label("Password : ");
+        gridPane.add(passwordLabel, 0, 3);
+
+        // Add Password Field
+        PasswordField passwordField = new PasswordField();
+        passwordField.setPrefHeight(40);
+        gridPane.add(passwordField, 1, 3);
+
+        // Add Submit Button
+        Button loginButton = new Button("Login");
+        loginButton.setId("loginButton");
+        loginButton.setPrefHeight(40);
+        loginButton.setDefaultButton(true);
+        loginButton.setPrefWidth(100);
+        gridPane.add(loginButton, 0, 4, 2, 1);
+        GridPane.setHalignment(loginButton, HPos.CENTER);
+        GridPane.setMargin(loginButton, new Insets(20, 0,20,0));
+
+        loginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(nameField.getText().isEmpty()) {
+                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "Please enter your username");
+                    return;
+                }
+                if(passwordField.getText().isEmpty()) {
+                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "Please enter your password");
+                    return;
+                }
+                //check if username/password matches (copy pasta same code)
+                File f = new File("Database.csv");
+                Scanner input = null;
+                try {
+                    input = new Scanner(f);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                String line = "";
+                while(input.hasNextLine()) {
+                    line += input.nextLine() + "\n";
+                }
+                input.close();
+                String[] sp = line.split(",");
+                Scanner s = new Scanner(line).useDelimiter("\n");
+                s.nextLine(); //skip header
+                Boolean key = false;
+                if(nameField.getText().contains("@")){
+                    //email - password combination
+                    while(s.hasNextLine()){
+                        String[] words = s.nextLine().split(",");
+                        if(nameField.getText().equals(words[1]) && passwordField.getText().equals(words[3])){
+                            key = true;
+                        }
+                    }
+                }
+                else {
+                    //username - password combination
+                    while (s.hasNextLine()) {
+                        String[] words = s.nextLine().split(",");
+                        if (nameField.getText().equals(words[2]) && passwordField.getText().equals(words[3])) {
+                            key = true;
+                        }
+                    }
+                }
+                if(key)
+                {
+                    showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(), "Login Successful!", "Welcome " + nameField.getText());
+                    String Username =nameField.getText();
+                    try {
+                        System.out.println("With User:" + Username);
+                        Client client = new Client("localhost", 9001, Username);
+                        Thread ClientThread = new Thread(client);
+                        ClientThread.setDaemon(true);
+                        ClientThread.start();
+                        threads.add(ClientThread);
+                        primaryStage.close();
+                        primaryStage.setScene(initMainPane(client));
+                        primaryStage.show();
+
+                    }catch (Exception ex)
+                    {
+                        ex.printStackTrace();
+                    }
+                }
+                else{
+                    //TODO: DISPLAY WARNING
+                    System.out.println("INVALID USERNAME/PASSWORD");
+                }
             }
         });
-
-        return new Scene(gridPane,300,300);
     }
+
+    private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.initOwner(owner);
+        alert.show();
+    }
+
+
     private Scene initMainPane(Client client)
     {
 
@@ -231,7 +365,7 @@ public class chatUI extends Application
     public void start(Stage primaryStage) {
         //initMainPane();
         threads =new ArrayList<Thread>();
-        primaryStage.setScene(LogIn(primaryStage));
+        primaryStage.setScene(LoginScene(primaryStage));
         primaryStage.setTitle("ChatsApp");
         primaryStage.show();
 
