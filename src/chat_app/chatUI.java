@@ -70,6 +70,8 @@ public class chatUI extends Application
 
         gridPane.getColumnConstraints().addAll(columnOneConstraints, columnTwoConstrains);
         addUIControls(gridPane,primaryStage);
+        scene.getStylesheets().add(getClass().getClassLoader().getResource("log_in.css").toExternalForm());
+
 
         return scene;
     }
@@ -303,8 +305,12 @@ public class chatUI extends Application
             System.out.println(textfield.getText());
             Text message = new Text("You :  " + textfield.getText());
             message.wrappingWidthProperty().bind(chatScroll.widthProperty().subtract(25));
-            textfield.setText("");
             chatBox.getChildren().add(message);
+            System.out.println("Message:"+textfield.getText());
+            client.writeToServer(textfield.getText());
+            textfield.clear();
+            System.out.println("Outputing to server: " + client.chatLog);
+            e.consume();
         });
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -344,6 +350,8 @@ public class chatUI extends Application
         mainPane.setRight(contactPane);
         mainPane.setBottom(FieldAndButton);
        // mainPane.setCenter(chatScroll);
+        scene.getStylesheets().add(getClass().getClassLoader().getResource("log_in.css").toExternalForm());
+
 
         return scene;
 
