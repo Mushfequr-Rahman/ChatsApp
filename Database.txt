@@ -1,0 +1,6 @@
+Id,Email Address,Username,Password,Timestamp
+1,mushy@mail.com,Mushishi,mushimushi,2019.03.11.21.14.18
+2,terryaki@mail.com,Terong,terriyaki,2019.03.11.21.14.31
+3,cc@mail.com,Cynthia,indeeeed,2019.03.11.21.15.15
+4,nt@mail.com,Nanaotan,itsnana.,2019.03.11.21.15.45
+5,boba@bob.com,bobalicious,badabidup!,2019.03.11.21.19.39
