@@ -1,11 +1,14 @@
 .root {
     -fx-background-image: url("img/background.png");
-    /*-fx-background-color:  linear-gradient(lightgray, gray);*/
 }
 
 .label {
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
+}
+
+.text-field {
+    -fx-background-radius: 20;
 }
 
 #loginButton {
@@ -14,5 +17,14 @@
 }
 
 #loginButton:hover {
+    -fx-background-color: linear-gradient(gray, lightgrey);
+}
+
+#registerButton {
+    -fx-background-radius: 20;
+    -fx-background-color: linear-gradient(lightgrey, gray);
+}
+
+#registerButton:hover {
     -fx-background-color: linear-gradient(gray, lightgrey);
 }

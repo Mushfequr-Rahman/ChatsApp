@@ -1,0 +1,8 @@
+.root {
+    -fx-background-image: url("img/registration.png");
+}
+
+.label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}

@@ -20,6 +20,12 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
 public class log_in extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -40,6 +46,9 @@ public class log_in extends Application {
 
 
     private GridPane LoginPane() {
+
+        double WIDTH = 800;
+        double HEIGHT = 500;
         // Instantiate a new Grid Pane
         GridPane gridPane = new GridPane();
 
@@ -96,7 +105,7 @@ public class log_in extends Application {
         passwordField.setPrefHeight(40);
         gridPane.add(passwordField, 1, 3);
 
-        // Add Submit Button
+        // Add Login Button
         Button loginButton = new Button("Login");
         loginButton.setId("loginButton");
         loginButton.setPrefHeight(40);
@@ -104,9 +113,74 @@ public class log_in extends Application {
         loginButton.setPrefWidth(100);
         gridPane.add(loginButton, 0, 4, 2, 1);
         GridPane.setHalignment(loginButton, HPos.CENTER);
-        GridPane.setMargin(loginButton, new Insets(20, 0,20,0));
+        GridPane.setMargin(loginButton, new Insets(20, 0,20,150));
+
+        // Add Register Button
+        Button registerButton = new Button("Register");
+        registerButton.setId("registerButton");
+        registerButton.setPrefHeight(40);
+        registerButton.setPrefWidth(100);
+        loginButton.setDefaultButton(false);
+        gridPane.add(registerButton, 0, 4, 2, 1);
+        GridPane.setHalignment(registerButton, HPos.CENTER);
+        GridPane.setMargin(registerButton, new Insets(20, 150, 20, 0));
 
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(nameField.getText().isEmpty()) {
+                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "Please enter your username");
+                    return;
+                }
+                if(passwordField.getText().isEmpty()) {
+                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "Please enter your password");
+                    return;
+                }
+                //check if username/password matches (copy pasta same code)
+                File f = new File("Database.csv");
+                Scanner input = null;
+                try {
+                    input = new Scanner(f);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                String line = "";
+                while(input.hasNextLine()) {
+                    line += input.nextLine() + "\n";
+                }
+                input.close();
+                String[] sp = line.split(",");
+                Scanner s = new Scanner(line).useDelimiter("\n");
+                s.nextLine(); //skip header
+                Boolean key = false;
+                if(nameField.getText().contains("@")){
+                    //email - password combination
+                    while(s.hasNextLine()){
+                        String[] words = s.nextLine().split(",");
+                        if(nameField.getText().equals(words[1]) && passwordField.getText().equals(words[3])){
+                            key = true;
+                        }
+                    }
+                }
+                else {
+                    //username - password combination
+                    while (s.hasNextLine()) {
+                        String[] words = s.nextLine().split(",");
+                        if (nameField.getText().equals(words[2]) && passwordField.getText().equals(words[3])) {
+                            key = true;
+                        }
+                    }
+                }
+                if(key) showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(), "Login Successful!", "Welcome " + nameField.getText());
+                else{
+                    //TODO: DISPLAY WARNING
+                    System.out.println("INVALID USERNAME/PASSWORD");
+                }
+                showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(), "Login Successful!", "Welcome " + nameField.getText());
+            }
+        });
+
+        registerButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 if(nameField.getText().isEmpty()) {
