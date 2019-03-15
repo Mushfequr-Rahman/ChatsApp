@@ -119,20 +119,12 @@ public class chatUI extends Application
             @Override
             public void handle(ActionEvent event) {
                 if(nameField.getText().isEmpty()) {
-                    Alert nameEmpty = new Alert(Alert.AlertType.ERROR);
-                    nameEmpty.setTitle("Error!");
-                    nameEmpty.setHeaderText(null);
-                    nameEmpty.setContentText("Please enter your username");
-                    //showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "Please enter your username");
+                    Alert nameEmpty =  showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "Please enter your username");
                     nameEmpty.show();
                     return;
                 }
                 if(passwordField.getText().isEmpty()) {
-                    Alert passEmpty = new Alert(Alert.AlertType.ERROR);
-                    passEmpty.setTitle("Error!");
-                    passEmpty.setHeaderText(null);
-                    passEmpty.setContentText("Please enter your password");
-                    //showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "Please enter your password");
+                    Alert passEmpty =  showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "Please enter your password");
                     passEmpty.show();
                     return;
                 }
@@ -202,7 +194,8 @@ public class chatUI extends Application
                 }
                 else{
                     //TODO: DISPLAY WARNING
-                    System.out.println("INVALID USERNAME/PASSWORD");
+                    Alert invalid =  showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "INVALID USERNAME/PASSWORD");
+                    invalid.show();
                 }
             }
         });
