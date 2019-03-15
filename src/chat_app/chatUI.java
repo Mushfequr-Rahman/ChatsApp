@@ -72,7 +72,7 @@ public class chatUI extends Application
     private void addUIControls(GridPane gridPane,Stage primaryStage) {
         // Add Header
         Label headerLabel = new Label("Chatsapp");
-        headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        headerLabel.setId("header");
         gridPane.add(headerLabel, 0,0,2,1);
         GridPane.setHalignment(headerLabel, HPos.CENTER);
         GridPane.setMargin(headerLabel, new Insets(20, 0,20,0));
@@ -95,7 +95,7 @@ public class chatUI extends Application
         passwordField.setPrefHeight(40);
         gridPane.add(passwordField, 1, 3);
 
-        // Add Submit Button
+        // Add Login Button
         Button loginButton = new Button("Login");
         loginButton.setId("loginButton");
         loginButton.setPrefHeight(40);
@@ -103,17 +103,17 @@ public class chatUI extends Application
         loginButton.setPrefWidth(100);
         gridPane.add(loginButton, 0, 4, 2, 1);
         GridPane.setHalignment(loginButton, HPos.CENTER);
-        GridPane.setMargin(loginButton, new Insets(20, 0,20,0));
+        GridPane.setMargin(loginButton, new Insets(20, 0,20,150));
 
         // Add Register Button
-        Button regButton = new Button("Sign up");
-        regButton.setId("loginButton"); //gonna copy the style thx :D
+        Button regButton = new Button("Register");
+        regButton.setId("registerButton");
         regButton.setPrefHeight(40);
-        regButton.setDefaultButton(true);
         regButton.setPrefWidth(100);
-        gridPane.add(regButton, 1, 4, 3, 1);
+        loginButton.setDefaultButton(false);
+        gridPane.add(regButton, 0, 4, 2, 1);
         GridPane.setHalignment(regButton, HPos.CENTER);
-        GridPane.setMargin(regButton, new Insets(20, 0,20,0));
+        GridPane.setMargin(regButton, new Insets(20, 150, 20, 0));
 
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
