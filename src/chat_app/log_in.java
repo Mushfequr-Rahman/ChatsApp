@@ -43,7 +43,7 @@ public class log_in extends Application {
     }
 
 
-    private GridPane LoginPane() {
+    protected GridPane LoginPane() {
 
         double WIDTH = 800;
         double HEIGHT = 500;

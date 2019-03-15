@@ -38,43 +38,36 @@ public class chatUI extends Application
 
 
 
-    private Scene LoginScene(Stage primaryStage) {
+    protected Scene LoginScene(Stage primaryStage) {
+
+        log_in l = new log_in();
 
         double WIDTH = 800;
         double HEIGHT = 500;
         // Instantiate a new Grid Pane
-        GridPane gridPane = new GridPane();
+        GridPane gridPane = l.LoginPane();
         Scene scene = new Scene(gridPane,WIDTH,HEIGHT);
-
-        // Position the pane at the center of the screen, both vertically and horizontally
-        gridPane.setAlignment(Pos.CENTER);
-
-        // Set a padding of 20px on each side
-        gridPane.setPadding(new Insets(40, 40, 40, 40));
-
-        // Set the horizontal gap between columns
-        gridPane.setHgap(10);
-
-        // Set the vertical gap between rows
-        gridPane.setVgap(10);
-
-        // Add Column Constraints
-
-        // columnOneConstraints will be applied to all the nodes placed in column one.
-        ColumnConstraints columnOneConstraints = new ColumnConstraints(100, 100, Double.MAX_VALUE);
-        columnOneConstraints.setHalignment(HPos.RIGHT);
-
-        // columnTwoConstraints will be applied to all the nodes placed in column two.
-        ColumnConstraints columnTwoConstrains = new ColumnConstraints(200,200, Double.MAX_VALUE);
-        columnTwoConstrains.setHgrow(Priority.ALWAYS);
-
-        gridPane.getColumnConstraints().addAll(columnOneConstraints, columnTwoConstrains);
         addUIControls(gridPane,primaryStage);
         scene.getStylesheets().add(getClass().getClassLoader().getResource("log_in.css").toExternalForm());
-
-
         return scene;
     }
+
+    private Scene RegScene(Stage primaryStage) {
+
+        //register scene
+        register r = new register();
+        GridPane grid = r.generateRegPage(primaryStage,LoginScene(primaryStage));
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(25, 25, 25, 25));
+        Scene scene = new Scene(grid, 400, 400);
+        scene.getStylesheets().add(getClass().getClassLoader().getResource("register.css").toExternalForm());
+        return scene;
+
+
+    }
+
 
     private void addUIControls(GridPane gridPane,Stage primaryStage) {
         // Add Header
@@ -111,6 +104,16 @@ public class chatUI extends Application
         gridPane.add(loginButton, 0, 4, 2, 1);
         GridPane.setHalignment(loginButton, HPos.CENTER);
         GridPane.setMargin(loginButton, new Insets(20, 0,20,0));
+
+        // Add Register Button
+        Button regButton = new Button("Sign up");
+        regButton.setId("loginButton"); //gonna copy the style thx :D
+        regButton.setPrefHeight(40);
+        regButton.setDefaultButton(true);
+        regButton.setPrefWidth(100);
+        gridPane.add(regButton, 1, 4, 3, 1);
+        GridPane.setHalignment(regButton, HPos.CENTER);
+        GridPane.setMargin(regButton, new Insets(20, 0,20,0));
 
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -160,23 +163,32 @@ public class chatUI extends Application
                 }
                 if(key)
                 {
-                    showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(), "Login Successful!", "Welcome " + nameField.getText());
-                    String Username =nameField.getText();
-                    try {
-                        System.out.println("With User:" + Username);
-                        Client client = new Client("localhost", 9001, Username);
-                        Thread ClientThread = new Thread(client);
-                        ClientThread.setDaemon(true);
-                        ClientThread.start();
-                        threads.add(ClientThread);
-                        primaryStage.close();
-                        primaryStage.setScene(initMainPane(client));
-                        primaryStage.show();
+                    Alert r =  showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(), "Login Successful!", "Welcome " + nameField.getText());
+                    r.showAndWait().ifPresent(response -> {
+                        if (response == ButtonType.OK) {
+                            String Username =nameField.getText();
+                            try {
+                                System.out.println("With User:" + Username);
+                                Client client = new Client("localhost", 9001, Username);
+                                Thread ClientThread = new Thread(client);
+                                ClientThread.setDaemon(true);
+                                ClientThread.start();
+                                threads.add(ClientThread);
+                                //primaryStage.close();
+                                primaryStage.setScene(initMainPane(client));
+                                primaryStage.show();
 
-                    }catch (Exception ex)
-                    {
-                        ex.printStackTrace();
-                    }
+                            }catch (Exception ex)
+                            {
+                                ex.printStackTrace();
+                            }
+                        }
+                        else{
+                            nameField.setText("");
+                            passwordField.setText("");
+                            return;
+                        }
+                    });
                 }
                 else{
                     //TODO: DISPLAY WARNING
@@ -184,15 +196,23 @@ public class chatUI extends Application
                 }
             }
         });
+
+        regButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //redirects to register page
+                primaryStage.setScene(RegScene(primaryStage));
+            }
+        });
     }
 
-    private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
+    private Alert showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.initOwner(owner);
-        alert.show();
+        return alert;
     }
 
 
