@@ -32,7 +32,7 @@ public class register extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        GridPane grid = generateRegPage();
+        GridPane grid = generateRegPage(null,null);
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
@@ -45,7 +45,7 @@ public class register extends Application {
 
     }
 
-    private GridPane generateRegPage() {
+    protected GridPane generateRegPage(Stage primaryStage, Scene s) {
 
         GridPane Reg = new GridPane();
 
@@ -152,7 +152,9 @@ public class register extends Application {
                         f2.close();
 
                     }
-                    //TODO: "USER HAS BEEN REGISTERED" DISPLAY
+                    chatUI c = new chatUI();
+                    //TODO: "USER HAS BEEN REGISTERED" DISPLAY before redirect.
+                    primaryStage.setScene(c.LoginScene(primaryStage));
                 }catch (Exception e){
                     System.out.println("Dunno something caught");
                     System.exit(0);
