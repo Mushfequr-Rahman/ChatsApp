@@ -99,8 +99,8 @@ public class chatUI extends Application
         Button loginButton = new Button("Login");
         loginButton.setId("loginButton");
         loginButton.setPrefHeight(40);
-        loginButton.setDefaultButton(true);
         loginButton.setPrefWidth(100);
+        loginButton.setDefaultButton(true);
         gridPane.add(loginButton, 0, 4, 2, 1);
         GridPane.setHalignment(loginButton, HPos.CENTER);
         GridPane.setMargin(loginButton, new Insets(20, 0,20,150));
@@ -110,7 +110,7 @@ public class chatUI extends Application
         regButton.setId("registerButton");
         regButton.setPrefHeight(40);
         regButton.setPrefWidth(100);
-        loginButton.setDefaultButton(false);
+        regButton.setDefaultButton(false);
         gridPane.add(regButton, 0, 4, 2, 1);
         GridPane.setHalignment(regButton, HPos.CENTER);
         GridPane.setMargin(regButton, new Insets(20, 150, 20, 0));
