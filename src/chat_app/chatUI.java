@@ -2,17 +2,19 @@ package chat_app;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 import chat_app.server.Client;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -24,6 +26,22 @@ import javafx.geometry.Insets;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 import javafx.stage.Window;
+//import AutoCompleteTextField;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Side;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.CustomMenuItem;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+
 
 public class chatUI extends Application
 {
@@ -221,50 +239,84 @@ public class chatUI extends Application
 
     private Scene initMainPane(Client client)
     {
+        /** Initial Variables */
 
-         int width = 900;
+        int width = 900;
         int height = 650;
 
-         ArrayList<String> contacts = new ArrayList<String>();
+        ArrayList<String> contacts = new ArrayList<String>();
         ListView<String> listView = new ListView<>(FXCollections.observableArrayList(contacts));
 
         BorderPane mainPane = new BorderPane();
 
-        ScrollPane contactScroll = new ScrollPane();
+        VBox chatBox = new VBox(5);
 
-         VBox chatBox = new VBox(5);
+        ScrollPane chatScroll = new ScrollPane();
 
-         ScrollPane chatScroll = new ScrollPane();
-
-         HBox FieldAndButton = new HBox(5);
+        HBox FieldAndButton = new HBox(5);
 
         VBox contactPane = new VBox(10);
 
-         Scene scene = new Scene(mainPane,width,height);
-/////////////////////////////////////////////////////////////////////////////////////////////
+        Scene scene = new Scene(mainPane,width,height);
 
+
+        /** mainPane properties */
         mainPane.setPadding(new Insets(10,10,10,10));
         mainPane.prefHeightProperty().bind(scene.heightProperty());
         mainPane.prefWidthProperty().bind(scene.widthProperty());
 
-/////////////////////////////////////////////////////////////////////////////////////////////
+
+        /** ContactPane properties */
         contactPane.prefHeightProperty().bind(chatScroll.heightProperty());
         contactPane.setPadding(new Insets(0,0,0,5));
         contactPane.setAlignment(Pos.CENTER);
-        TextField addUserIDField = new TextField();
+
+
+        /** Auto complete field section */
+
+        AutoCompleteTextField addUserIDField = new AutoCompleteTextField();
+
+        File f = new File("Database.csv");
+        Scanner input = null;
+        try {
+            input = new Scanner(f);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        String line = "";
+        while(input.hasNextLine())
+        {
+            line += input.nextLine() + "\n";
+        }
+        input.close();
+
+        String[] sp = line.split(",");
+
+        Scanner s = new Scanner(line).useDelimiter("\n");
+        s.nextLine(); //skip header
+        ArrayList<String> suggestionList = new ArrayList<String>();
+        while(s.hasNextLine()) {
+            String[] words = s.nextLine().split(",");
+            suggestionList.add(words[2]);
+            //if(nameField.getText().equals(words[1]) && passwordField.getText().equals(words[3])){
+
+        }
+        addUserIDField.getEntries().addAll(suggestionList);
+
         Label addContactLabel = new Label("Enter User ID:", addUserIDField);
         addContactLabel.setContentDisplay(ContentDisplay.BOTTOM);
 
-        addUserIDField.prefWidthProperty().bind(listView.widthProperty());
+        //addUserIDField.prefWidthProperty().bind(listView.widthProperty());
         contactPane.getChildren().addAll(addContactLabel, listView);
 
-/////////////////////////////////////////////////////////////////////////////////////////////
+        /**chatBox properties */
 
         chatBox.setPadding(new Insets(5,5,0,5));
         chatScroll.vvalueProperty().bind(chatBox.heightProperty());
         chatScroll.setContent(chatBox);
 
-/////////////////////////////////////////////////////////////////////////////////////////////
+
+        /**FieldAndButton properties */
 
         TextArea textfield = new TextArea();
         textfield.setWrapText(true);
@@ -278,11 +330,11 @@ public class chatUI extends Application
         FieldAndButton.setAlignment(Pos.CENTER);
         FieldAndButton.getChildren().addAll(textfield,sendButton);
 
-/////////////////////////////////////////////////////////////////////////////////////////////
+        /**Contact listView */
 
-        listView.prefHeightProperty().bind(chatScroll.heightProperty().subtract(50));
+        listView.prefHeightProperty().bind(scene.heightProperty().subtract(170));
 
-/////////////////////////////////////////////////////////////////////////////////////////////
+        /**Event handlings */
 
         textfield.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER)
@@ -322,42 +374,43 @@ public class chatUI extends Application
         });
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-
         sendButton.setOnAction(e -> {
-            System.out.println(textfield.getText());
-            Text message = new Text("You :  " + textfield.getText());
-            message.wrappingWidthProperty().bind(chatScroll.widthProperty().subtract(25));
-            chatBox.getChildren().add(message);
+
+            //System.out.println(textfield.getText());
+            //Text message = new Text("You :  " + textfield.getText());
+            //message.wrappingWidthProperty().bind(chatScroll.widthProperty().subtract(25));
+            //chatBox.getChildren().add(message);
             System.out.println("Message:"+textfield.getText());
             client.writeToServer(textfield.getText());
             textfield.clear();
             System.out.println("Outputing to server: " + client.chatLog);
-            e.consume();
-        });
+            //e.consume();
 
-/////////////////////////////////////////////////////////////////////////////////////////////
+        });
 
         listView.getSelectionModel().selectedItemProperty().addListener(
                 ov -> {
                     chatBox.getChildren().clear();
                     //getHistory(String UserID);
                 });
-/////////////////////////////////////////////////////////////////////////////////////////////
 
         addUserIDField.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
                 if(!addUserIDField.getText().equals(""))
                 {
                     System.out.println("User " + addUserIDField.getText() + " added.");
-                    //addContact(addUserIDField.getText(),contacts,);
+                    //addContact(addUserIDField.getText(),contacts);
+                    contacts.add(addUserIDField.getText());
+                    listView.getItems().clear();
+                    listView.getItems().addAll(contacts);
+
+
                     addUserIDField.clear();
                 }
                 e.consume();
             }
         });
 
-/////////////////////////////////////////////////////////////////////////////////////////////
 
 
         ListView<String> history = new ListView<>();
@@ -373,7 +426,7 @@ public class chatUI extends Application
         mainPane.setRight(contactPane);
         mainPane.setBottom(FieldAndButton);
        // mainPane.setCenter(chatScroll);
-        scene.getStylesheets().add(getClass().getClassLoader().getResource("log_in.css").toExternalForm());
+       // scene.getStylesheets().add(getClass().getClassLoader().getResource("log_in.css").toExternalForm());
 
 
         return scene;
@@ -381,15 +434,13 @@ public class chatUI extends Application
 /////////////////////////////////////////////////////////////////////////////////////////////
     }
 
-   /*
-    private void addContact(String name,ArrayList<String> contacts,ListView<ObservableList> listView)
+    /*
+    public void addContact(String name, )
     {
         contacts.add(name);
         listView.getItems().clear();
         listView.getItems().addAll(contacts);
-    }
-    */
-
+    }*/
 
 
     //@Override
@@ -400,6 +451,89 @@ public class chatUI extends Application
         primaryStage.setTitle("ChatsApp");
         primaryStage.show();
 
+
+    }
+}
+
+class AutoCompleteTextField extends TextField
+{
+    /** The existing autocomplete entries. */
+    private final SortedSet<String> entries;
+    /** The popup used to select an entry. */
+    private ContextMenu entriesPopup;
+
+    /** Construct a new AutoCompleteTextField. */
+    public AutoCompleteTextField() {
+        super();
+        entries = new TreeSet<>();
+        entriesPopup = new ContextMenu();
+        textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String s2) {
+                if (getText().length() == 0)
+                {
+                    entriesPopup.hide();
+                } else
+                {
+                    LinkedList<String> searchResult = new LinkedList<>();
+                    searchResult.addAll(entries.subSet(getText(), getText() + Character.MAX_VALUE));
+                    if (entries.size() > 0)
+                    {
+                        populatePopup(searchResult);
+                        if (!entriesPopup.isShowing())
+                        {
+                            entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
+                        }
+                    } else
+                    {
+                        entriesPopup.hide();
+                    }
+                }
+            }
+        });
+
+        focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean aBoolean2) {
+                entriesPopup.hide();
+            }
+        });
+
+    }
+
+    /**
+     * Get the existing set of autocomplete entries.
+     * @return The existing autocomplete entries.
+     */
+    public SortedSet<String> getEntries() { return entries; }
+
+    /**
+     * Populate the entry set with the given search results.  Display is limited to 10 entries, for performance.
+     * @param searchResult The set of matching strings.
+     */
+    private void populatePopup(List<String> searchResult) {
+        List<CustomMenuItem> menuItems = new LinkedList<>();
+        // If you'd like more entries, modify this line.
+        int maxEntries = 10;
+        int count = Math.min(searchResult.size(), maxEntries);
+        for (int i = 0; i < count; i++)
+        {
+            final String result = searchResult.get(i);
+            Label entryLabel = new Label(result);
+            CustomMenuItem item = new CustomMenuItem(entryLabel, true);
+            item.setOnAction(new EventHandler<ActionEvent>()
+            {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    setText(result);
+                    entriesPopup.hide();
+                }
+            });
+            menuItems.add(item);
+        }
+        entriesPopup.getItems().clear();
+        entriesPopup.getItems().addAll(menuItems);
 
     }
 }
