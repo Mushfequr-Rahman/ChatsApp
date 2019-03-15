@@ -71,7 +71,7 @@ public class chatUI extends Application
 
     private void addUIControls(GridPane gridPane,Stage primaryStage) {
         // Add Header
-        Label headerLabel = new Label("Chatsapp");
+        Label headerLabel = new Label("CHATSAPP");
         headerLabel.setId("header");
         gridPane.add(headerLabel, 0,0,2,1);
         GridPane.setHalignment(headerLabel, HPos.CENTER);
@@ -119,11 +119,21 @@ public class chatUI extends Application
             @Override
             public void handle(ActionEvent event) {
                 if(nameField.getText().isEmpty()) {
-                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "Please enter your username");
+                    Alert nameEmpty = new Alert(Alert.AlertType.ERROR);
+                    nameEmpty.setTitle("Error!");
+                    nameEmpty.setHeaderText(null);
+                    nameEmpty.setContentText("Please enter your username");
+                    //showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "Please enter your username");
+                    nameEmpty.show();
                     return;
                 }
                 if(passwordField.getText().isEmpty()) {
-                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "Please enter your password");
+                    Alert passEmpty = new Alert(Alert.AlertType.ERROR);
+                    passEmpty.setTitle("Error!");
+                    passEmpty.setHeaderText(null);
+                    passEmpty.setContentText("Please enter your password");
+                    //showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "Please enter your password");
+                    passEmpty.show();
                     return;
                 }
                 //check if username/password matches (copy pasta same code)

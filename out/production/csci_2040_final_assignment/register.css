@@ -19,3 +19,8 @@
 #register_button:hover {
     -fx-background-color: linear-gradient(gray, lightgrey);
 }
+
+#icon {
+    -fx-translate-x: 125;
+    -fx-translate-y: -20;
+}

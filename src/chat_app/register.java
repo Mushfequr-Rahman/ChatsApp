@@ -3,17 +3,21 @@ package chat_app;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -49,7 +53,12 @@ public class register extends Application {
 
         GridPane Reg = new GridPane();
 
-        javafx.scene.text.Text username_prompt = new Text("Username:"); //5-20 characters
+        ImageView icon = new ImageView("img/icon.png");
+        icon.setId("icon");
+        Reg.getChildren().add(icon);
+
+
+        Text username_prompt = new Text("Username:"); //5-20 characters
         username_prompt.setFont(Font.font("Serif", FontWeight.BOLD, 18));
         username_prompt.setFill(Color.WHITE);
         Reg.add(username_prompt, 0, 1);
@@ -57,7 +66,7 @@ public class register extends Application {
         TextField username_entry = new TextField();
         Reg.add(username_entry, 1, 1);
 
-        javafx.scene.text.Text email_prompt = new Text("Email Address:");
+        Text email_prompt = new Text("Email Address:");
         email_prompt.setFont(Font.font("Serif", FontWeight.BOLD, 18));
         email_prompt.setFill(Color.WHITE);
         Reg.add(email_prompt, 0, 2);

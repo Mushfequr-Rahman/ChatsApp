@@ -118,7 +118,7 @@ public class log_in extends Application {
         registerButton.setId("registerButton");
         registerButton.setPrefHeight(40);
         registerButton.setPrefWidth(100);
-        loginButton.setDefaultButton(false);
+        registerButton.setDefaultButton(false);
         gridPane.add(registerButton, 0, 4, 2, 1);
         GridPane.setHalignment(registerButton, HPos.CENTER);
         GridPane.setMargin(registerButton, new Insets(20, 150, 20, 0));
