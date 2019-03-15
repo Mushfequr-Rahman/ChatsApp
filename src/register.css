@@ -24,3 +24,13 @@
     -fx-translate-x: 125;
     -fx-translate-y: -20;
 }
+
+.dialog-pane .button{
+    -fx-background-color: linear-gradient(lightgrey, gray);
+    -fx-font-family: Serif;
+    -fx-font-weight: bold;
+}
+
+.dialog-pane .button:hover{
+    -fx-background-color: linear-gradient(gray, lightgrey);
+}
