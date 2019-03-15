@@ -3,16 +3,27 @@
 }
 
 .label {
+    -fx-font-family: Serif;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
+    -fx-font-size: 18;
 }
 
-.text-field {
-    -fx-background-radius: 20;
+#header {
+    -fx-font-size: 48;
+}
+
+.text-input {
+    -fx-text-fill: black;
+    -fx-highlight-fill: white;
+    -fx-highlight-text-fill: black;
+    -fx-background-color: linear-gradient(#cccccc, #666666);
 }
 
 #loginButton {
-    -fx-background-radius: 20;
+    -fx-font-family: Serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 18;
     -fx-background-color: linear-gradient(lightgrey, gray);
 }
 
@@ -21,7 +32,9 @@
 }
 
 #registerButton {
-    -fx-background-radius: 20;
+    -fx-font-family: Serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 18;
     -fx-background-color: linear-gradient(lightgrey, gray);
 }
 

@@ -11,8 +11,12 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -46,30 +50,40 @@ public class register extends Application {
         GridPane Reg = new GridPane();
 
         javafx.scene.text.Text username_prompt = new Text("Username:"); //5-20 characters
+        username_prompt.setFont(Font.font("Serif", FontWeight.BOLD, 18));
+        username_prompt.setFill(Color.WHITE);
         Reg.add(username_prompt, 0, 1);
 
         TextField username_entry = new TextField();
         Reg.add(username_entry, 1, 1);
 
         javafx.scene.text.Text email_prompt = new Text("Email Address:");
+        email_prompt.setFont(Font.font("Serif", FontWeight.BOLD, 18));
+        email_prompt.setFill(Color.WHITE);
         Reg.add(email_prompt, 0, 2);
 
         TextField email_entry = new TextField();
         Reg.add(email_entry, 1, 2);
 
         Text password_prompt = new Text("Enter Password:");
+        password_prompt.setFont(Font.font("Serif", FontWeight.BOLD, 18));
+        password_prompt.setFill(Color.WHITE);
         Reg.add(password_prompt, 0, 3);
 
         PasswordField password_entry = new PasswordField();
         Reg.add(password_entry, 1, 3);
 
         Text password_prompt2 = new Text("Re-enter Password:");
+        password_prompt2.setFont(Font.font("Serif", FontWeight.BOLD, 18));
+        password_prompt2.setFill(Color.WHITE);
         Reg.add(password_prompt2, 0, 4);
 
         PasswordField password_entry2 = new PasswordField();
         Reg.add(password_entry2, 1, 4);
 
         Button Register_button = new Button("Register");
+        Register_button.setId("register_button");
+        Register_button.setFont(Font.font("Serif", FontWeight.BOLD, 18));
         Reg.add(Register_button, 1, 5);
         Register_button.setDefaultButton(true);
 

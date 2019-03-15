@@ -1,8 +1,21 @@
 .root {
     -fx-background-image: url("img/registration.png");
 }
-
-.label {
-    -fx-font-weight: bold;
+.my-text {
     -fx-text-fill: #ffffff;
+}
+
+.text-input {
+    -fx-text-fill: black;
+    -fx-highlight-fill: white;
+    -fx-highlight-text-fill: black;
+    -fx-background-color: linear-gradient(#cccccc, #666666);
+}
+
+#register_button {
+    -fx-background-color: linear-gradient(lightgrey, gray);
+}
+
+#register_button:hover {
+    -fx-background-color: linear-gradient(gray, lightgrey);
 }
