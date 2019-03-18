@@ -272,6 +272,7 @@ public class chatUI extends Application
         textfield.prefWidthProperty().bind(scene.widthProperty().subtract(80));
 
         Button sendButton = new Button("Send");
+        sendButton.setId("sendButton");
 
         FieldAndButton.setAlignment(Pos.CENTER_LEFT);
         FieldAndButton.setPadding(new Insets(10,0,10,0));
@@ -373,7 +374,7 @@ public class chatUI extends Application
         mainPane.setRight(contactPane);
         mainPane.setBottom(FieldAndButton);
        // mainPane.setCenter(chatScroll);
-        scene.getStylesheets().add(getClass().getClassLoader().getResource("log_in.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getClassLoader().getResource("chat.css").toExternalForm());
 
 
         return scene;

@@ -20,8 +20,6 @@ import javafx.stage.Window;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class log_in extends Application {
@@ -45,8 +43,6 @@ public class log_in extends Application {
 
     protected GridPane LoginPane() {
 
-        double WIDTH = 800;
-        double HEIGHT = 500;
         // Instantiate a new Grid Pane
         GridPane gridPane = new GridPane();
 

@@ -1,0 +1,30 @@
+.root {
+    -fx-background-image: url("img/registration.png");
+}
+
+.my-text {
+    -fx-text-fill: #ffffff;
+}
+
+.label {
+    -fx-font-family: Serif;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.text-input {
+    -fx-text-fill: black;
+    -fx-highlight-fill: white;
+    -fx-highlight-text-fill: black;
+    -fx-background-color: linear-gradient(#cccccc, #666666);
+}
+
+#sendButton {
+    -fx-font-family: Serif;
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(lightgrey, gray);
+}
+
+#sendButton:hover {
+    -fx-background-color: linear-gradient(gray, lightgrey);
+}
