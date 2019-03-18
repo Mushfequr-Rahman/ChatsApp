@@ -33,8 +33,10 @@ public class Client implements Runnable {
         /* Send name data to the server */
         this.name = name;
         clientToServerWriter.println(name);
+    }
 
-
+    public String getName() {
+        return name;
     }
 
     public void writeToServer(String input) {
