@@ -289,6 +289,7 @@ public class chatUI extends Application
             line += input.nextLine() + "\n";
         }
         input.close();
+        //
 
         String[] sp = line.split(",");
 
@@ -297,7 +298,7 @@ public class chatUI extends Application
         ArrayList<String> suggestionList = new ArrayList<String>();
         while(s.hasNextLine()) {
             String[] words = s.nextLine().split(",");
-            suggestionList.add(words[2]);
+            if(!client.getName().equals(words[2])) suggestionList.add(words[2]);
             //if(nameField.getText().equals(words[1]) && passwordField.getText().equals(words[3])){
 
         }
@@ -324,6 +325,7 @@ public class chatUI extends Application
         textfield.prefWidthProperty().bind(scene.widthProperty().subtract(80));
 
         Button sendButton = new Button("Send");
+        sendButton.setId("sendButton");
 
         FieldAndButton.setAlignment(Pos.CENTER_LEFT);
         FieldAndButton.setPadding(new Insets(10,0,10,0));
@@ -337,7 +339,7 @@ public class chatUI extends Application
         /**Event handlings */
 
         textfield.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.ENTER)
+            if (e.getCode() == KeyCode.ENTER && !textfield.getText().equals(""))
             {
 
                 System.out.println("Message:"+textfield.getText());
@@ -369,13 +371,19 @@ public class chatUI extends Application
 
                 }
                 */
-                e.consume();
             }
+            e.consume();
         });
 
-
         sendButton.setOnAction(e -> {
+            if(!textfield.getText().equals(""))
+            {
+                System.out.println("Message:"+textfield.getText());
+                client.writeToServer(textfield.getText());
+                textfield.clear();
+                System.out.println("Outputing to server: " + client.chatLog);
 
+            }
             //System.out.println(textfield.getText());
             //Text message = new Text("You :  " + textfield.getText());
             //message.wrappingWidthProperty().bind(chatScroll.widthProperty().subtract(25));
@@ -396,20 +404,42 @@ public class chatUI extends Application
 
         addUserIDField.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
-                if(!addUserIDField.getText().equals(""))
+                if(!addUserIDField.getText().equals("") && !addUserIDField.getText().equals(client.getName()))
                 {
-                    System.out.println("User " + addUserIDField.getText() + " added.");
-                    //addContact(addUserIDField.getText(),contacts);
-                    contacts.add(addUserIDField.getText());
-                    listView.getItems().clear();
-                    listView.getItems().addAll(contacts);
-
-
-                    addUserIDField.clear();
+                    File file = new File("Database.csv");
+                    Scanner in = null;
+                    try{
+                        in = new Scanner(file);
+                    } catch(FileNotFoundException er) {
+                        er.printStackTrace();
+                    }
+                    String l = "";
+                    while(in.hasNext()){
+                        l+=in.nextLine() + "\n";
+                    }
+                    in.close();
+                    String[] s_arr = l.split(",");
+                    Scanner scan = new Scanner(l).useDelimiter("\n");
+                    scan.nextLine();
+                    while(scan.hasNextLine())
+                    {
+                        String [] word = scan.nextLine().split(",");
+                        if(addUserIDField.getText().equals(word[2]))
+                        {
+                            System.out.println("User " + addUserIDField.getText() + " added.");
+                            //addContact(addUserIDField.getText(),contacts);
+                            contacts.add(addUserIDField.getText());
+                            listView.getItems().clear();
+                            listView.getItems().addAll(contacts);
+                            addUserIDField.clear();
+                            break;
+                        }
+                    }
                 }
                 e.consume();
             }
         });
+        input.close();
 
 
 
@@ -426,7 +456,7 @@ public class chatUI extends Application
         mainPane.setRight(contactPane);
         mainPane.setBottom(FieldAndButton);
        // mainPane.setCenter(chatScroll);
-        scene.getStylesheets().add(getClass().getClassLoader().getResource("log_in.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getClassLoader().getResource("chat.css").toExternalForm());
 
 
         return scene;
@@ -467,6 +497,7 @@ class AutoCompleteTextField extends TextField
         super();
         entries = new TreeSet<>();
         entriesPopup = new ContextMenu();
+        entriesPopup.setId("popup");
         textProperty().addListener(new ChangeListener<String>()
         {
             @Override
