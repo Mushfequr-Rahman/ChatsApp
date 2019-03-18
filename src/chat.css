@@ -33,6 +33,6 @@
     -fx-background-color: black;
 }
 
-#popup {
+#popup:hover {
     -fx.background-color: grey;
 }
