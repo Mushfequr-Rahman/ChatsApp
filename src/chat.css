@@ -28,3 +28,11 @@
 #sendButton:hover {
     -fx-background-color: linear-gradient(gray, lightgrey);
 }
+
+#popup {
+    -fx-background-color: black;
+}
+
+#popup {
+    -fx.background-color: grey;
+}
