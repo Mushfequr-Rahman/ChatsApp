@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Merge branch 'master' of https://github.com/Mushfequr-Rahman/csci_2040_final_assignment&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;out/production/csci_2040_final_assignment/chat_app/chatUI.class&#10;#&#9;src/chat_app/chatUI.java">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/log_in.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/log_in.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/log_in.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/log_in.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/register.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chat.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/chat.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chat_app/server/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chat_app/server/Client.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -65,26 +64,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/chat_app/log_in.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3460">
-              <caret line="195" selection-start-line="195" selection-end-line="195" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/log_in.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="940">
-              <caret line="47" column="26" selection-start-line="47" selection-start-column="26" selection-end-line="47" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/chat_app/server/ServerTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="65" column="18" selection-start-line="65" selection-start-column="18" selection-end-line="65" selection-end-column="18" />
+            <state relative-caret-position="-969">
+              <caret line="45" column="8" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -93,9 +74,18 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/log_in.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/chat_app/register.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
+            <state relative-caret-position="-380">
               <caret line="56" column="27" selection-start-line="56" selection-start-column="27" selection-end-line="56" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -107,8 +97,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/register.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
-              <caret line="29" column="26" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
+            <state relative-caret-position="51">
+              <caret line="3" selection-start-line="3" selection-end-line="5" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -116,46 +106,24 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/chat_app/chatUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="375" column="37" lean-forward="true" selection-start-line="375" selection-start-column="37" selection-end-line="375" selection-end-column="37" />
+            <state relative-caret-position="-1533">
+              <caret line="358" lean-forward="true" selection-start-line="358" selection-end-line="358" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1445#1446#0" expanded="true" />
+                <element signature="e#1473#1474#0" expanded="true" />
+                <element signature="e#9007#9015#0" expanded="true" />
+                <element signature="e#10509#10517#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/chat_app/server/Client.java">
+        <entry file="file://$PROJECT_DIR$/src/chat.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
-              <folding>
-                <element signature="e#1347#1348#0" expanded="true" />
-                <element signature="e#1374#1375#0" expanded="true" />
-                <element signature="e#1366#1367#0" expanded="true" />
-                <element signature="e#1432#1433#0" expanded="true" />
-                <element signature="e#1737#1738#0" expanded="true" />
-                <element signature="e#1813#1814#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/chat_app/server/ClientApplication.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2160">
-              <caret line="129" selection-start-line="129" selection-end-line="129" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/chat_app/Controller.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="40">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            <state relative-caret-position="507">
+              <caret line="37" column="1" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -190,6 +158,7 @@
     </FindUsagesManager>
   </component>
   <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
@@ -224,7 +193,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -243,18 +211,12 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="chat_app" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="csci_2040_final_assignment" type="b2602c69:ProjectViewProjectNode" />
-              <item name="csci_2040_final_assignment" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="chat_app" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -403,6 +365,7 @@
       </method>
     </configuration>
     <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="moduleWithDependencies" />
@@ -476,7 +439,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
+    <frame x="304" y="62" width="1187" height="711" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" weight="0.18389262" />
@@ -490,7 +453,7 @@
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Database Changes" order="2" />
       <window_info anchor="bottom" id="Find" order="3" />
-      <window_info active="true" anchor="bottom" id="Run" order="4" visible="true" weight="0.25737265" />
+      <window_info active="true" anchor="bottom" id="Run" order="4" visible="true" weight="0.25734025" />
       <window_info anchor="bottom" id="Debug" order="5" weight="0.39965397" />
       <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
@@ -564,21 +527,24 @@
     <entry file="file://$PROJECT_DIR$/src/chat_app/AutoCompleteTextField.java" />
     <entry file="file://$PROJECT_DIR$/src/chat_app/log_in.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3460">
-          <caret line="195" selection-start-line="195" selection-end-line="195" />
+        <state relative-caret-position="-969">
+          <caret line="45" column="8" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/log_in.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="940">
-          <caret line="47" column="26" selection-start-line="47" selection-start-column="26" selection-end-line="47" selection-end-column="26" />
+        <state relative-caret-position="374">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/chat_app/register.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
+        <state relative-caret-position="-380">
           <caret line="56" column="27" selection-start-line="56" selection-start-column="27" selection-end-line="56" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -588,8 +554,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/register.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="29" column="26" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
+        <state relative-caret-position="51">
+          <caret line="3" selection-start-line="3" selection-end-line="5" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -637,10 +603,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/chat_app/chatUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="375" column="37" lean-forward="true" selection-start-line="375" selection-start-column="37" selection-end-line="375" selection-end-column="37" />
+        <state relative-caret-position="-1533">
+          <caret line="358" lean-forward="true" selection-start-line="358" selection-end-line="358" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1445#1446#0" expanded="true" />
+            <element signature="e#1473#1474#0" expanded="true" />
+            <element signature="e#9007#9015#0" expanded="true" />
+            <element signature="e#10509#10517#0" expanded="true" />
           </folding>
         </state>
       </provider>
