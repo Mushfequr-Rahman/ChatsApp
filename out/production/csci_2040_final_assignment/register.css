@@ -5,6 +5,13 @@
     -fx-text-fill: #ffffff;
 }
 
+.label {
+    -fx-font-family: Serif;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18;
+}
+
 .text-input {
     -fx-text-fill: black;
     -fx-highlight-fill: white;
