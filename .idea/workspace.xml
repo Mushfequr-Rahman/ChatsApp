@@ -62,18 +62,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/chat_app/register.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="58" column="27" selection-start-line="58" selection-start-column="27" selection-end-line="58" selection-end-column="27" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/register.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="60">
@@ -140,11 +128,23 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/chat_app/chatUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="331" column="81" selection-start-line="331" selection-start-column="81" selection-end-line="331" selection-end-column="81" />
+            <state relative-caret-position="259">
+              <caret line="762" column="28" lean-forward="true" selection-start-line="762" selection-start-column="28" selection-end-line="762" selection-end-column="28" />
               <folding>
                 <element signature="method#addUIControls#0;class#chatUI#0" />
                 <element signature="class#AutoCompleteTextField#0;class#chatUI#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/chat_app/server/ServerTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="159">
+              <caret line="65" column="18" selection-start-line="65" selection-start-column="18" selection-end-line="65" selection-end-column="18" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -181,6 +181,8 @@
       <find>addC</find>
       <find>equal</find>
       <find>client</find>
+      <find>ov</find>
+      <find>addcontac</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -214,10 +216,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="297" />
-    <option name="y" value="163" />
-    <option name="width" value="1382" />
-    <option name="height" value="787" />
+    <option name="x" value="296" />
+    <option name="y" value="162" />
+    <option name="width" value="1383" />
+    <option name="height" value="788" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -250,6 +252,12 @@
               <item name="chat_app" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="csci_2040_final_assignment" type="b2602c69:ProjectViewProjectNode" />
+              <item name="csci_2040_final_assignment" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -268,9 +276,9 @@
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553027424707" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553029494039" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="D:/csci_2040_final_assignment" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -464,12 +472,12 @@
       <workItem from="1552685293857" duration="4156000" />
       <workItem from="1552944155423" duration="4775000" />
       <workItem from="1552967106031" duration="3092000" />
-      <workItem from="1553026834685" duration="506000" />
+      <workItem from="1553026834685" duration="2610000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35963000" />
+    <option name="totallyTimeSpent" value="38067000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -583,16 +591,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/chat_app/server/ServerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="65" column="18" selection-start-line="65" selection-start-column="18" selection-end-line="65" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/chat.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
@@ -690,10 +688,20 @@
     <entry file="file://$PROJECT_DIR$/Database.csv">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/chat_app/server/ServerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="65" column="18" selection-start-line="65" selection-start-column="18" selection-end-line="65" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/chat_app/chatUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="331" column="81" selection-start-line="331" selection-start-column="81" selection-end-line="331" selection-end-column="81" />
+        <state relative-caret-position="259">
+          <caret line="762" column="28" lean-forward="true" selection-start-line="762" selection-start-column="28" selection-end-line="762" selection-end-column="28" />
           <folding>
             <element signature="method#addUIControls#0;class#chatUI#0" />
             <element signature="class#AutoCompleteTextField#0;class#chatUI#0" />

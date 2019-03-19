@@ -20,6 +20,8 @@ import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -614,9 +616,24 @@ public class chatUI extends Application {
         hbox.setAlignment(Pos.CENTER);
         vbox.setAlignment(Pos.CENTER);
 
-        Button send = new Button("Send");
-        Button image = new Button("Image"); // Would Like to convert this to an Image Button
-        Button voice = new Button("Voice");
+        Button send = new Button();
+        ImageView sendImage = new ImageView(new Image("/img/send.jpg"));
+        sendImage.setFitWidth(33);
+        sendImage.setFitHeight(27);
+        send.setGraphic(sendImage);
+
+
+        Button image = new Button(); // Would Like to convert this to an Image Button
+        ImageView imageImage = new ImageView(new Image("/img/image.png"));
+        imageImage.setFitWidth(33);
+        imageImage.setFitHeight(33);
+        image.setGraphic(imageImage);
+
+        Button voice = new Button();
+        ImageView voiceImage = new ImageView(new Image("/img/voice.jpg"));
+        voiceImage.setFitWidth(33);
+        voiceImage.setFitHeight(33);
+        voice.setGraphic(voiceImage);
 
         vbox.getChildren().addAll(image, voice);
         hbox.getChildren().addAll(vbox,entry,send);
@@ -738,7 +755,7 @@ public class chatUI extends Application {
 
 
 
-        entry.prefWidthProperty().bind(listView.widthProperty().subtract(150));
+        entry.prefWidthProperty().bind(listView.widthProperty().subtract(130));
 /*
         pane.add(listView,0,0);
         pane.add(entry,0,3);
