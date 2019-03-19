@@ -1,5 +1,6 @@
 package chat_app.server;
 
+import java.awt.*;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,17 +27,23 @@ public class Message implements Serializable
         }
         output += "} , ";
         output += String.format("Message:" + Message + ",");
+        output += String.format("MessageType:" + Type + ",");
         output += String.format("TimeStamp:" + TimeStamp + "}");
 
         System.out.println(output);
 
         return output;
     }
+    public void SetType(messagetype mt)
+    {
+        this.Type = mt;
+    }
 
     private String Client;
     private ArrayList<String> Users;
     private String Message;
     private String TimeStamp;
+    private messagetype Type = messagetype.TEXT;
 
 
 

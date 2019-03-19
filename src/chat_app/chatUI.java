@@ -2,9 +2,12 @@ package chat_app;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.OutputStream;
 import java.util.*;
 
 import chat_app.server.Client;
+import chat_app.server.Message;
+import chat_app.server.messagetype;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -325,6 +328,15 @@ public class chatUI extends Application {
         /**Contact listView */
 
         listView.prefHeightProperty().bind(scene.heightProperty().subtract(170));
+        listView.setOnMouseClicked(e ->
+                {
+                    String name = listView.getSelectionModel().getSelectedItem();
+                    System.out.println("Chatting With:" + name);
+                    ArrayList<String> Users = new ArrayList<>();
+                    Users.add(name);
+                    mainPane.setCenter(getChatPane(client,Users));
+                }
+                );
 
         /**Event handlings */
 
@@ -431,14 +443,13 @@ public class chatUI extends Application {
 
 
         ListView<String> history = new ListView<>();
-        history.setItems(client.chatLog);
-        System.out.println("Adding stuff to scroll Pane");
-        System.out.println("Current Log:" + client.chatLog);
 
 
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setContent(history);
-        mainPane.setCenter(history);
+
+        //ScrollPane scrollPane = new ScrollPane();
+        //scrollPane.setContent(history);
+
+        //mainPane.setCenter(history);
         mainPane.setRight(contactPane);
         mainPane.setBottom(FieldAndButton);
         // mainPane.setCenter(chatScroll);
@@ -554,6 +565,87 @@ public class chatUI extends Application {
             entriesPopup.getItems().addAll(menuItems);
 
         }
+    }
+
+
+    private Pane getChatPane(Client client, ArrayList<String> Users)
+    {
+        GridPane gridPane = new GridPane();
+        TextArea entry = new TextArea();
+        Button send = new Button("Send");
+        Button Image = new Button("Image"); // Would Like to convert this to an Image Button
+        Button Voice = new Button("Voice");
+
+
+        //Actions for send button
+        send.setOnAction(e -> {
+            String Msg = entry.getText();
+            System.out.println(Msg);
+            client.UpdateServer(Msg,Users);
+            entry.clear();
+        });
+        entry.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER && !entry.getText().equals("")) {
+
+                System.out.println("Message:" + entry.getText());
+
+                client.UpdateServer(entry.getText(),Users);
+                entry.clear();
+
+            }
+            e.consume();
+        });
+
+
+        // Actions for Image button
+         Image.setOnAction(event -> {
+             Message Msg = new Message(client.getName(),Users,"Image");
+             Msg.SetType(messagetype.IMAGE);
+             //OutputStream os ;
+             System.out.println("Sending Image message");
+
+
+         });
+
+
+        // Actions for Voice button
+        Voice.setOnAction(event -> {
+            Message Msg = new Message(client.getName(),Users,"Image");
+            Msg.SetType(messagetype.VOICE);
+            //OutputStream os ;
+            System.out.println("Sending Voice message");
+
+        });
+
+
+
+
+        ListView<String> listView = new ListView<>();
+        listView.setItems(client.chatLog);
+
+        for(String item: client.chatLog)
+        {
+            System.out.println(item);
+            //TODO: Use Parser for reading through each item.
+
+            String client_name = client.getName();
+            String other_users = Users.get(0);
+            System.out.println(" We are communicating with"+ client_name + "and" + other_users);
+
+            //TODO: Extract Msg and create View Box for the Users
+
+
+        }
+
+
+
+        gridPane.add(listView,0,0);
+        gridPane.add(entry,0,3);
+        gridPane.add(send, 3,3);
+        gridPane.add(Image,3,4);
+        gridPane.add(Voice,3,5);
+
+        return gridPane;
     }
 
 }
