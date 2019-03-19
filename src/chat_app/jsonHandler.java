@@ -6,6 +6,7 @@ import chat_app.server.messagetype;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,6 +20,12 @@ public class jsonHandler {
     jsonHandler(String f, String json){
         fileName = f;
         this.json = json;
+    }
+
+    jsonHandler(String f)
+    {
+        fileName = f;
+        this.json = "";
     }
 
     String getInfoToWrite(){
@@ -99,16 +106,25 @@ public class jsonHandler {
 
     //TODO: ADDING THE CLIENT NAME AND MESSAGE INTO PANE (and maybe parsing the appropriate message type)
     //pass filterCertainUsers here to get respective users and messages
-    void createHistory(ArrayList<Message> m){
+    public ArrayList<HashMap<String,String>>  createHistory(ArrayList<Message> m){
         //A function that loops through list of Messages, get clientname and the message
 
+        ArrayList<HashMap<String,String>> message_List = new ArrayList<>();
+
         for(Message message:m){
+            HashMap<String,String> messages = new HashMap<>();
             message.getClientName();
             message.getMessage();
             message.getType();
+            if(message.getType()== messagetype.TEXT)
+            {
+                messages.put(message.getClientName(),message.getMessage());
+            }
+            message_List.add(messages);
             //I'll leave the linking to the pane to mushy :D
         }
 
+    return message_List;
     }
 
 

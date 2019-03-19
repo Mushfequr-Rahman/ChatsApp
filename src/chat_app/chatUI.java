@@ -43,7 +43,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class chatUI extends Application {
@@ -589,15 +590,27 @@ public class chatUI extends Application {
             entry.clear();
         });
         entry.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.ENTER && !entry.getText().equals("")) {
-
+            if(e.getCode() == KeyCode.ENTER && !entry.getText().trim().equals("")) {
                 System.out.println("Message:" + entry.getText());
-
-                client.UpdateServer(entry.getText(),Users);
+                client.writeToServer(entry.getText());
+                client.UpdateServer(entry.getText(), Users);
+                Message m = new Message(client.getName(), Users, entry.getText().trim());
+                String json = m.toJson();
+                String fileName = "json.csv";
+                File jsonF = new File(fileName);
+                jsonHandler j = new jsonHandler(fileName, json);
+                try {
+                    if (!jsonF.exists()) {
+                        j.generateHeader();
+                    }
+                    j.writeJson();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
                 entry.clear();
-
+                System.out.println("Outputting to server: " + client.chatLog);
+                e.consume();
             }
-            e.consume();
         });
 
 
@@ -626,20 +639,45 @@ public class chatUI extends Application {
 
         ListView<String> listView = new ListView<>();
         listView.setItems(client.chatLog);
+        jsonHandler handler = new jsonHandler("json.csv");
+        try {
+            ArrayList<Message> Msgs = handler.filterCertainUsers(Users);
 
-        for(String item: client.chatLog)
+            for(Message msg : handler.filterCertainUsers(Users))
+            {
+
+                //TODO: Use Create History to read the past messages
+
+                //TODO: Check Messages
+
+
+                //System.out.println(item);
+                //TODO: Use Parser for reading through each item.
+
+                String Client = msg.getClientName();
+                String Mess = msg.getMessage();
+                String user = Users.get(0);
+
+
+
+
+                System.out.println(" We are communicating with "+ Client + " and " + user + " Message: " + Mess);
+
+
+
+
+                //TODO: Extract Msg and create View Box for the Users for Terry
+
+
+            }
+
+        }catch (Exception e)
         {
-            System.out.println(item);
-            //TODO: Use Parser for reading through each item.
-
-            String client_name = client.getName();
-            String other_users = Users.get(0);
-            System.out.println(" We are communicating with"+ client_name + "and" + other_users);
-
-            //TODO: Extract Msg and create View Box for the Users
-
-
+            e.printStackTrace();
         }
+
+
+
 
 
 
