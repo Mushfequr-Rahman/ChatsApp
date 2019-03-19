@@ -11,6 +11,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+
+
 
 public class Client implements Runnable {
     /* The Socket of the Client */
@@ -19,6 +22,7 @@ public class Client implements Runnable {
     private PrintWriter clientToServerWriter;
     private String name;
     public ObservableList<String> chatLog;
+    public  ObservableList<Message> LOG;
 
     public Client(String hostName, int portNumber, String name) throws UnknownHostException, IOException {
 
@@ -30,6 +34,7 @@ public class Client implements Runnable {
         clientToServerWriter = new PrintWriter(
                 clientSocket.getOutputStream(), true);
         chatLog = FXCollections.observableArrayList();
+        LOG = FXCollections.observableArrayList();
         /* Send name data to the server */
         this.name = name;
         clientToServerWriter.println(name);
@@ -41,7 +46,21 @@ public class Client implements Runnable {
 
     public void writeToServer(String input) {
         clientToServerWriter.println(name + " : " + input);
+
+
+
     }
+
+    public void UpdateServer(String MSG, ArrayList<String> Users)
+    {
+        Message message = new Message(this.name,Users,MSG);
+        clientToServerWriter.println(message.toJson());
+    }
+
+
+
+
+
 
     public void run() {
         /* Infinite loop to update the chat log from the server */
@@ -52,6 +71,7 @@ public class Client implements Runnable {
                 Platform.runLater(new Runnable() {
                     public void run() {
                         chatLog.add(inputFromServer);
+                        //LOG.add(inputFromServer);
                     }
                 });
 
