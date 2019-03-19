@@ -42,6 +42,10 @@ public class Message implements Serializable
     public String getClientName(){return Client;}
     public String getMessage(){return Message;}
     public messagetype getType(){return this.Type;}
+    public ArrayList<String> getUsers()
+    {
+        return this.Users;
+    }
 
     private String Client;
     private ArrayList<String> Users;

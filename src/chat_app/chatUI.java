@@ -692,13 +692,15 @@ public class chatUI extends Application {
                 String Client = msg.getClientName();
                 String Mess = msg.getMessage();
                 String user = Users.get(0);
+                ArrayList<String> recipients = msg.getUsers();
+                String Recepient = recipients.get(0);
 
 
 
+                if(Client == client.getName() && user == Recepient) {
+                    System.out.println(" We are communicating with " + Client + " and " + user + " Message: " + Mess);
 
-                System.out.println(" We are communicating with "+ Client + " and " + user + " Message: " + Mess);
-
-
+                }
 
 
                 //TODO: Extract Msg and create View Box for the Users for Terry
