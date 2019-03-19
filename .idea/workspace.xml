@@ -128,8 +128,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/chat_app/chatUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="762" column="28" lean-forward="true" selection-start-line="762" selection-start-column="28" selection-end-line="762" selection-end-column="28" />
+            <state relative-caret-position="219">
+              <caret line="760" column="28" lean-forward="true" selection-start-line="760" selection-start-column="28" selection-end-line="760" selection-end-column="28" />
               <folding>
                 <element signature="method#addUIControls#0;class#chatUI#0" />
                 <element signature="class#AutoCompleteTextField#0;class#chatUI#0" />
@@ -276,7 +276,7 @@
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553029494039" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553029800774" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="D:/csci_2040_final_assignment" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -472,12 +472,12 @@
       <workItem from="1552685293857" duration="4156000" />
       <workItem from="1552944155423" duration="4775000" />
       <workItem from="1552967106031" duration="3092000" />
-      <workItem from="1553026834685" duration="2610000" />
+      <workItem from="1553026834685" duration="2912000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38067000" />
+    <option name="totallyTimeSpent" value="38369000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -700,8 +700,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/chat_app/chatUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="762" column="28" lean-forward="true" selection-start-line="762" selection-start-column="28" selection-end-line="762" selection-end-column="28" />
+        <state relative-caret-position="219">
+          <caret line="760" column="28" lean-forward="true" selection-start-line="760" selection-start-column="28" selection-end-line="760" selection-end-column="28" />
           <folding>
             <element signature="method#addUIControls#0;class#chatUI#0" />
             <element signature="class#AutoCompleteTextField#0;class#chatUI#0" />

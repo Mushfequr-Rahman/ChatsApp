@@ -617,7 +617,7 @@ public class chatUI extends Application {
         vbox.setAlignment(Pos.CENTER);
 
         Button send = new Button();
-        ImageView sendImage = new ImageView(new Image("/img/send.jpg"));
+        ImageView sendImage = new ImageView(new Image("/img/send.png"));
         sendImage.setFitWidth(33);
         sendImage.setFitHeight(27);
         send.setGraphic(sendImage);
