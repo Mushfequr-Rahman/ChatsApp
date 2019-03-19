@@ -297,7 +297,7 @@ public class chatUI extends Application {
 
         }
         addUserIDField.getEntries().addAll(suggestionList);
-
+        listView.prefWidthProperty().bind(addUserIDField.prefWidthProperty().subtract(20));
         Label addContactLabel = new Label("Enter User ID:", addUserIDField);
         addContactLabel.setContentDisplay(ContentDisplay.BOTTOM);
 
@@ -316,28 +316,28 @@ public class chatUI extends Application {
         TextArea textfield = new TextArea();
         textfield.setWrapText(true);
         textfield.setPrefRowCount(5);
+        textfield.setEditable(true);
         textfield.prefWidthProperty().bind(scene.widthProperty().subtract(80));
 
-        Button sendButton = new Button("Send");
-        sendButton.setId("sendButton");
+        //Button sendButton = new Button("Send");
+        //sendButton.setId("sendButton");
 
         FieldAndButton.setAlignment(Pos.CENTER_LEFT);
         FieldAndButton.setPadding(new Insets(10, 0, 10, 0));
         FieldAndButton.setAlignment(Pos.CENTER);
-        FieldAndButton.getChildren().addAll(textfield, sendButton);
+        //FieldAndButton.getChildren().addAll(textfield, sendButton);
 
         /**Contact listView */
 
         listView.prefHeightProperty().bind(scene.heightProperty().subtract(170));
-        listView.setOnMouseClicked(e ->
-                {
+        listView.getSelectionModel().selectedItemProperty().addListener(
+                ov -> {
                     String name = listView.getSelectionModel().getSelectedItem();
                     System.out.println("Chatting With:" + name);
                     ArrayList<String> Users = new ArrayList<>();
                     Users.add(name);
                     mainPane.setCenter(getChatPane(client,Users));
-                }
-                );
+                });
 
         /**Event handlings */
 
@@ -371,7 +371,7 @@ public class chatUI extends Application {
                 e.consume();
             }
         });
-
+        /*
         sendButton.setOnAction(e -> {
             if (textfield.getText().equals("")) {
                 //No blank message
@@ -402,7 +402,7 @@ public class chatUI extends Application {
                 e.consume();
             }
 
-        });
+        });*/
 
         listView.getSelectionModel().selectedItemProperty().addListener(
                 ov -> {
@@ -412,7 +412,16 @@ public class chatUI extends Application {
 
         addUserIDField.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
-                if (!addUserIDField.getText().equals("") && !addUserIDField.getText().equals(client.getName())) {
+              boolean contactExist = false;
+              for(String i: contacts)
+              {
+                  if(addUserIDField.getText().equals(i))
+                  {
+                      contactExist = true;
+                      break;
+                  }
+              }
+                if (!addUserIDField.getText().equals("") && !addUserIDField.getText().equals(client.getName()) && !contactExist) {
                     File file = new File("Database.csv");
                     Scanner in = null;
                     try {
@@ -464,14 +473,7 @@ public class chatUI extends Application {
         mb.getMenus().add(account);
 
         logout.setOnAction(e->{
-            /*log_in l = new log_in();
-            GridPane gridPane = l.LoginPane();
-            addUIControls(gridPane,primaryStage);
-            */
-            //Scene scene1 = new Scene(gridPane,900,650);
             Scene scene1 = LoginScene(primaryStage);
-            //primaryStage.getScene().getWindow()
-
 
             Alert r =  showAlert(Alert.AlertType.CONFIRMATION, primaryStage.getScene().getWindow(), "Logout", "Are you sure you want to log out?");
             r.showAndWait().ifPresent(response -> {
@@ -482,16 +484,13 @@ public class chatUI extends Application {
                     return;
                 }
             });
-
-
         });
-
-
 
         //mainPane.setCenter(history);
         mainPane.setTop(mb);
         mainPane.setRight(contactPane);
-        mainPane.setBottom(FieldAndButton);
+        mainPane.setMargin(mb, new Insets(5));
+        //mainPane.setBottom(FieldAndButton);
         // mainPane.setCenter(chatScroll);
         scene.getStylesheets().add(getClass().getClassLoader().getResource("chat.css").toExternalForm());
 
@@ -501,13 +500,6 @@ public class chatUI extends Application {
 /////////////////////////////////////////////////////////////////////////////////////////////
     }
 
-    /*
-    public void addContact(String name, )
-    {
-        contacts.add(name);
-        listView.getItems().clear();
-        listView.getItems().addAll(contacts);
-    }*/
 
 
     //@Override
@@ -610,19 +602,49 @@ public class chatUI extends Application {
 
     private Pane getChatPane(Client client, ArrayList<String> Users)
     {
-        GridPane gridPane = new GridPane();
+        BorderPane pane = new BorderPane();
         TextArea entry = new TextArea();
-        Button send = new Button("Send");
-        Button Image = new Button("Image"); // Would Like to convert this to an Image Button
-        Button Voice = new Button("Voice");
 
+        entry.setWrapText(true);
+        entry.setPrefRowCount(5);
+        entry.setEditable(true);
+
+        HBox hbox = new HBox(5);
+        VBox vbox = new VBox(5);
+        hbox.setAlignment(Pos.CENTER);
+        vbox.setAlignment(Pos.CENTER);
+
+        Button send = new Button("Send");
+        Button image = new Button("Image"); // Would Like to convert this to an Image Button
+        Button voice = new Button("Voice");
+
+        vbox.getChildren().addAll(image, voice);
+        hbox.getChildren().addAll(vbox,entry,send);
+        pane.setMargin(hbox,new Insets(10));
 
         //Actions for send button
         send.setOnAction(e -> {
-            String Msg = entry.getText();
-            System.out.println(Msg);
-            client.UpdateServer(Msg,Users);
+          if(!entry.getText().equals(""))
+          {
+            System.out.println("Message:" + entry.getText());
+            client.writeToServer(entry.getText());
+            client.UpdateServer(entry.getText(), Users);
+            Message m = new Message(client.getName(), Users, entry.getText().trim());
+            String json = m.toJson();
+            String fileName = "json.csv";
+            File jsonF = new File(fileName);
+            jsonHandler j = new jsonHandler(fileName, json);
+            try {
+                if (!jsonF.exists()) {
+                    j.generateHeader();
+                }
+                j.writeJson();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
             entry.clear();
+            System.out.println("Outputting to server: " + client.chatLog);
+          }
         });
         entry.setOnKeyPressed(e -> {
             if(e.getCode() == KeyCode.ENTER && !entry.getText().trim().equals("")) {
@@ -644,13 +666,13 @@ public class chatUI extends Application {
                 }
                 entry.clear();
                 System.out.println("Outputting to server: " + client.chatLog);
-                e.consume();
             }
+            e.consume();
         });
 
 
         // Actions for Image button
-         Image.setOnAction(event -> {
+         image.setOnAction(event -> {
              Message Msg = new Message(client.getName(),Users,"Image");
              Msg.SetType(messagetype.IMAGE);
              //OutputStream os ;
@@ -661,7 +683,7 @@ public class chatUI extends Application {
 
 
         // Actions for Voice button
-        Voice.setOnAction(event -> {
+        voice.setOnAction(event -> {
             Message Msg = new Message(client.getName(),Users,"Image");
             Msg.SetType(messagetype.VOICE);
             //OutputStream os ;
@@ -716,15 +738,17 @@ public class chatUI extends Application {
 
 
 
-
-
-        gridPane.add(listView,0,0);
-        gridPane.add(entry,0,3);
-        gridPane.add(send, 3,3);
-        gridPane.add(Image,3,4);
-        gridPane.add(Voice,3,5);
-
-        return gridPane;
+        entry.prefWidthProperty().bind(listView.widthProperty().subtract(150));
+/*
+        pane.add(listView,0,0);
+        pane.add(entry,0,3);
+        pane.add(send, 3,3);
+        pane.add(Image,3,4);
+        pane.add(Voice,3,5);
+*/
+        pane.setCenter(listView);
+        pane.setBottom(hbox);
+        return pane;
     }
 
 }
