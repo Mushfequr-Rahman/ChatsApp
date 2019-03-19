@@ -20,6 +20,7 @@ public class Message implements Serializable
     {
         String output = "{";
         output += String.format("Client:" + Client + ",");
+        output += String.format("Session:" + Session_ID + ",");
         output += "Users: {";
         for(String Usr : Users)
         {
@@ -48,6 +49,7 @@ public class Message implements Serializable
     }
 
     private String Client;
+    private String Session_ID;
     private ArrayList<String> Users;
     private String Message;
     private String TimeStamp;
