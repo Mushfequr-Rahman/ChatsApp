@@ -194,7 +194,7 @@ public class chatUI extends Application {
                                 ClientThread.start();
                                 threads.add(ClientThread);
                                 //primaryStage.close();
-                                primaryStage.setScene(initMainPane(client));
+                                primaryStage.setScene(initMainPane(client,primaryStage));
                                 primaryStage.show();
 
                             } catch (Exception ex) {
@@ -233,7 +233,7 @@ public class chatUI extends Application {
     }
 
 
-    private Scene initMainPane(Client client) {
+    private Scene initMainPane(Client client,Stage primaryStage) {
         /** Initial Variables */
 
         int width = 900;
@@ -454,7 +454,42 @@ public class chatUI extends Application {
         //ScrollPane scrollPane = new ScrollPane();
         //scrollPane.setContent(history);
 
+        /**Menubar section*/
+        Menu account = new Menu("Account");
+        MenuItem logout = new MenuItem("Logout");
+
+        account.getItems().addAll(logout);
+
+        MenuBar mb = new MenuBar();
+        mb.getMenus().add(account);
+
+        logout.setOnAction(e->{
+            /*log_in l = new log_in();
+            GridPane gridPane = l.LoginPane();
+            addUIControls(gridPane,primaryStage);
+            */
+            //Scene scene1 = new Scene(gridPane,900,650);
+            Scene scene1 = LoginScene(primaryStage);
+            //primaryStage.getScene().getWindow()
+
+
+            Alert r =  showAlert(Alert.AlertType.CONFIRMATION, primaryStage.getScene().getWindow(), "Logout", "Are you sure you want to log out?");
+            r.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    primaryStage.setScene(scene1);
+                }
+                else{
+                    return;
+                }
+            });
+
+
+        });
+
+
+
         //mainPane.setCenter(history);
+        mainPane.setTop(mb);
         mainPane.setRight(contactPane);
         mainPane.setBottom(FieldAndButton);
         // mainPane.setCenter(chatScroll);
