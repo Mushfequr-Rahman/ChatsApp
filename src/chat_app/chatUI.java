@@ -341,61 +341,65 @@ public class chatUI extends Application {
         /**Event handlings */
 
         textfield.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.ENTER && !textfield.getText().equals("")) {
-
+            if(e.getCode() == KeyCode.ENTER && textfield.getText().trim().equals("")){
+                //No blank message
+                System.out.println("BLANK MESSAGE I WON'T LET YOU!!");
+            }
+            else if(e.getCode() == KeyCode.ENTER && !textfield.getText().trim().equals("")){
+                //Write message
                 System.out.println("Message:" + textfield.getText());
                 client.writeToServer(textfield.getText());
                 ArrayList<String> Users = new ArrayList<>();
-                Users.add("null");
+                Users.add("null"); //TODO: ADD USER TO BE IMPLEMENTED
                 client.UpdateServer(textfield.getText(),Users);
+                Message m = new Message(client.getName(),Users,textfield.getText().trim());
+                String json = m.toJson();
+                String fileName = "json.csv";
+                File jsonF = new File(fileName);
+                jsonHandler j = new jsonHandler(fileName,json);
+                try {
+                    if(!jsonF.exists()){
+                        j.generateHeader();
+                    }
+                    j.writeJson();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
                 textfield.clear();
-                System.out.println("Outputing to server: " + client.chatLog);
-                /*
-                if(!textfield.getText().equals(""))
-                {
-                    System.out.println(textfield.getText());
-                    Text message = new Text("You :  " + textfield.getText());
-                    message.wrappingWidthProperty().bind(chatScroll.widthProperty().subtract(25));
-                    textfield.setText("");
-                    chatBox.getChildren().add(message);
-                }
-                */
-
-
-                /*
-                VBox ChatBox = new VBox(5);
-                ObservableList<String> Log = client.chatLog;
-                System.out.println(Log);
-                for(String Msg : Log)
-                {
-                    Text Message = new Text( Msg);
-                    Message.wrappingWidthProperty().bind(chatScroll.widthProperty().subtract(25));
-                    ChatBox.getChildren().add(Message);
-
-
-                }
-                */
+                System.out.println("Outputting to server: " + client.chatLog);
+                e.consume();
             }
-            e.consume();
         });
 
         sendButton.setOnAction(e -> {
-            if (!textfield.getText().equals("")) {
+            if (textfield.getText().equals("")) {
+                //No blank message
+                System.out.println("BLANK MESSAGE I WON'T LET YOU");
+            }
+            else{
+                //Write message
                 System.out.println("Message:" + textfield.getText());
                 client.writeToServer(textfield.getText());
+                ArrayList<String> Users = new ArrayList<>();
+                Users.add("null"); //TODO: ADD USER TO BE IMPLEMENTED
+                client.UpdateServer(textfield.getText(),Users);
+                Message m = new Message(client.getName(),Users,textfield.getText().trim());
+                String json = m.toJson();
+                String fileName = "json.csv";
+                File jsonF = new File(fileName);
+                jsonHandler j = new jsonHandler(fileName,json);
+                try {
+                    if(!jsonF.exists()){
+                        j.generateHeader();
+                    }
+                    j.writeJson();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
                 textfield.clear();
-                System.out.println("Outputing to server: " + client.chatLog);
-
+                System.out.println("Outputting to server: " + client.chatLog);
+                e.consume();
             }
-            //System.out.println(textfield.getText());
-            //Text message = new Text("You :  " + textfield.getText());
-            //message.wrappingWidthProperty().bind(chatScroll.widthProperty().subtract(25));
-            //chatBox.getChildren().add(message);
-            System.out.println("Message:" + textfield.getText());
-            client.writeToServer(textfield.getText());
-            textfield.clear();
-            System.out.println("Outputing to server: " + client.chatLog);
-            //e.consume();
 
         });
 

@@ -23,12 +23,12 @@ public class Message implements Serializable
         output += "Users: {";
         for(String Usr : Users)
         {
-            output += String.format(Usr + ",") ;
+            output += String.format(Usr + ".") ;
         }
-        output += "} , ";
+        output += "}, ";
         output += String.format("Message:" + Message + ",");
         output += String.format("MessageType:" + Type + ",");
-        output += String.format("TimeStamp:" + TimeStamp + "}");
+        output += String.format("TimeStamp:" + TimeStamp + ", }");
 
         System.out.println(output);
 
@@ -38,6 +38,10 @@ public class Message implements Serializable
     {
         this.Type = mt;
     }
+
+    public String getClientName(){return Client;}
+    public String getMessage(){return Message;}
+    public messagetype getType(){return this.Type;}
 
     private String Client;
     private ArrayList<String> Users;
