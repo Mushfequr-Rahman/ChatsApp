@@ -723,12 +723,19 @@ public class chatUI extends Application {
                 ArrayList<String> recipients = msg.getUsers();
                 String Recepient = recipients.get(0);
 
-                System.out.println(" We are communicating with Session: "+ msg.getSession_ID()+" Client: " + Client + " and " + user + " Message: " + Mess);
+                System.out.println(msg.getSession_ID());
+                System.out.println("Users:" + Users);
+                System.out.println("Session ID:" +getSessionID(client,Users));
 
 
-                if (msg.getSession_ID() == getSessionID(client,Users) || msg.getSession_ID() == reverse(getSessionID(client,Users))) {
-                    System.out.println(" We are communicating with " + Client + " and " + user + " Message: " + Mess);
+                try {
+                    if (msg.getSession_ID().trim().equals(getSessionID(client, Users)) || msg.getSession_ID().trim().equals(reverse(getSessionID(client, Users)))) {
+                        System.out.println(" We are communicating with Session: " + msg.getSession_ID() + " Client: " + Client + " and " + user + " Message: " + Mess);
 
+                    }
+                }catch (NullPointerException e)
+                {
+                    e.printStackTrace();
                 }
 
 
@@ -774,7 +781,8 @@ public class chatUI extends Application {
                 }
                 for (String usr : users) {
                     if (contents[2].trim().equals(usr)) {
-                        right_id += String.format(":" + contents[0]);
+                        right_id += String.format("x" + contents[0]);
+                        break;
                     }
                 }
             }

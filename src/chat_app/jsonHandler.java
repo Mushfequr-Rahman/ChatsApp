@@ -93,9 +93,9 @@ public class jsonHandler {
             //String client, ArrayList<String> user, String message
             if(key) {
                 //add appropriate class
-                Message mm = new Message(datas[0],Users,datas[2]);
+                Message mm = new Message(datas[0],Users,datas[3]);
                 //set message type
-                mm.SetType(messagetype.valueOf(datas[3]));
+                mm.SetType(messagetype.valueOf(datas[4]));
                 m.add(mm);
             }
         }
