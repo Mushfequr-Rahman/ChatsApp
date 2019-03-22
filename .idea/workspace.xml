@@ -104,8 +104,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/chat_app/chatUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="690" column="67" selection-start-line="690" selection-start-column="67" selection-end-line="690" selection-end-column="67" />
+            <state relative-caret-position="280">
+              <caret line="683" column="52" selection-start-line="683" selection-start-column="52" selection-end-line="683" selection-end-column="52" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -144,8 +147,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/chat_app/server/ServerTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="93" column="9" lean-forward="true" selection-start-line="93" selection-start-column="9" selection-end-line="93" selection-end-column="9" />
+            <state relative-caret-position="389">
+              <caret line="95" column="13" lean-forward="true" selection-start-line="95" selection-start-column="13" selection-end-line="95" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -178,6 +181,7 @@
       <find>ov</find>
       <find>addcontac</find>
       <find>AutoComplete</find>
+      <find>Terry</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -273,7 +277,7 @@
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553228912326" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553231752581" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -470,12 +474,12 @@
       <workItem from="1552944155423" duration="4775000" />
       <workItem from="1552967106031" duration="3092000" />
       <workItem from="1553026834685" duration="2912000" />
-      <workItem from="1553225464035" duration="3367000" />
+      <workItem from="1553225464035" duration="6222000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41736000" />
+    <option name="totallyTimeSpent" value="44591000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -701,8 +705,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/chat_app/server/ServerTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="93" column="9" lean-forward="true" selection-start-line="93" selection-start-column="9" selection-end-line="93" selection-end-column="9" />
+        <state relative-caret-position="389">
+          <caret line="95" column="13" lean-forward="true" selection-start-line="95" selection-start-column="13" selection-end-line="95" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -711,8 +715,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/chat_app/chatUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="690" column="67" selection-start-line="690" selection-start-column="67" selection-end-line="690" selection-end-column="67" />
+        <state relative-caret-position="280">
+          <caret line="683" column="52" selection-start-line="683" selection-start-column="52" selection-end-line="683" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -1,6 +1,6 @@
 package chat_app;
 
-import java.awt.*;
+//import java.awt.*;
 import java.io.*;
 import java.util.*;
 
@@ -37,22 +37,9 @@ import javafx.geometry.Insets;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 import javafx.stage.Window;
-//import AutoCompleteTextField;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Side;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.CustomMenuItem;
+import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class chatUI extends Application {
@@ -660,10 +647,11 @@ public class chatUI extends Application {
                 System.out.println(" Session_ID from Logs:" +msg.getSession_ID());
                 System.out.println("Users:" + Users);
 
+
                 if (msg.getSession_ID().trim().equals(getSessionID(client, Users)) || msg.getSession_ID().trim().equals(reverse(getSessionID(client, Users)))) {
                     System.out.println(" We are communicating with Session: " + msg.getSession_ID() + " Client: " + Client + " and " + user + " Message: " + Mess);
                     //String messageformat = client.getName() + ": " + entry.getText();
-                    System.out.println(Mess);
+                    //System.out.println(Mess);
 
                    // message.setStyle("-fx-text-inner-color: yellow;");
                     //Font font = new Font("Times New Roman", 10, Color.YELLOW)
@@ -676,11 +664,13 @@ public class chatUI extends Application {
                         //String messageformat = client.getName() + " : " + Mess
                         //Label label=new Label("guru ");
                         Text message = new Text("Me : " + Mess);
+                        message.setFont(Font.font("Verdana", FontWeight.MEDIUM, 14));
+                        message.setFill(Color.BLUE);
                         //label.getStylesheets().add("sample/styles/send.css");
                         //message.setId("receive");
                         HBox hBox=new HBox();
                         hBox.getChildren().add(message);
-                        hBox.setAlignment(Pos.BASELINE_RIGHT);
+                        hBox.setAlignment(Pos.CENTER_RIGHT);
                         message.wrappingWidthProperty().bind(messageScroll.widthProperty().subtract(25));
                         messagesBox.getChildren().add(hBox);
 
@@ -690,10 +680,12 @@ public class chatUI extends Application {
                         //Client is receiver
                         Text message = new Text(Users.get(0)+" : " +Mess);
                         //label.getStylesheets().add("sample/styles/send.css");
+                        message.setFont(Font.font("Verdana", FontWeight.MEDIUM, 14));
+                        message.setFill(Color.RED);
                         //message.setId("send");
                         HBox hBox=new HBox();
                         hBox.getChildren().add(message);
-                        hBox.setAlignment(Pos.BASELINE_LEFT);
+                        hBox.setAlignment(Pos.CENTER_LEFT);
                         messagesBox.getChildren().add(hBox);
                         message.wrappingWidthProperty().bind(messageScroll.widthProperty().subtract(25));
                         messagesBox.setSpacing(10);
@@ -719,6 +711,10 @@ public class chatUI extends Application {
         pane.add(Image,3,4);
         pane.add(Voice,3,5);
 */
+        Text chattingWith = new Text("Chatting with " + Users.get(0));
+        chattingWith.setFont(Font.font("Verdana", FontWeight.MEDIUM, 17));
+        chattingWith.setFill(Color.WHITE);
+        pane.setTop(chattingWith);
         pane.setCenter(messageScroll);
         pane.setBottom(hbox);
         return pane;
