@@ -723,20 +723,16 @@ public class chatUI extends Application {
                 ArrayList<String> recipients = msg.getUsers();
                 String Recepient = recipients.get(0);
 
-                System.out.println(msg.getSession_ID());
+                System.out.println(" Session_ID from Logs:" +msg.getSession_ID());
                 System.out.println("Users:" + Users);
-                System.out.println("Session ID:" +getSessionID(client,Users));
 
 
-                try {
+                
                     if (msg.getSession_ID().trim().equals(getSessionID(client, Users)) || msg.getSession_ID().trim().equals(reverse(getSessionID(client, Users)))) {
                         System.out.println(" We are communicating with Session: " + msg.getSession_ID() + " Client: " + Client + " and " + user + " Message: " + Mess);
 
-                    }
-                }catch (NullPointerException e)
-                {
-                    e.printStackTrace();
-                }
+
+
 
 
                 //TODO: Extract Msg and create View Box for the Users for Terry
