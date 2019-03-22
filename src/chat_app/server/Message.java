@@ -15,6 +15,14 @@ public class Message implements Serializable
         TimeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()); //add timestamp
 
     }
+    public Message(String client, ArrayList<String> user, String message,String Session_ID) {
+        Client = client;
+        Users = user;
+        Message = message;
+        this.Session_ID = Session_ID;
+        TimeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()); //add timestamp
+
+    }
 
     public String toJson()
     {
@@ -55,7 +63,11 @@ public class Message implements Serializable
     private String TimeStamp;
     private messagetype Type = messagetype.TEXT;
 
+    public String getSession_ID() {
+        return Session_ID;
+    }
 
-
-
+    public void setSession_ID(String session_ID) {
+        Session_ID = session_ID;
+    }
 }

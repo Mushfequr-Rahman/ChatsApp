@@ -57,6 +57,12 @@ public class Client implements Runnable {
         clientToServerWriter.println(message.toJson());
     }
 
+    public void UpdateMessage(Message m)
+    {
+        //ADD type handling
+        clientToServerWriter.println(m.toJson());
+    }
+
 
 
 

@@ -1,12 +1,11 @@
 package chat_app;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.*;
 
 import chat_app.server.Client;
 import chat_app.server.Message;
+import chat_app.server.User;
 import chat_app.server.messagetype;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -196,7 +195,7 @@ public class chatUI extends Application {
                                 ClientThread.start();
                                 threads.add(ClientThread);
                                 //primaryStage.close();
-                                primaryStage.setScene(initMainPane(client,primaryStage));
+                                primaryStage.setScene(initMainPane(client, primaryStage));
                                 primaryStage.show();
 
                             } catch (Exception ex) {
@@ -235,7 +234,7 @@ public class chatUI extends Application {
     }
 
 
-    private Scene initMainPane(Client client,Stage primaryStage) {
+    private Scene initMainPane(Client client, Stage primaryStage) {
         /** Initial Variables */
 
         int width = 900;
@@ -338,30 +337,29 @@ public class chatUI extends Application {
                     System.out.println("Chatting With:" + name);
                     ArrayList<String> Users = new ArrayList<>();
                     Users.add(name);
-                    mainPane.setCenter(getChatPane(client,Users));
+                    mainPane.setCenter(getChatPane(client, Users));
                 });
 
         /**Event handlings */
 
         textfield.setOnKeyPressed(e -> {
-            if(e.getCode() == KeyCode.ENTER && textfield.getText().trim().equals("")){
+            if (e.getCode() == KeyCode.ENTER && textfield.getText().trim().equals("")) {
                 //No blank message
                 System.out.println("BLANK MESSAGE I WON'T LET YOU!!");
-            }
-            else if(e.getCode() == KeyCode.ENTER && !textfield.getText().trim().equals("")){
+            } else if (e.getCode() == KeyCode.ENTER && !textfield.getText().trim().equals("")) {
                 //Write message
                 System.out.println("Message:" + textfield.getText());
                 client.writeToServer(textfield.getText());
                 ArrayList<String> Users = new ArrayList<>();
                 Users.add("null"); //TODO: ADD USER TO BE IMPLEMENTED
-                client.UpdateServer(textfield.getText(),Users);
-                Message m = new Message(client.getName(),Users,textfield.getText().trim());
+                client.UpdateServer(textfield.getText(), Users);
+                Message m = new Message(client.getName(), Users, textfield.getText().trim());
                 String json = m.toJson();
                 String fileName = "json.csv";
                 File jsonF = new File(fileName);
-                jsonHandler j = new jsonHandler(fileName,json);
+                jsonHandler j = new jsonHandler(fileName, json);
                 try {
-                    if(!jsonF.exists()){
+                    if (!jsonF.exists()) {
                         j.generateHeader();
                     }
                     j.writeJson();
@@ -414,15 +412,13 @@ public class chatUI extends Application {
 
         addUserIDField.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
-              boolean contactExist = false;
-              for(String i: contacts)
-              {
-                  if(addUserIDField.getText().equals(i))
-                  {
-                      contactExist = true;
-                      break;
-                  }
-              }
+                boolean contactExist = false;
+                for (String i : contacts) {
+                    if (addUserIDField.getText().equals(i)) {
+                        contactExist = true;
+                        break;
+                    }
+                }
                 if (!addUserIDField.getText().equals("") && !addUserIDField.getText().equals(client.getName()) && !contactExist) {
                     File file = new File("Database.csv");
                     Scanner in = null;
@@ -461,7 +457,6 @@ public class chatUI extends Application {
         ListView<String> history = new ListView<>();
 
 
-
         //ScrollPane scrollPane = new ScrollPane();
         //scrollPane.setContent(history);
 
@@ -474,15 +469,14 @@ public class chatUI extends Application {
         MenuBar mb = new MenuBar();
         mb.getMenus().add(account);
 
-        logout.setOnAction(e->{
+        logout.setOnAction(e -> {
             Scene scene1 = LoginScene(primaryStage);
 
-            Alert r =  showAlert(Alert.AlertType.CONFIRMATION, primaryStage.getScene().getWindow(), "Logout", "Are you sure you want to log out?");
+            Alert r = showAlert(Alert.AlertType.CONFIRMATION, primaryStage.getScene().getWindow(), "Logout", "Are you sure you want to log out?");
             r.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
                     primaryStage.setScene(scene1);
-                }
-                else{
+                } else {
                     return;
                 }
             });
@@ -501,7 +495,6 @@ public class chatUI extends Application {
 
 /////////////////////////////////////////////////////////////////////////////////////////////
     }
-
 
 
     //@Override
@@ -602,8 +595,7 @@ public class chatUI extends Application {
     }
 
 
-    private Pane getChatPane(Client client, ArrayList<String> Users)
-    {
+    private Pane getChatPane(Client client, ArrayList<String> Users) {
         BorderPane pane = new BorderPane();
         TextArea entry = new TextArea();
 
@@ -636,39 +628,38 @@ public class chatUI extends Application {
         voice.setGraphic(voiceImage);
 
         vbox.getChildren().addAll(image, voice);
-        hbox.getChildren().addAll(vbox,entry,send);
-        pane.setMargin(hbox,new Insets(10));
+        hbox.getChildren().addAll(vbox, entry, send);
+        pane.setMargin(hbox, new Insets(10));
 
         //Actions for send button
         send.setOnAction(e -> {
-          if(!entry.getText().equals(""))
-          {
-            System.out.println("Message:" + entry.getText());
-            client.writeToServer(entry.getText());
-            client.UpdateServer(entry.getText(), Users);
-            Message m = new Message(client.getName(), Users, entry.getText().trim());
-            String json = m.toJson();
-            String fileName = "json.csv";
-            File jsonF = new File(fileName);
-            jsonHandler j = new jsonHandler(fileName, json);
-            try {
-                if (!jsonF.exists()) {
-                    j.generateHeader();
+            if (!entry.getText().equals("")) {
+                System.out.println("Message:" + entry.getText());
+                Message m = new Message(client.getName(), Users, entry.getText().trim(),getSessionID(client,Users));
+                client.UpdateMessage(m);
+
+                String json = m.toJson();
+                String fileName = "json.csv";
+                File jsonF = new File(fileName);
+                jsonHandler j = new jsonHandler(fileName, json);
+                try {
+                    if (!jsonF.exists()) {
+                        j.generateHeader();
+                    }
+                    j.writeJson();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
                 }
-                j.writeJson();
-            } catch (Exception e1) {
-                e1.printStackTrace();
+                entry.clear();
+                System.out.println("Outputting to server: " + client.chatLog);
             }
-            entry.clear();
-            System.out.println("Outputting to server: " + client.chatLog);
-          }
         });
         entry.setOnKeyPressed(e -> {
-            if(e.getCode() == KeyCode.ENTER && !entry.getText().trim().equals("")) {
+            if (e.getCode() == KeyCode.ENTER && !entry.getText().trim().equals("")) {
                 System.out.println("Message:" + entry.getText());
-                client.writeToServer(entry.getText());
-                client.UpdateServer(entry.getText(), Users);
-                Message m = new Message(client.getName(), Users, entry.getText().trim());
+                Message m = new Message(client.getName(), Users, entry.getText().trim(),getSessionID(client,Users));
+                client.UpdateMessage(m);
+
                 String json = m.toJson();
                 String fileName = "json.csv";
                 File jsonF = new File(fileName);
@@ -689,19 +680,19 @@ public class chatUI extends Application {
 
 
         // Actions for Image button
-         image.setOnAction(event -> {
-             Message Msg = new Message(client.getName(),Users,"Image");
-             Msg.SetType(messagetype.IMAGE);
-             //OutputStream os ;
-             System.out.println("Sending Image message");
+        image.setOnAction(event -> {
+            Message Msg = new Message(client.getName(), Users, "Image");
+            Msg.SetType(messagetype.IMAGE);
+            //OutputStream os ;
+            System.out.println("Sending Image message");
 
 
-         });
+        });
 
 
         // Actions for Voice button
         voice.setOnAction(event -> {
-            Message Msg = new Message(client.getName(),Users,"Image");
+            Message Msg = new Message(client.getName(), Users, "Image");
             Msg.SetType(messagetype.VOICE);
             //OutputStream os ;
             System.out.println("Sending Voice message");
@@ -709,16 +700,12 @@ public class chatUI extends Application {
         });
 
 
-
-
         ListView<String> listView = new ListView<>();
         listView.setItems(client.chatLog);
         jsonHandler handler = new jsonHandler("json.csv");
         try {
-            ArrayList<Message> Msgs = handler.filterCertainUsers(Users);
 
-            for(Message msg : handler.filterCertainUsers(Users))
-            {
+            for (Message msg : handler.filterCertainUsers(Users)) {
 
                 //TODO: Use Create History to read the past messages
 
@@ -728,15 +715,18 @@ public class chatUI extends Application {
                 //System.out.println(item);
                 //TODO: Use Parser for reading through each item.
 
+
+
                 String Client = msg.getClientName();
                 String Mess = msg.getMessage();
                 String user = Users.get(0);
                 ArrayList<String> recipients = msg.getUsers();
                 String Recepient = recipients.get(0);
 
+                System.out.println(" We are communicating with Session: "+ msg.getSession_ID()+" Client: " + Client + " and " + user + " Message: " + Mess);
 
 
-                if(Client == client.getName() && user == Recepient) {
+                if (msg.getSession_ID() == getSessionID(client,Users) || msg.getSession_ID() == reverse(getSessionID(client,Users))) {
                     System.out.println(" We are communicating with " + Client + " and " + user + " Message: " + Mess);
 
                 }
@@ -747,12 +737,9 @@ public class chatUI extends Application {
 
             }
 
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
 
 
         entry.prefWidthProperty().bind(listView.widthProperty().subtract(130));
@@ -767,5 +754,54 @@ public class chatUI extends Application {
         pane.setBottom(hbox);
         return pane;
     }
+
+
+    private String getSessionID(Client client, ArrayList<String> users)
+    {
+        String Session_ID = "";
+
+        File file = new File("Database.csv");
+        String left_id = "";
+        String right_id = "";
+        try{
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String line;
+
+            while ((line = br.readLine()) != null) {
+                String[] contents = line.split(",");
+                if (contents[2].trim().equals(client.getName())) {
+                    left_id = contents[0];
+                }
+                for (String usr : users) {
+                    if (contents[2].trim().equals(usr)) {
+                        right_id += String.format(":" + contents[0]);
+                    }
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
+        Session_ID += left_id + right_id;
+        System.out.println("From getSessionID, SessionID: " + Session_ID);
+        return Session_ID;
+
+
+    }
+
+    public  String reverse(String s)
+    {
+        String output = "";
+        for(int i = s.length()-1; i >= 0 ; i--)
+        {
+            output += s.charAt(i);
+        }
+        System.out.println("Reverse: " + output);
+        return  output;
+    }
+
 
 }
