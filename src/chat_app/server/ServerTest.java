@@ -1,6 +1,7 @@
 package chat_app.server;
 
 import javafx.application.Application;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 
@@ -86,6 +87,30 @@ public class ServerTest extends Application {
 
                 }
 
+            }
+        });
+
+        portTextField.setOnKeyPressed(e->
+        {
+            if(e.getCode()== KeyCode.ENTER && !portTextField.getText().trim().equals(""))
+            {
+                try
+                {
+                    Server server = new Server(Integer.parseInt(portTextField.getText()));
+                    Thread serverThread = (new Thread(server));
+                    serverThread.setName("Server Thread");
+                    serverThread.setDaemon(true);
+                    serverThread.start();
+                    threads.add(serverThread);
+                    /* Change the view of the primary stage */
+                    primaryStage.hide();
+                    primaryStage.setScene(makeServerUI(server));
+                    primaryStage.show();
+                } catch (IllegalArgumentException er) {
+                    errorLabel.setText("Invalid port number");
+                } catch (IOException ex) {
+                    // TODO Auto-generated catch block
+                }
             }
         });
 
