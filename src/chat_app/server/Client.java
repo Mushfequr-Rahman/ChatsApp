@@ -47,8 +47,6 @@ public class Client implements Runnable {
     public void writeToServer(String input) {
         clientToServerWriter.println(name + " : " + input);
 
-
-
     }
 
     public void UpdateServer(String MSG, ArrayList<String> Users)
