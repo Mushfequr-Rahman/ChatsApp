@@ -3,10 +3,8 @@ package chat_app;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -18,11 +16,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.paint.Color;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-
-import java.awt.*;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -92,12 +87,30 @@ public class register extends Application {
         PasswordField password_entry2 = new PasswordField();
         Reg.add(password_entry2, 1, 4);
 
+        HBox buttonBox = new HBox(10);
+
         Button Register_button = new Button("Register");
         Register_button.setId("register_button");
         Register_button.setFont(Font.font("Serif", FontWeight.BOLD, 18));
-        Reg.add(Register_button, 1, 5);
+
         Register_button.setDefaultButton(true);
 
+
+        Button Cancel_button = new Button("Cancel");
+        Cancel_button.setId("cancel_button");
+        Cancel_button.setFont(Font.font("Serif", FontWeight.BOLD, 18));
+        Cancel_button.setDefaultButton(true);
+
+        buttonBox.getChildren().addAll(Register_button, Cancel_button);
+        Reg.add(buttonBox,1,5);
+
+        Cancel_button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                primaryStage.setScene(s);
+
+            }
+        });
 
         Register_button.setOnAction(new EventHandler<ActionEvent>() {
             @Override

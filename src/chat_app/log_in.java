@@ -131,19 +131,8 @@ public class log_in extends Application {
                     return;
                 }
                 //check if username/password matches (copy pasta same code)
-                File f = new File("Database.csv");
-                Scanner input = null;
-                try {
-                    input = new Scanner(f);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                String line = "";
-                while(input.hasNextLine()) {
-                    line += input.nextLine() + "\n";
-                }
-                input.close();
-                String[] sp = line.split(",");
+                chatUI a = new chatUI();
+                String line = a.fileToString("Database.csv");
                 Scanner s = new Scanner(line).useDelimiter("\n");
                 s.nextLine(); //skip header
                 Boolean key = false;

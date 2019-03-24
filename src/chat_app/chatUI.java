@@ -1,34 +1,26 @@
 package chat_app;
 
-//import java.awt.*;
 import java.io.*;
 import java.util.*;
-
 import chat_app.server.Client;
 import chat_app.server.Message;
-import chat_app.server.User;
 import chat_app.server.messagetype;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
-import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.image.Image;
@@ -52,12 +44,14 @@ public class chatUI extends Application {
 
     private ArrayList<Thread> threads;
 
-
+    private static Color[] pieColours = {
+            Color.BLUE, Color.RED, Color.DARKORANGE,
+            Color.GREEN, Color.BLACK, Color.BROWN, Color.DARKGREY,
+            Color.LIGHTGREEN};
 
     public static void main(String[] args) {
         launch(args);
     }
-
 
     protected Scene LoginScene(Stage primaryStage) {
 
@@ -92,7 +86,7 @@ public class chatUI extends Application {
 
     private void addUIControls(GridPane gridPane, Stage primaryStage) {
         // Add Header
-        Label headerLabel = new Label("CHATSAPP");
+        Label headerLabel = new Label("ChatsApp");
         headerLabel.setId("header");
         gridPane.add(headerLabel, 0, 0, 2, 1);
         GridPane.setHalignment(headerLabel, HPos.CENTER);
@@ -149,20 +143,10 @@ public class chatUI extends Application {
                     passEmpty.show();
                     return;
                 }
+
                 //check if username/password matches (copy pasta same code)
-                File f = new File("Database.csv");
-                Scanner input = null;
-                try {
-                    input = new Scanner(f);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                String line = "";
-                while (input.hasNextLine()) {
-                    line += input.nextLine() + "\n";
-                }
-                input.close();
-                String[] sp = line.split(",");
+                String line = fileToString("Database.csv");
+                //String[] sp = line.split(",");
                 Scanner s = new Scanner(line).useDelimiter("\n");
                 s.nextLine(); //skip header
                 Boolean key = false;
@@ -226,15 +210,6 @@ public class chatUI extends Application {
         });
     }
 
-    private Alert showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.initOwner(owner);
-        return alert;
-    }
-
 
     private Scene initMainPane(Client client, Stage primaryStage) {
         /** Initial Variables */
@@ -244,16 +219,11 @@ public class chatUI extends Application {
 
         /** Contact listview */
         ArrayList<String> contacts = new ArrayList<String>();
-        ListView<String> listView = new ListView<>(FXCollections.observableArrayList(contacts));
+        ListView<String> contactListView = new ListView<>(FXCollections.observableArrayList(contacts));
 
         /** Pane for contact */
         BorderPane mainPane = new BorderPane();
 
-        //VBox chatBox = new VBox(5);
-
-        //ScrollPane chatScroll = new ScrollPane();
-
-        //HBox FieldAndButton = new HBox(5);
 
         VBox contactPane = new VBox(10);
 
@@ -275,21 +245,7 @@ public class chatUI extends Application {
         /** Auto complete field section */
 
         AutoCompleteTextField addUserIDField = new AutoCompleteTextField();
-
-        File f = new File("Database.csv");
-        Scanner input = null;
-        try {
-            input = new Scanner(f);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        String line = "";
-        while (input.hasNextLine()) {
-            line += input.nextLine() + "\n";
-        }
-        input.close();
-
-        String[] sp = line.split(",");
+        String line = fileToString("Database.csv");
 
         Scanner s = new Scanner(line).useDelimiter("\n");
         s.nextLine(); //skip header
@@ -297,15 +253,13 @@ public class chatUI extends Application {
         while (s.hasNextLine()) {
             String[] words = s.nextLine().split(",");
             if (!client.getName().equals(words[2])) suggestionList.add(words[2]);
-            //if(nameField.getText().equals(words[1]) && passwordField.getText().equals(words[3])){
-
         }
+
         addUserIDField.getEntries().addAll(suggestionList);
-        listView.prefWidthProperty().bind(addUserIDField.prefWidthProperty().subtract(20));
+        contactListView.prefWidthProperty().bind(addUserIDField.prefWidthProperty().subtract(20));
         Label addContactLabel = new Label("Enter User ID:", addUserIDField);
         addContactLabel.setContentDisplay(ContentDisplay.BOTTOM);
 
-        //addUserIDField.prefWidthProperty().bind(listView.widthProperty());
         contactPane.getChildren().add(addContactLabel);
 
         //TODO: 2303 CHANGES
@@ -314,7 +268,7 @@ public class chatUI extends Application {
         Button setgrp = new Button("Set Group Chat");
         contactPane.getChildren().addAll(grp,setgrp);
 
-        contactPane.getChildren().add(listView);
+        contactPane.getChildren().add(contactListView);
 
         //Create a list for users selected into groups
         List<String> selected = new ArrayList<>();
@@ -324,7 +278,7 @@ public class chatUI extends Application {
         grp.setOnAction(e->{
 
             //Add checkbox to each cell
-            listView.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>() {
+            contactListView.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>() {
                 @Override
                 public ObservableValue<Boolean> call(String item) {
                     BooleanProperty observable = new SimpleBooleanProperty();
@@ -352,10 +306,6 @@ public class chatUI extends Application {
 
 
             System.out.println("Size of selected:" + selected.size());
-            //System.out.println("Selected users are:");
-            //for(String n:selected){
-                //System.out.print(n);
-            //}
         });
 
 
@@ -375,11 +325,6 @@ public class chatUI extends Application {
                 Users = new ArrayList<>();
             }
             contactPane.getChildren().remove(grp);
-            //selected.clear();
-            //listView.getItems().clear();
-            //listView.getItems().addAll(contacts);
-
-
         });
 
 
@@ -396,20 +341,12 @@ public class chatUI extends Application {
         textfield.setEditable(true);
         textfield.prefWidthProperty().bind(scene.widthProperty().subtract(80));
 
-        //Button sendButton = new Button("Send");
-        //sendButton.setId("sendButton");
-
-        //FieldAndButton.setAlignment(Pos.CENTER_LEFT);
-        //FieldAndButton.setPadding(new Insets(10, 0, 10, 0));
-        //FieldAndButton.setAlignment(Pos.CENTER);
-        //FieldAndButton.getChildren().addAll(textfield, sendButton);
-
         /**Contact listView */
 
-        listView.prefHeightProperty().bind(scene.heightProperty().subtract(170));
-        listView.getSelectionModel().selectedItemProperty().addListener(
+        contactListView.prefHeightProperty().bind(scene.heightProperty().subtract(170));
+        contactListView.getSelectionModel().selectedItemProperty().addListener(
                 ov -> {
-                    String name = listView.getSelectionModel().getSelectedItem();
+                    String name = contactListView.getSelectionModel().getSelectedItem();
                     System.out.println("Chatting With:" + name);
                     ArrayList<String> Users = new ArrayList<>();
                     Users.add(name);
@@ -460,19 +397,9 @@ public class chatUI extends Application {
                     }
                 }
                 if (!addUserIDField.getText().equals("") && !addUserIDField.getText().equals(client.getName()) && !contactExist) {
-                    File file = new File("Database.csv");
-                    Scanner in = null;
-                    try {
-                        in = new Scanner(file);
-                    } catch (FileNotFoundException er) {
-                        er.printStackTrace();
-                    }
-                    String l = "";
-                    while (in.hasNext()) {
-                        l += in.nextLine() + "\n";
-                    }
-                    in.close();
-                    String[] s_arr = l.split(",");
+
+                    String l = fileToString("Database.csv");
+                    //String[] s_arr = l.split(",");
                     Scanner scan = new Scanner(l).useDelimiter("\n");
                     scan.nextLine();
                     while (scan.hasNextLine())
@@ -480,10 +407,8 @@ public class chatUI extends Application {
                         String[] word = scan.nextLine().split(",");
                         if (addUserIDField.getText().equals(word[2])) {
                             System.out.println("User " + addUserIDField.getText() + " added.");
-                            //addContact(addUserIDField.getText(),contacts);
-                            //contacts.add(addUserIDField.getText());
                             selected.clear();
-                            listView.getItems().add(addUserIDField.getText());
+                            contactListView.getItems().add(addUserIDField.getText());
                             //listView.getItems().addAll(contacts);
                             addUserIDField.clear();
                             break;
@@ -493,14 +418,6 @@ public class chatUI extends Application {
                 e.consume();
             }
         });
-        input.close();
-
-
-        //ListView<String> history = new ListView<>();
-
-
-        //ScrollPane scrollPane = new ScrollPane();
-        //scrollPane.setContent(history);
 
         /**Menubar section*/
         Menu account = new Menu("Account");
@@ -524,15 +441,12 @@ public class chatUI extends Application {
             });
         });
 
-
         mainPane.setTop(mb);
         mainPane.setRight(contactPane);
         mainPane.setMargin(mb, new Insets(5));
         scene.getStylesheets().add(getClass().getClassLoader().getResource("chat.css").toExternalForm());
 
         return scene;
-
-/////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     private Pane getChatPane(Client client, ArrayList<String> Users)
@@ -578,210 +492,42 @@ public class chatUI extends Application {
         jsonHandler handler = new jsonHandler("json.csv");
 
 
-        /**Testing listview */
-        ArrayList<String> messagesBox = new ArrayList<String>();
-        ListView<String> messageScroll = new ListView<>(FXCollections.observableArrayList(messagesBox));
-
+        /**Check if changes are made in chatlog */
+        ArrayList<Text> messagesBox = new ArrayList<Text>();
+        ListView<Text> messageScroll = new ListView<>(FXCollections.observableArrayList(messagesBox));
         client.chatLog.addListener((ListChangeListener<String>) change -> {
             while (change.next()) {
+                /**Update messageScroll */
                 if (change.wasAdded())
                 {
-                    ListView<String> messageScrollblank = new ListView<>();
-                    pane.setCenter(messageScrollblank);
-                    try {
-                        for (Message msg : handler.filterCertainUsers(Users)) {
-
-                            //TODO: Use Create History to read the past messages
-
-                            //TODO: Check Messages
-
-
-                            //System.out.println(item);
-                            //TODO: Use Parser for reading through each item.
-
-
-                            String Client = msg.getClientName();
-                            String Mess = msg.getMessage();
-                            if(Mess.contains("[-c-]")){
-                                Mess = Mess.replace("[-c-]",",");
-                            }
-                            String user = Users.get(0);
-                            ArrayList<String> recipients = msg.getUsers();
-
-                            //System.out.println("Users:" + Users);
-
-                            //TODO: 2303 CHANGES
-                            //let's first parse the 'x' out
-                            //and then we use for loop to check each one
-                            String[] msgsessionIDx_parsed = msg.getSession_ID().trim().split("x");
-                            String cursessionID = getSessionID(client, Users);
-                            String[] cursessionID_parsed = getSessionID(client, Users).trim().split("x");
-
-                            Boolean key = true;
-                            for(String id:msgsessionIDx_parsed){
-                                if(cursessionID_parsed.length != msgsessionIDx_parsed.length || !cursessionID.contains(id)){
-                                    key=false;
-                                    break;
-                                }
-                            }
-
-                            if (key) {
-                                //System.out.println("1We are communicating with Session: " + msg.getSession_ID() + " Client: " + Client + " and " + user + " Message: " + Mess);
-                                //String messageformat = client.getName() + ": " + entry.getText();
-                                //System.out.println(Mess);
-
-                                // message.setStyle("-fx-text-inner-color: yellow;");
-                                //Font font = new Font("Times New Roman", 10, Color.YELLOW)
-
-                                // TODO: Left and right message Text
-
-                                if(msg.getSession_ID().charAt(0)==(getSessionID(client,Users).charAt(0)))
-                                {
-
-                                    //From the person that is logged in
-                                    System.out.println(" Session_ID from Logs:" +msg.getSession_ID());
-                                    System.out.println("Message from me: " + Mess + " to " + recipients + "\n");
-
-                                    //Client is sender
-                                    //String messageformat = client.getName() + " : " + Mess
-                                    //Label label=new Label("guru ");
-                                    String messageFormat = "Me : " + Mess;
-                                    //message.setFont(Font.font("Verdana", FontWeight.MEDIUM, 14));
-                                    //message.setFill(Color.BLUE);
-                                    //label.getStylesheets().add("sample/styles/send.css");
-                                    //message.setId("receive");
-                                    //HBox hBox=new HBox();
-                                    //hBox.getChildren().add(message);
-                                    //hBox.setAlignment(Pos.CENTER_RIGHT);
-                                    //message.wrappingWidthProperty().bind(messageScroll.widthProperty().subtract(25));
-
-
-                                    messagesBox.add(messageFormat);
-                                    //messageScroll.getItems().clear();
-
-                                    messageScrollblank.getItems().add(messageFormat);
-
-                                    //messageScroll.getItems().addAll(messagesBox);
-                                    messageScrollblank.scrollTo(messagesBox.size()-1);
-
-                                }
-                                else
-                                {
-
-                                    //From anyone else but the person that is logged in
-                                    System.out.println(" Session_ID from Logs:" +msg.getSession_ID());
-                                    System.out.println("Message from " + Client + ": " + Mess + "\n");
-
-                                    //Client is receiver
-                                    String messageFormat = Client +" : " +Mess;
-                                    //label.getStylesheets().add("sample/styles/send.css");
-                                    //message.setFont(Font.font("Verdana", FontWeight.MEDIUM, 14));
-                                    //message.setFill(Color.RED);
-                                    //message.setId("send");
-                                    //HBox hBox=new HBox();
-                                    //hBox.getChildren().add(message);
-                                    //hBox.setAlignment(Pos.CENTER_LEFT);
-                                    // messagesBox.getChildren().add(message);
-                                    //message.wrappingWidthProperty().bind(messageScroll.widthProperty().subtract(25));
-                                    //messagesBox.setSpacing(10);
-
-                                    messagesBox.add(messageFormat);
-                                    //messageScroll.getItems().clear();
-
-                                    messageScrollblank.getItems().add(messageFormat);
-
-                                    //messageScroll.getItems().addAll(messagesBox);
-                                    messageScrollblank.scrollTo(messagesBox.size()-1);
-
-                                }
-                                //messageScroll.refresh();
-
-
-                                //messagesBox.getChildren().add(message);
-                                //messagesBox.getChildren().add()
-                            }
-                            //TODO: Extract Msg and create View Box for the Users for Terry
-                        }
-
-                    }catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } /*else if (change.wasRemoved()) {
-                    System.out.println(change.getRemoved().get(0)
-                            + " was removed from the list!");
-                }*/
+                    genScrollMessage(client, Users, handler, messagesBox, messageScroll);
+                }
             }
         });
-
-        //messageScroll.setPannable(true);
-        //messageScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-
-        //messagesBox.setPadding(new Insets(5,5,0,5));
-
-        //messageScroll.setFitToWidth(true);
-        //messageScroll.setContent(messagesBox);
-
-        //messageScroll.vvalueProperty().bind(messagesBox.heightProperty());
-
 
         //Actions for send button
         send.setOnAction(e -> {
             if (!entry.getText().equals("")) {
-                System.out.println("Message:" + entry.getText());
-                String entrystr = entry.getText();
-                //parse comma save as "[-c-]"
-                if(entrystr.contains(",")){
-                    entrystr = entrystr.replace(",","[-c-]");
-                }
-                Message m = new Message(client.getName(), Users, entry.getText().trim(),getSessionID(client,Users));
-                client.UpdateMessage(m);
-
-                String json = m.toJson();
-                String fileName = "json.csv";
-                File jsonF = new File(fileName);
-                jsonHandler j = new jsonHandler(fileName, json);
-                try {
-                    if (!jsonF.exists()) {
-                        j.generateHeader();
-                    }
-                    j.writeJson();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-                entry.clear();
-                System.out.println("Outputting to server: " + client.chatLog);
-
+                sendMessage(client, Users, entry);
             }
         });
 
         entry.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER && !entry.getText().trim().equals("")) {
                 //If there's a message sent, save it to json (no prob)
-                String entrystr = entry.getText();
-                System.out.println("Message:" + entrystr);
-                //parse comma save as "[-c-]"
-                if(entrystr.contains(",")){
-                    entrystr = entrystr.replace(",","[-c-]");
-                }
-                Message m = new Message(client.getName(), Users, entrystr.trim(),getSessionID(client,Users));
-                client.UpdateMessage(m);
-
-                String json = m.toJson();
-                String fileName = "json.csv";
-                File jsonF = new File(fileName);
-                jsonHandler j = new jsonHandler(fileName, json);
-                try {
-                    if (!jsonF.exists()) {
-                        j.generateHeader();
-                    }
-                    j.writeJson();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-                entry.clear();
-                System.out.println("Outputting to server: " + client.chatLog);
+                sendMessage(client, Users, entry);
+                e.consume();
             }
-            e.consume();
+
+            /** Handle delete with backspace */
+            else if(e.getCode()==KeyCode.BACK_SPACE && entry.getText().length()>0)
+            {
+                entry.setText(entry.getText().substring(0, entry.getText().length()-1));
+                entry.requestFocus();
+                entry.end();
+                e.consume();
+            }
+
         });
 
         // Actions for Image button
@@ -807,31 +553,42 @@ public class chatUI extends Application {
             imageImplement.show();
             return;
             //OutputStream os ;
-
-
         });
+        genScrollMessage(client, Users, handler, messagesBox, messageScroll);
 
+        entry.prefWidthProperty().bind(messageScroll.widthProperty().subtract(130));
 
+        //TODO: 2303 CHANGES
+        String chatTitle = "Chatting with ";
+        if(Users.size() == 1) chatTitle += Users.get(0);
+        else {
+            for (int i = 0; i < Users.size(); i++) {
+                if (i + 1 == Users.size()) chatTitle += "and " + Users.get(i);
+                else chatTitle += Users.get(i) + " ";
+            }
+        }
+        Text chattingWith = new Text(chatTitle);
+        //TODO: END 2303 CHANGES
+        chattingWith.setFont(Font.font("Verdana", FontWeight.MEDIUM, 17));
+        chattingWith.setFill(Color.WHITE);
+        pane.setTop(chattingWith);
+        pane.setCenter(messageScroll);
+        pane.setBottom(hbox);
+        return pane;
+    }
+
+    private void genScrollMessage(Client client, ArrayList<String> Users, jsonHandler handler, ArrayList<Text> messagesBox, ListView<Text> messageScroll) {
+        messageScroll.getItems().clear();
+        messagesBox.clear();
         try {
             for (Message msg : handler.filterCertainUsers(Users)) {
-
-
-
-                //TODO: Use Create History to read the past messages
-
-                //TODO: Check Messages
-
-
-                //System.out.println(item);
-                //TODO: Use Parser for reading through each item.
-
-
                 String Client = msg.getClientName();
                 String Mess = msg.getMessage();
                 if(Mess.contains("[-c-]")){
                     Mess = Mess.replace("[-c-]",",");
                 }
-                String user = Users.get(0);
+
+                //String user = Users.get(0);
                 ArrayList<String> recipients = msg.getUsers();
 
                 //System.out.println("Users:" + Users);
@@ -852,39 +609,17 @@ public class chatUI extends Application {
                     }
                 }
                 if (key) {
-                    //System.out.println("2We are communicating with Session: " + msg.getSession_ID() + " Client: " + Client + " and " + user + " Message: " + Mess);
-                    //String messageformat = client.getName() + ": " + entry.getText();
-                    //System.out.println(Mess);
-
-                    // message.setStyle("-fx-text-inner-color: yellow;");
-                    //Font font = new Font("Times New Roman", 10, Color.YELLOW)
-
-                    // TODO: Left and right message Text
-
+                    Text messageTextFormat;
                     if(msg.getSession_ID().charAt(0)==(getSessionID(client,Users).charAt(0)))
                     {
-
                         //From the person that is logged in
                         System.out.println(" Session_ID from Logs:" +msg.getSession_ID());
                         System.out.println("Message from me: " + Mess + " to " + recipients + "\n");
 
-                        //Client is sender
-                        //String messageformat = client.getName() + " : " + Mess
-                        //Label label=new Label("guru ");
-                        String messageFormat = "Me : " + Mess;
-                        //message.setFont(Font.font("Verdana", FontWeight.MEDIUM, 14));
-                        //message.setFill(Color.BLUE);
-                        //label.getStylesheets().add("sample/styles/send.css");
-                        //message.setId("receive");
-                        //HBox hBox=new HBox();
-                        //hBox.getChildren().add(message);
-                        //hBox.setAlignment(Pos.CENTER_RIGHT);
-                        //message.wrappingWidthProperty().bind(messageScroll.widthProperty().subtract(25));
+                        messageTextFormat = new Text("Me : " + Mess);
+                        messageTextFormat.setFill(pieColours[0]);
 
-                        messagesBox.add(messageFormat);
-                        messageScroll.getItems().clear();
-                        messageScroll.getItems().addAll(messagesBox);
-                        messageScroll.scrollTo(messagesBox.size()-1);
+
 
                     }
                     else
@@ -893,65 +628,46 @@ public class chatUI extends Application {
                         System.out.println(" Session_ID from Logs:" +msg.getSession_ID());
                         System.out.println("Message from " + Client + ": " + Mess + "\n");
 
-
                         //Client is receiver
-                        String messageFormat = Client +" : " +Mess;
-                        //label.getStylesheets().add("sample/styles/send.css");
-                        //message.setFont(Font.font("Verdana", FontWeight.MEDIUM, 14));
-                        //message.setFill(Color.RED);
-                        //message.setId("send");
-                        //HBox hBox=new HBox();
-                        //hBox.getChildren().add(message);
-                        //hBox.setAlignment(Pos.CENTER_LEFT);
-                       // messagesBox.getChildren().add(message);
-                        //message.wrappingWidthProperty().bind(messageScroll.widthProperty().subtract(25));
-                        //messagesBox.setSpacing(10);
-
-                        messagesBox.add(messageFormat);
-                        messageScroll.getItems().clear();
-                        messageScroll.getItems().addAll(messagesBox);
-                        messageScroll.scrollTo(messagesBox.size()-1);
-
+                        messageTextFormat = new Text(Client +" : " +Mess);
                     }
-                    //messageScroll.refresh();
-
-
-                    //messagesBox.getChildren().add(message);
-                    //messagesBox.getChildren().add()
+                    messageTextFormat.setFont(Font.font ("Verdana",FontWeight.LIGHT, 16));
+                    messagesBox.add(messageTextFormat);
+                    messageScroll.getItems().clear();
+                    messageScroll.getItems().addAll(messagesBox);
+                    messageScroll.scrollTo(messagesBox.size()-1);
                 }
-                //TODO: Extract Msg and create View Box for the Users for Terry
             }
 
         }catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
-        entry.prefWidthProperty().bind(messageScroll.widthProperty().subtract(130));
-/*
-        pane.add(listView,0,0);
-        pane.add(entry,0,3);
-        pane.add(send, 3,3);
-        pane.add(Image,3,4);
-        pane.add(Voice,3,5);
-*/
-
-        //TODO: 2303 CHANGES
-        String chatTitle = "Chatting with ";
-        if(Users.size() == 1) chatTitle += Users.get(0);
-        else {
-            for (int i = 0; i < Users.size(); i++) {
-                if (i + 1 == Users.size()) chatTitle += "and " + Users.get(i);
-                else chatTitle += Users.get(i) + " ";
-            }
+    private void sendMessage(Client client, ArrayList<String> Users, TextArea entry) {
+        String entrystr = entry.getText();
+        System.out.println("Message:" + entrystr);
+        //parse comma save as "[-c-]"
+        if(entrystr.contains(",")){
+            entrystr = entrystr.replace(",","[-c-]");
         }
-        Text chattingWith = new Text(chatTitle);
-        //TODO: END 2303 CHANGES
-        chattingWith.setFont(Font.font("Verdana", FontWeight.MEDIUM, 17));
-        chattingWith.setFill(Color.WHITE);
-        pane.setTop(chattingWith);
-        pane.setCenter(messageScroll);
-        pane.setBottom(hbox);
-        return pane;
+        Message m = new Message(client.getName(), Users, entry.getText().trim(),getSessionID(client,Users));
+        client.UpdateMessage(m);
+
+        String json = m.toJson();
+        String fileName = "json.csv";
+        File jsonF = new File(fileName);
+        jsonHandler j = new jsonHandler(fileName, json);
+        try {
+            if (!jsonF.exists()) {
+                j.generateHeader();
+            }
+            j.writeJson();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        entry.clear();
+        System.out.println("Outputting to server: " + client.chatLog);
     }
 
 
@@ -986,23 +702,35 @@ public class chatUI extends Application {
 
 
         Session_ID += left_id + right_id;
-        //System.out.println("From getSessionID, SessionID: " + Session_ID);
         return Session_ID;
 
 
     }
-
-    public  String reverse(String s)
-    {
-        String output = "";
-        for(int i = s.length()-1; i >= 0 ; i--)
-        {
-            output += s.charAt(i);
+    public String fileToString(String pathName) {
+        File f = new File(pathName);
+        Scanner input = null;
+        try {
+            input = new Scanner(f);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-        System.out.println("Reverse: " + output);
-        return  output;
+        String line = "";
+        while (input.hasNextLine()) {
+            line += input.nextLine() + "\n";
+        }
+        input.close();
+        return line;
     }
 
+    private Alert showAlert(Alert.AlertType alertType, Window owner, String title, String message)
+    {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.initOwner(owner);
+        return alert;
+    }
     //@Override
     public void start(Stage primaryStage) {
         //initMainPane();
@@ -1010,9 +738,5 @@ public class chatUI extends Application {
         primaryStage.setScene(LoginScene(primaryStage));
         primaryStage.setTitle("ChatsApp");
         primaryStage.show();
-
-
     }
-
-
 }
