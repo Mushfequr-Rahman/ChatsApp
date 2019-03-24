@@ -1,12 +1,30 @@
-# csci_2040_final_assignment
-Final assignment repository for CSCI 2040
+# CSCI_2040_final_assignment
+
+> Final assignment repository for CSCI 2040
 
 
-# IO SIDE 
+### Project Repository:
+https://github.com/Mushfequr-Rahman/csci_2040_final_assignment
+
+### Made by:
+- Mohammad Musfequr Rahman (github: )
+    - Contribution:
+
+- Naida Tania (github:)
+     - Contribution:
+
+- Cynthia Chang (github:)
+    - Contribution:
+
+- Terry Darmawan Hosea (github: terrydarmawan)
+    - Contribution:
+
+
+### IO SIDE
 
 (note: let's not use Firebase XD)
 
-## Registration
+### Registration
 - [x] Writing into CSV file (Auto-incremented ID, Email Address, Username, Password, TimeStamp)
 - [x] Validation:
     - Null value
@@ -20,16 +38,18 @@ Final assignment repository for CSCI 2040
 - [ ] Add column for profile image (?)
 
 
-## Login 
+### Login
 - [x] Username/email validation
 - [x] Password validation
 
 
 
-## Chat (TBC)
-- [ ] Backup of history
+### Chat (TBC)
+- [x] History backup (Saved into CSV file)
+- [x] One on one chat
+- [x] Group chat
 
-# Server Side
+### Server Side
 
 
-# Client Side
+### Client Side
