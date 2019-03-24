@@ -153,6 +153,7 @@ public class log_in extends Application {
                         String[] words = s.nextLine().split(",");
                         if(nameField.getText().equals(words[1]) && passwordField.getText().equals(words[3])){
                             key = true;
+                            nameField.setText(words[2]); //set to username
                         }
                     }
                 }

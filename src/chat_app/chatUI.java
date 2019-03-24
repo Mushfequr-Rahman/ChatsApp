@@ -10,6 +10,8 @@ import chat_app.server.User;
 import chat_app.server.messagetype;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -28,6 +30,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -42,6 +45,7 @@ import javafx.stage.Window;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.util.Callback;
 
 
 public class chatUI extends Application {
@@ -168,6 +172,7 @@ public class chatUI extends Application {
                         String[] words = s.nextLine().split(",");
                         if (nameField.getText().equals(words[1]) && passwordField.getText().equals(words[3])) {
                             key = true;
+                            nameField.setText(words[2]); //set to username
                         }
                     }
                 } else {
@@ -300,7 +305,85 @@ public class chatUI extends Application {
         Label addContactLabel = new Label("Enter User ID:", addUserIDField);
         addContactLabel.setContentDisplay(ContentDisplay.BOTTOM);
 
-        contactPane.getChildren().addAll(addContactLabel, listView);
+        //addUserIDField.prefWidthProperty().bind(listView.widthProperty());
+        contactPane.getChildren().add(addContactLabel);
+
+        //TODO: 2303 CHANGES
+        //make a button that allows adding members to group
+        Button grp = new Button("Add Group");
+        Button setgrp = new Button("Set Group Chat");
+        contactPane.getChildren().addAll(grp,setgrp);
+
+        contactPane.getChildren().add(listView);
+
+        //Create a list for users selected into groups
+        List<String> selected = new ArrayList<>();
+
+
+
+        grp.setOnAction(e->{
+
+            //Add checkbox to each cell
+            listView.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>() {
+                @Override
+                public ObservableValue<Boolean> call(String item) {
+                    BooleanProperty observable = new SimpleBooleanProperty();
+                    observable.addListener((obs, wasSelected, isNowSelected) -> {
+                                if(isNowSelected) {
+                                    Boolean k = true;
+                                    for(String name:selected){
+                                        if(name.equals(item.trim())){
+                                            System.out.println("You're false????");
+                                            k = false;
+                                        }
+                                    }
+                                    if(k) selected.add(item.trim());
+                                    System.out.println(item + " is selected");
+                                }
+                                else{
+                                    selected.remove(item.trim());
+                                    System.out.println(item + " is NOT selected");
+                                }
+                            }
+                    );
+                    return observable ;
+                }
+            }));
+
+
+            System.out.println("Size of selected:" + selected.size());
+            //System.out.println("Selected users are:");
+            //for(String n:selected){
+                //System.out.print(n);
+            //}
+        });
+
+
+        setgrp.setOnAction(e->{
+            ArrayList<String> Users = new ArrayList<>();
+            //If no user is selected, don't do anything
+            if(selected.size() < 1){return;}
+            else if(selected.size() == 1){ //if only 1 user is selected, fetch pane with that user
+                Users.add(selected.get(0)); //Get the only other person there
+                System.out.println(">>> Chatting With:" + selected.get(0));
+                mainPane.setCenter(getChatPane(client, Users));
+            }
+            else {
+                //if multiple user is selected, pane generate yadda yadda
+                for (String u : selected) Users.add(u);
+                mainPane.setCenter(getChatPane(client, Users));
+                Users = new ArrayList<>();
+            }
+            contactPane.getChildren().remove(grp);
+            //selected.clear();
+            //listView.getItems().clear();
+            //listView.getItems().addAll(contacts);
+
+
+        });
+
+
+        //TODO: END OF 2303 CHANGES
 
         /**chatBox properties */
 
@@ -331,6 +414,8 @@ public class chatUI extends Application {
                     ArrayList<String> Users = new ArrayList<>();
                     Users.add(name);
                     mainPane.setCenter(getChatPane(client, Users));
+                    //THIS CAUSES THINGS TO BE SLIIIIIGHTLY BUGGY in terms of checkbox vs textfield select, BUT IT'S THE LEAST BUGGY OF THEM ALL XD
+                    selected.clear();
                 });
 
         /**Event handlings */
@@ -396,9 +481,10 @@ public class chatUI extends Application {
                         if (addUserIDField.getText().equals(word[2])) {
                             System.out.println("User " + addUserIDField.getText() + " added.");
                             //addContact(addUserIDField.getText(),contacts);
-                            contacts.add(addUserIDField.getText());
-                            listView.getItems().clear();
-                            listView.getItems().addAll(contacts);
+                            //contacts.add(addUserIDField.getText());
+                            selected.clear();
+                            listView.getItems().add(addUserIDField.getText());
+                            //listView.getItems().addAll(contacts);
                             addUserIDField.clear();
                             break;
                         }
@@ -500,6 +586,8 @@ public class chatUI extends Application {
             while (change.next()) {
                 if (change.wasAdded())
                 {
+                    ListView<String> messageScrollblank = new ListView<>();
+                    pane.setCenter(messageScrollblank);
                     try {
                         for (Message msg : handler.filterCertainUsers(Users)) {
 
@@ -514,16 +602,31 @@ public class chatUI extends Application {
 
                             String Client = msg.getClientName();
                             String Mess = msg.getMessage();
+                            if(Mess.contains("[-c-]")){
+                                Mess = Mess.replace("[-c-]",",");
+                            }
                             String user = Users.get(0);
                             ArrayList<String> recipients = msg.getUsers();
-                            String Recepient = recipients.get(0);
 
-                            System.out.println(" Session_ID from Logs:" +msg.getSession_ID());
-                            System.out.println("Users:" + Users);
+                            //System.out.println("Users:" + Users);
 
+                            //TODO: 2303 CHANGES
+                            //let's first parse the 'x' out
+                            //and then we use for loop to check each one
+                            String[] msgsessionIDx_parsed = msg.getSession_ID().trim().split("x");
+                            String cursessionID = getSessionID(client, Users);
+                            String[] cursessionID_parsed = getSessionID(client, Users).trim().split("x");
 
-                            if (msg.getSession_ID().trim().equals(getSessionID(client, Users)) || msg.getSession_ID().trim().equals(reverse(getSessionID(client, Users)))) {
-                                System.out.println(" We are communicating with Session: " + msg.getSession_ID() + " Client: " + Client + " and " + user + " Message: " + Mess);
+                            Boolean key = true;
+                            for(String id:msgsessionIDx_parsed){
+                                if(cursessionID_parsed.length != msgsessionIDx_parsed.length || !cursessionID.contains(id)){
+                                    key=false;
+                                    break;
+                                }
+                            }
+
+                            if (key) {
+                                //System.out.println("1We are communicating with Session: " + msg.getSession_ID() + " Client: " + Client + " and " + user + " Message: " + Mess);
                                 //String messageformat = client.getName() + ": " + entry.getText();
                                 //System.out.println(Mess);
 
@@ -534,6 +637,11 @@ public class chatUI extends Application {
 
                                 if(msg.getSession_ID().charAt(0)==(getSessionID(client,Users).charAt(0)))
                                 {
+
+                                    //From the person that is logged in
+                                    System.out.println(" Session_ID from Logs:" +msg.getSession_ID());
+                                    System.out.println("Message from me: " + Mess + " to " + recipients + "\n");
+
                                     //Client is sender
                                     //String messageformat = client.getName() + " : " + Mess
                                     //Label label=new Label("guru ");
@@ -547,16 +655,25 @@ public class chatUI extends Application {
                                     //hBox.setAlignment(Pos.CENTER_RIGHT);
                                     //message.wrappingWidthProperty().bind(messageScroll.widthProperty().subtract(25));
 
+
                                     messagesBox.add(messageFormat);
-                                    messageScroll.getItems().clear();
-                                    messageScroll.getItems().addAll(messagesBox);
-                                    messageScroll.scrollTo(messagesBox.size()-1);
+                                    //messageScroll.getItems().clear();
+
+                                    messageScrollblank.getItems().add(messageFormat);
+
+                                    //messageScroll.getItems().addAll(messagesBox);
+                                    messageScrollblank.scrollTo(messagesBox.size()-1);
 
                                 }
                                 else
                                 {
+
+                                    //From anyone else but the person that is logged in
+                                    System.out.println(" Session_ID from Logs:" +msg.getSession_ID());
+                                    System.out.println("Message from " + Client + ": " + Mess + "\n");
+
                                     //Client is receiver
-                                    String messageFormat = Recepient+" : " +Mess;
+                                    String messageFormat = Client +" : " +Mess;
                                     //label.getStylesheets().add("sample/styles/send.css");
                                     //message.setFont(Font.font("Verdana", FontWeight.MEDIUM, 14));
                                     //message.setFill(Color.RED);
@@ -569,9 +686,12 @@ public class chatUI extends Application {
                                     //messagesBox.setSpacing(10);
 
                                     messagesBox.add(messageFormat);
-                                    messageScroll.getItems().clear();
-                                    messageScroll.getItems().addAll(messagesBox);
-                                    messageScroll.scrollTo(messagesBox.size()-1);
+                                    //messageScroll.getItems().clear();
+
+                                    messageScrollblank.getItems().add(messageFormat);
+
+                                    //messageScroll.getItems().addAll(messagesBox);
+                                    messageScrollblank.scrollTo(messagesBox.size()-1);
 
                                 }
                                 //messageScroll.refresh();
@@ -608,6 +728,11 @@ public class chatUI extends Application {
         send.setOnAction(e -> {
             if (!entry.getText().equals("")) {
                 System.out.println("Message:" + entry.getText());
+                String entrystr = entry.getText();
+                //parse comma save as "[-c-]"
+                if(entrystr.contains(",")){
+                    entrystr = entrystr.replace(",","[-c-]");
+                }
                 Message m = new Message(client.getName(), Users, entry.getText().trim(),getSessionID(client,Users));
                 client.UpdateMessage(m);
 
@@ -631,8 +756,14 @@ public class chatUI extends Application {
 
         entry.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER && !entry.getText().trim().equals("")) {
-                System.out.println("Message:" + entry.getText());
-                Message m = new Message(client.getName(), Users, entry.getText().trim(),getSessionID(client,Users));
+                //If there's a message sent, save it to json (no prob)
+                String entrystr = entry.getText();
+                System.out.println("Message:" + entrystr);
+                //parse comma save as "[-c-]"
+                if(entrystr.contains(",")){
+                    entrystr = entrystr.replace(",","[-c-]");
+                }
+                Message m = new Message(client.getName(), Users, entrystr.trim(),getSessionID(client,Users));
                 client.UpdateMessage(m);
 
                 String json = m.toJson();
@@ -680,8 +811,11 @@ public class chatUI extends Application {
 
         });
 
+
         try {
             for (Message msg : handler.filterCertainUsers(Users)) {
+
+
 
                 //TODO: Use Create History to read the past messages
 
@@ -694,16 +828,31 @@ public class chatUI extends Application {
 
                 String Client = msg.getClientName();
                 String Mess = msg.getMessage();
+                if(Mess.contains("[-c-]")){
+                    Mess = Mess.replace("[-c-]",",");
+                }
                 String user = Users.get(0);
                 ArrayList<String> recipients = msg.getUsers();
-                String Recepient = recipients.get(0);
 
-                System.out.println(" Session_ID from Logs:" +msg.getSession_ID());
-                System.out.println("Users:" + Users);
+                //System.out.println("Users:" + Users);
 
+                //TODO: 2303 CHANGES
+                //let's first parse the 'x' out
+                //and then we use for loop to check each one
+                String[] msgsessionIDx_parsed = msg.getSession_ID().trim().split("x");
+                String cursessionID = getSessionID(client, Users);
+                String[] cursessionID_parsed = getSessionID(client, Users).trim().split("x");
+                //System.out.println("From getSessionID, SessionID: " + cursessionID);
 
-                if (msg.getSession_ID().trim().equals(getSessionID(client, Users)) || msg.getSession_ID().trim().equals(reverse(getSessionID(client, Users)))) {
-                    System.out.println(" We are communicating with Session: " + msg.getSession_ID() + " Client: " + Client + " and " + user + " Message: " + Mess);
+                Boolean key = true;
+                for(String id:msgsessionIDx_parsed){
+                    if(cursessionID_parsed.length != msgsessionIDx_parsed.length || !cursessionID.contains(id)){
+                        key=false;
+                        break;
+                    }
+                }
+                if (key) {
+                    //System.out.println("2We are communicating with Session: " + msg.getSession_ID() + " Client: " + Client + " and " + user + " Message: " + Mess);
                     //String messageformat = client.getName() + ": " + entry.getText();
                     //System.out.println(Mess);
 
@@ -714,6 +863,11 @@ public class chatUI extends Application {
 
                     if(msg.getSession_ID().charAt(0)==(getSessionID(client,Users).charAt(0)))
                     {
+
+                        //From the person that is logged in
+                        System.out.println(" Session_ID from Logs:" +msg.getSession_ID());
+                        System.out.println("Message from me: " + Mess + " to " + recipients + "\n");
+
                         //Client is sender
                         //String messageformat = client.getName() + " : " + Mess
                         //Label label=new Label("guru ");
@@ -735,8 +889,13 @@ public class chatUI extends Application {
                     }
                     else
                     {
+                        //From anyone else but the person that is logged in
+                        System.out.println(" Session_ID from Logs:" +msg.getSession_ID());
+                        System.out.println("Message from " + Client + ": " + Mess + "\n");
+
+
                         //Client is receiver
-                        String messageFormat = Recepient+" : " +Mess;
+                        String messageFormat = Client +" : " +Mess;
                         //label.getStylesheets().add("sample/styles/send.css");
                         //message.setFont(Font.font("Verdana", FontWeight.MEDIUM, 14));
                         //message.setFill(Color.RED);
@@ -775,7 +934,18 @@ public class chatUI extends Application {
         pane.add(Image,3,4);
         pane.add(Voice,3,5);
 */
-        Text chattingWith = new Text("Chatting with " + Users.get(0));
+
+        //TODO: 2303 CHANGES
+        String chatTitle = "Chatting with ";
+        if(Users.size() == 1) chatTitle += Users.get(0);
+        else {
+            for (int i = 0; i < Users.size(); i++) {
+                if (i + 1 == Users.size()) chatTitle += "and " + Users.get(i);
+                else chatTitle += Users.get(i) + " ";
+            }
+        }
+        Text chattingWith = new Text(chatTitle);
+        //TODO: END 2303 CHANGES
         chattingWith.setFont(Font.font("Verdana", FontWeight.MEDIUM, 17));
         chattingWith.setFill(Color.WHITE);
         pane.setTop(chattingWith);
@@ -816,7 +986,7 @@ public class chatUI extends Application {
 
 
         Session_ID += left_id + right_id;
-        System.out.println("From getSessionID, SessionID: " + Session_ID);
+        //System.out.println("From getSessionID, SessionID: " + Session_ID);
         return Session_ID;
 
 

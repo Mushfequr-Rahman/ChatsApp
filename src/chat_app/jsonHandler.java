@@ -76,6 +76,8 @@ public class jsonHandler {
 
         ArrayList<Message> m = new ArrayList<>();
 
+
+
         Scanner input = new Scanner(new File(fileName));
         String data = "";
         while(input.hasNextLine()) {
@@ -87,8 +89,15 @@ public class jsonHandler {
         Boolean key = true;
         while(s.hasNextLine()) {
             String[] datas = s.nextLine().split(",");
+            //System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> datas:");
+            //for(String d:datas) System.out.print(d + " !!! ");
             for (String u : Users) {
-                if (datas[1].contains(u)) key = false;
+                //System.out.println("User: " + u);
+                //System.out.println("datas[1]" + datas[2]);
+                if (datas[1].contains(u)) {
+                    //System.out.println("Entering whatever this is");
+                    key = false;
+                }
             }
             //String client, ArrayList<String> user, String message
             if(key) {
