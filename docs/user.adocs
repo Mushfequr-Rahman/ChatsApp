@@ -1,0 +1,72 @@
+= ChatsApp - User Guide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/Mushfequr-Rahman/csci_2040_final_assignment
+
+By: `CSCI2020U Group 19`      Since: `Mar 2019`
+
+== Introduction
+
+ChatsApp is a instant text messaging application designed for communication between one to many users. If you want a messaging application that is simple and easy-to-use, then ChatsApp is for you!
+
+== Downloads
+You can download our application through any of these methods.
+
+=== .jar file
+.  Ensure you have Java version `9` or later installed in your computer.
+.  Download the latest `chatsapp.jar` link:#[here].
+.  Copy the file to the folder you want to use as the home folder for the application.
+.  Double-click the file to start the app. The Graphical User Inteface (GUI) should appear in a few seconds.
+
+=== .zip file
+. Ensure you have IntelliJ IDEA installed in your computer.
+. Download the latest zip folder. link:https://github.com/Mushfequr-Rahman/csci_2040_final_assignment[here].
+. Open the `csci_2040_final_assignment` project on IntelliJ IDEA.
+. Go to *File* -> *Project Structure*. Under *Project Setting* -> *Project*, make sure your *Project SDK* is set to `1.8` and your *Project Language Level* is set to `8 - Lambdas, type annotations etc.`.
+. Now select *Project Setting* -> *Modules* and also make sure that your *Project Language Level* is set to `8 - Lambdas, type annotations etc.`.
+. First, run `ServerTest`.
+. Next, run `ChatUI`.
+
+//image::zip.png[width="800"]
+
+== Features
+=== Registration
+New user can create a new account by clicking the register button. You will be redirected to the registration page where you can fill out your informations and hit the register button. There are certain rules to keep in mind:
+
+* *Username*
+**  Username has to be 8 - 20 characters long.
+** You cannot register using existing usernames.
+** Username cannot contain certain special characters such as `,` `.` `_`.
+* *Password*
+** Password has to be 8 - 20 characters long.
+** Password must be entered correctly twice.
+* *Email*
+** Email addressed enter must be valid (e.g 'aaa.com' would be considered invalid).
+
+=== Login
+Once registered, you can log in to your chat account using either your *username* or your *email* and your *password*.
+
+=== Adding User
+As a logged-in user, you will see the chat window displayed on your screen. To begin chatting with someone, enter a username on *Enter User ID field* and hit `[ENTER]`. If the username is valid (a registed user), you will see the username being added into your list of friends that is right below.
+
+=== Start a Chat
+Just click on any of the user in your list of friends, and you can immediately start chatting! You will see any chat log that you may have with that person.
+
+Now all you need to do is to enter the message that you want to send in the text field at the bottom of the window. Once you are ready to send it, hit `[ENTER]` or click the send button to the right of the textfield, and your message will be sent instantly.
+
+
+=== Creating Group Chat
+If you want to talk to more than 1 person, click `Add Group` button on the top right of the window. You will see the names of the friends that you have added to the list appear at the bottom of the window. 
+
+Tick the names of the members that you want to add to the group chat. Once you are satisfied with your selection, click `Set Group Chat` and a new chat window will be created for your group! 
+
+This group chat will be added to your list of friends on the rightside of the window. This way, you can easily toggle between the various group chat sessions that you have!
