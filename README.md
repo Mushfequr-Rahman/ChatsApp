@@ -11,6 +11,5 @@ __*ChatsApp*__ is an application that allows multiple users to easily communicat
 - Chat history is available for future sessions
 
 ## Site Map
-- User Guide
-- [Developer Guide](https://github.com/Mushfequr-Rahman/csci_2040_final_assignment/blob/master/docs/user.adocs)
+- [User Guide](https://github.com/Mushfequr-Rahman/csci_2040_final_assignment/blob/master/docs/user.adocs)
 - [About Us](https://github.com/Mushfequr-Rahman/csci_2040_final_assignment/blob/master/docs/about.adoc)
