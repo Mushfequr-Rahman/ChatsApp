@@ -194,3 +194,8 @@
     -fx-font-family: Serif;
     -fx-font-weight: bold;
 }
+
+/* changes styling of groupchat checkboxes*/
+.check-box {
+    -fx-text-fill: white;
+}

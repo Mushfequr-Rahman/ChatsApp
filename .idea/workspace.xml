@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Merge branch 'master' of https://github.com/Mushfequr-Rahman/csci_2040_final_assignment&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;out/production/csci_2040_final_assignment/chat_app/chatUI.class&#10;#&#9;src/chat_app/chatUI.java">
-      <change beforePath="$PROJECT_DIR$/src/chat_app/register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chat_app/register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/chatUI$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/chatUI$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/chatUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/csci_2040_final_assignment/chat_app/chatUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chat.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/chat.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chat_app/chatUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chat_app/chatUI.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -59,11 +64,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/chat_app/chatUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
+            <state relative-caret-position="163">
+              <caret line="321" selection-start-line="321" selection-end-line="321" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#8622#8630#0" expanded="true" />
@@ -83,11 +88,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/chat_app/register.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
-              <caret line="101" column="44" selection-start-line="101" selection-start-column="44" selection-end-line="101" selection-end-column="44" />
+              <caret line="101" column="46" lean-forward="true" selection-start-line="101" selection-start-column="46" selection-end-line="101" selection-end-column="46" />
               <folding>
                 <element signature="e#813#814#0" expanded="true" />
                 <element signature="e#841#842#0" expanded="true" />
@@ -108,8 +113,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/chat.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="195" column="1" selection-start-line="195" selection-start-column="1" selection-end-line="195" selection-end-column="1" />
+            <state relative-caret-position="230">
+              <caret line="197" column="44" selection-start-line="197" selection-start-column="44" selection-end-line="197" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -185,9 +190,9 @@
         <option value="$PROJECT_DIR$/src/chat_app/server/Client.java" />
         <option value="$PROJECT_DIR$/src/chat_app/jsonHandler.java" />
         <option value="$PROJECT_DIR$/src/chat_app/log_in.java" />
+        <option value="$PROJECT_DIR$/src/chat_app/register.java" />
         <option value="$PROJECT_DIR$/src/chat.css" />
         <option value="$PROJECT_DIR$/src/chat_app/chatUI.java" />
-        <option value="$PROJECT_DIR$/src/chat_app/register.java" />
       </list>
     </option>
   </component>
@@ -240,7 +245,7 @@
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553477532149" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553478586694" />
     <property name="dynamic.classpath" value="false" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="D:/csci_2040_final_assignment" />
@@ -512,7 +517,7 @@
       <window_info anchor="bottom" id="Changes" order="12" />
       <window_info anchor="bottom" id="Profiler" order="13" />
       <window_info anchor="bottom" id="Event Log" order="14" weight="0.32867134" />
-      <window_info anchor="bottom" id="Messages" order="15" weight="0.23915462" />
+      <window_info anchor="bottom" id="Messages" order="15" weight="0.23776224" />
       <window_info anchor="bottom" id="Terminal" order="16" weight="0.32834226" />
       <window_info anchor="right" id="Maven" order="0" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
@@ -746,23 +751,21 @@
     <entry file="file://$PROJECT_DIR$/Database.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/chat.css">
+    <entry file="file://$PROJECT_DIR$/src/chat_app/register.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="195" column="1" selection-start-line="195" selection-start-column="1" selection-end-line="195" selection-end-column="1" />
+        <state relative-caret-position="238">
+          <caret line="101" column="46" lean-forward="true" selection-start-line="101" selection-start-column="46" selection-end-line="101" selection-end-column="46" />
+          <folding>
+            <element signature="e#813#814#0" expanded="true" />
+            <element signature="e#841#842#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/chat_app/chatUI.java">
+    <entry file="file://$PROJECT_DIR$/src/chat.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#8622#8630#0" expanded="true" />
-            <element signature="e#9839#9847#0" expanded="true" />
-            <element signature="e#19991#19997#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="230">
+          <caret line="197" column="44" selection-start-line="197" selection-start-column="44" selection-end-line="197" selection-end-column="44" />
         </state>
       </provider>
     </entry>
@@ -773,13 +776,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/chat_app/register.java">
+    <entry file="file://$PROJECT_DIR$/src/chat_app/chatUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="101" column="44" selection-start-line="101" selection-start-column="44" selection-end-line="101" selection-end-column="44" />
+        <state relative-caret-position="163">
+          <caret line="321" selection-start-line="321" selection-end-line="321" />
           <folding>
-            <element signature="e#813#814#0" expanded="true" />
-            <element signature="e#841#842#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#8622#8630#0" expanded="true" />
+            <element signature="e#9839#9847#0" expanded="true" />
+            <element signature="e#19991#19997#0" expanded="true" />
           </folding>
         </state>
       </provider>

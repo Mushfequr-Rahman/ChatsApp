@@ -319,8 +319,7 @@ public class chatUI extends Application {
                 hbox.getChildren().add(c);
             }
 
-            Button setgroup = new Button(" Set Group");
-            setgroup.setOnAction(event -> {
+            setgrp.setOnAction(event -> {
 
                 System.out.println("Creating group conversation with:" + group_members);
                 //TODO: Update contact ListView
@@ -385,9 +384,6 @@ public class chatUI extends Application {
 
 
             });
-
-            hbox.getChildren().add(setgroup);
-
 
             mainPane.setBottom(hbox);
 
