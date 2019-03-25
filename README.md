@@ -1,7 +1,7 @@
 # <img align="left" width="45" height="45" src="https://drive.google.com/uc?export=view&id=199P9Emecj4hx9biZm4OITzwXwNOLh3P5"> ChatsApp: Instant Text Messenger
 
 
-__*ChatsApp*__ is an application that allows multiple users to easily communicate through locally hosted server. ChatsApp allows messages to be sent in both 1 to 1 as well as in a group environment.
+__*ChatsApp*__ is an application that allows multiple users to easily communicate through a locally hosted server. ChatsApp allows for different types of conversation, whether it is in a private setting between two users or in a group setting.
 
 
 ## Features
