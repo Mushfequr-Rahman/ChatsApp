@@ -178,6 +178,7 @@
     -fx-font-family: Serif;
 }
 
+/* changes styling of alert window button*/
 .dialog-pane .button{
     -fx-background-color: linear-gradient(lightgrey, gray);
     -fx-font-family: Serif;
