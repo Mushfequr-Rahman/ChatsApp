@@ -6,6 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+
+//Serilazable Message class that is used store the Message format and convert to JSON for transmiting via Server Log
+
 public class Message implements Serializable
 {
     public Message(String client, ArrayList<String> user, String message) {
@@ -26,6 +29,8 @@ public class Message implements Serializable
 
     public String toJson()
     {
+
+        //JSON FORMAT: {Client: client, Session : Session ID, Users: {} , Message: message, MessageType: MessageType , TimestampL timestamp }
         String output = "{";
         output += String.format("Client:" + Client + ",");
         output += String.format("Session:" + Session_ID + ",");

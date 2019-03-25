@@ -11,6 +11,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -277,55 +278,120 @@ public class chatUI extends Application {
 
         grp.setOnAction(e->{
 
-            //Add checkbox to each cell
-            contactListView.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>() {
-                @Override
-                public ObservableValue<Boolean> call(String item) {
-                    BooleanProperty observable = new SimpleBooleanProperty();
-                    observable.addListener((obs, wasSelected, isNowSelected) -> {
-                                if(isNowSelected) {
-                                    Boolean k = true;
-                                    for(String name:selected){
-                                        if(name.equals(item.trim())){
-                                            System.out.println("You're false????");
-                                            k = false;
-                                        }
-                                    }
-                                    if(k) selected.add(item.trim());
-                                    System.out.println(item + " is selected");
-                                }
-                                else{
-                                    selected.remove(item.trim());
-                                    System.out.println(item + " is NOT selected");
-                                }
-                            }
-                    );
-                    return observable ;
+
+
+            HBox hbox   = new HBox();
+            System.out.println(contactListView.getItems());
+            ArrayList<String> group_members = new ArrayList<>();
+            ObservableList<String> current_contacts = contactListView.getItems();
+
+
+            for(String contact: current_contacts)
+            {
+                System.out.println("Creating new CheckBox with:"+ contact);
+                if(contact.contains(","))
+                {
+                    continue;
                 }
-            }));
+                CheckBox c = new CheckBox(contact);
+
+                EventHandler<ActionEvent> event_1 = new EventHandler<ActionEvent>() {
+
+                    public void handle(ActionEvent e)
+                    {
+                        if (c.isSelected()) {
+                            group_members.add(c.getText());
+                            System.out.println("Adding to group chat:" + c.getText());
+                        }
+                        else {
+                            group_members.remove(group_members.indexOf(c.getText()));
+                            System.out.println("Names selcted:" + c.getText());
+                        }
+                    }
+
+                };
+                c.setOnAction(event_1);
+
+                hbox.getChildren().add(c);
+            }
+
+            Button setgroup = new Button(" Set Group");
+            setgroup.setOnAction(event -> {
+
+                System.out.println("Creating group conversation with:" + group_members);
+                //TODO: Update contact ListView
+                String new_contact = "";
+                for(String c : group_members)
+                {
+                     new_contact += String.format(c+",");
+                }
+                StringBuilder sb =new StringBuilder( new_contact);
+                sb.deleteCharAt(new_contact.length()-1);
+                new_contact = sb.toString();
+
+                System.out.println("Adding new contact: " + new_contact);
+                boolean Present = true;
+                boolean lengthmatch = false;
+                int match = 0;
+                for(String item : current_contacts)
+                {
+                    String[] new_contacts = new_contact.split(",");
+
+                    String[] old_contacts = item.split(",");
 
 
-            System.out.println("Size of selected:" + selected.size());
+                    System.out.println("NEW CONTACT LENGTH: "+ new_contacts.length);
+                    System.out.println("Item " + item);
+                    System.out.println("ITEM LENGTH: " + old_contacts.length);
+                  if(new_contacts.length==old_contacts.length) {
+                      match = 0;
+                      lengthmatch = true;
+                      for (String groupmember : group_members) {
+                          System.out.println("Group members: " + groupmember);
+                          if(item.contains(groupmember))
+                          {
+                              match++;
+                              System.out.println(">>>>>>>>>>>>>>>>>> PRESENT IS FALSE WOOOOOOO");
+                              System.out.println("MAtch:" + match);
+                              Present = false;
+
+
+                              //break;
+                          }
+
+                      }
+                      if(match == new_contacts.length){
+                          Present = true;
+                          lengthmatch = true;
+                          break;
+                      }
+                  }
+
+                }
+                if(!Present || !lengthmatch)
+                {
+                    current_contacts.add(new_contact);
+                    contactListView.setItems(current_contacts);
+                }
+
+
+                mainPane.setCenter(getChatPane(client,group_members));
+                mainPane.setBottom(null);
+
+
+
+            });
+
+            hbox.getChildren().add(setgroup);
+
+
+            mainPane.setBottom(hbox);
+
+
+
         });
 
 
-        setgrp.setOnAction(e->{
-            ArrayList<String> Users = new ArrayList<>();
-            //If no user is selected, don't do anything
-            if(selected.size() < 1){return;}
-            else if(selected.size() == 1){ //if only 1 user is selected, fetch pane with that user
-                Users.add(selected.get(0)); //Get the only other person there
-                System.out.println(">>> Chatting With:" + selected.get(0));
-                mainPane.setCenter(getChatPane(client, Users));
-            }
-            else {
-                //if multiple user is selected, pane generate yadda yadda
-                for (String u : selected) Users.add(u);
-                mainPane.setCenter(getChatPane(client, Users));
-                Users = new ArrayList<>();
-            }
-            contactPane.getChildren().remove(grp);
-        });
 
 
         //TODO: END OF 2303 CHANGES
@@ -347,9 +413,23 @@ public class chatUI extends Application {
         contactListView.getSelectionModel().selectedItemProperty().addListener(
                 ov -> {
                     String name = contactListView.getSelectionModel().getSelectedItem();
-                    System.out.println("Chatting With:" + name);
+                    //parsing the String from
                     ArrayList<String> Users = new ArrayList<>();
-                    Users.add(name);
+                    if(name.contains(","))
+                    {
+                        for(String val: name.split(","))
+                        {
+                            Users.add(val);
+                        }
+
+                    }
+                    else
+                    {
+                        Users.add(name);
+                    }
+                    System.out.println("Chatting With:" + Users);
+
+
                     mainPane.setCenter(getChatPane(client, Users));
                     //THIS CAUSES THINGS TO BE SLIIIIIGHTLY BUGGY in terms of checkbox vs textfield select, BUT IT'S THE LEAST BUGGY OF THEM ALL XD
                     selected.clear();

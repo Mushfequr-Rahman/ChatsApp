@@ -26,6 +26,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
+//Application to start the Server for the painatainace of the log.
+
+
 public class ServerTest extends Application {
     public static ArrayList<Thread> threads;
     public static void main(String[] args){

@@ -22,7 +22,6 @@ public class Client implements Runnable {
     private PrintWriter clientToServerWriter;
     private String name;
     public ObservableList<String> chatLog;
-    public  ObservableList<Message> LOG;
 
     public Client(String hostName, int portNumber, String name) throws UnknownHostException, IOException {
 
@@ -34,7 +33,6 @@ public class Client implements Runnable {
         clientToServerWriter = new PrintWriter(
                 clientSocket.getOutputStream(), true);
         chatLog = FXCollections.observableArrayList();
-        LOG = FXCollections.observableArrayList();
         /* Send name data to the server */
         this.name = name;
         clientToServerWriter.println(name);
@@ -75,7 +73,6 @@ public class Client implements Runnable {
                 Platform.runLater(new Runnable() {
                     public void run() {
                         chatLog.add(inputFromServer);
-                        //LOG.add(inputFromServer);
                     }
                 });
 
