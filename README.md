@@ -12,5 +12,5 @@ __*ChatsApp*__ is an application that allows multiple users to easily communicat
 
 ## Site Map
 - User Guide
-- Developer Guide
+- [Developer Guide](https://github.com/Mushfequr-Rahman/csci_2040_final_assignment/blob/master/docs/user.adocs)
 - [About Us](https://github.com/Mushfequr-Rahman/csci_2040_final_assignment/blob/master/docs/about.adoc)
