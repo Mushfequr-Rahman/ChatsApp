@@ -1,0 +1,38 @@
+= About us
+:imagesDir: images
+
+*ChatsApp* was developed for *CSCI2020U: Software Development and Integration* in https://uoit.ca/[University of Ontario, Institute of Technology]
+
+== Team Members
+
+=== Mohammad Mushfequr Rahman
+image::m.png[width="150", align="left"]
+https://github.com/Mushfequr-Rahman[github]
+
+Responsibilities: Server maintenance and modification
+
+'''
+
+=== Naida Tania
+image::n.png[width="150", align="left"]
+{empty}https://github.com/NaidaTania[github]
+
+Responsibilities: File IO and verification
+
+'''
+
+=== Cynthia Chang
+image::c.png[width="150", align="left"]
+{empty}https://github.com/Cynthia248[github]
+
+Responsibilities: Graphic User Interface
+
+'''
+
+=== Terry Darmawan Hosea
+image::t.png[width="150", align="left"]
+{empty}https://github.com/terrydarmawan[github]
+
+Responsibilities: Front-end Developer
+
+'''
