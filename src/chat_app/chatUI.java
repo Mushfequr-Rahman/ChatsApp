@@ -713,7 +713,7 @@ public class chatUI extends Application {
         return Session_ID;
     }
 
-    public String fileToString(String pathName) {
+    public static String fileToString(String pathName) {
         File f = new File(pathName);
         Scanner input = null;
         try {

@@ -71,70 +71,29 @@ public class jsonHandler {
 
 
     //NOT TESTED (need Add UserID)
-    ArrayList<Message> filterCertainUsers(ArrayList<String> Users) throws Exception{
+    ArrayList<Message> filterCertainUsers(ArrayList<String> Users) throws Exception {
         //Return List of Message class of those with certain Users('chatroom')
-
         ArrayList<Message> m = new ArrayList<>();
 
-
-
-        Scanner input = new Scanner(new File(fileName));
-        String data = "";
-        while(input.hasNextLine()) {
-            data += input.nextLine() + "\n";
-        }
-        String[] splitted = data.split(",");
+        String data = chatUI.fileToString(fileName);
         Scanner s = new Scanner(data).useDelimiter("\n");
         s.nextLine(); //skip header
         Boolean key = true;
-        while(s.hasNextLine()) {
+        while (s.hasNextLine()) {
             String[] datas = s.nextLine().split(",");
-            //System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> datas:");
-            //for(String d:datas) System.out.print(d + " !!! ");
             for (String u : Users) {
-                //System.out.println("User: " + u);
-                //System.out.println("datas[1]" + datas[2]);
                 if (datas[1].contains(u)) {
-                    //System.out.println("Entering whatever this is");
                     key = false;
                 }
             }
-            //String client, ArrayList<String> user, String message
-            if(key) {
+            if (key) {
                 //add appropriate class
-                Message mm = new Message(datas[0],Users,datas[3],datas[1]);
+                Message mm = new Message(datas[0], Users, datas[3], datas[1]);
                 //set message type
                 mm.SetType(messagetype.valueOf(datas[4]));
                 m.add(mm);
             }
         }
-
         return m;
     }
-
-
-    //TODO: ADDING THE CLIENT NAME AND MESSAGE INTO PANE (and maybe parsing the appropriate message type)
-    //pass filterCertainUsers here to get respective users and messages
-    public ArrayList<HashMap<String,String>>  createHistory(ArrayList<Message> m){
-        //A function that loops through list of Messages, get clientname and the message
-
-        ArrayList<HashMap<String,String>> message_List = new ArrayList<>();
-
-        for(Message message:m){
-            HashMap<String,String> messages = new HashMap<>();
-            message.getClientName();
-            message.getMessage();
-            message.getType();
-            if(message.getType()== messagetype.TEXT)
-            {
-                messages.put(message.getClientName(),message.getMessage());
-            }
-            message_List.add(messages);
-            //I'll leave the linking to the pane to mushy :D
-        }
-
-    return message_List;
-    }
-
-
 }
