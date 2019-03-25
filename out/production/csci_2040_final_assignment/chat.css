@@ -199,3 +199,11 @@
 .check-box {
     -fx-text-fill: white;
 }
+
+.check-box .box {
+    -fx-background-color: linear-gradient(lightgrey, gray);
+}
+
+.check-box .box:hover {
+    -fx-background-color: linear-gradient(gray, lightgrey);
+}

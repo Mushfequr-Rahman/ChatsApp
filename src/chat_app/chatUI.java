@@ -520,6 +520,7 @@ public class chatUI extends Application {
         sendImage.setFitWidth(33);
         sendImage.setFitHeight(33);
         send.setGraphic(sendImage);
+        send.setPadding(Insets.EMPTY);
 
         Button image = new Button();
         image.setId("imageButton");
@@ -527,6 +528,7 @@ public class chatUI extends Application {
         imageImage.setFitWidth(33);
         imageImage.setFitHeight(33);
         image.setGraphic(imageImage);
+        image.setPadding(Insets.EMPTY);
 
         Button voice = new Button();
         voice.setId("voiceButton");
@@ -534,6 +536,7 @@ public class chatUI extends Application {
         voiceImage.setFitWidth(33);
         voiceImage.setFitHeight(33);
         voice.setGraphic(voiceImage);
+        voice.setPadding(Insets.EMPTY);
 
         buttonBox.getChildren().addAll(image, voice);
         entryAndButton.getChildren().addAll(buttonBox, entry, send);
