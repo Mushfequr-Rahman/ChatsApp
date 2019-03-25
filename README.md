@@ -1,55 +1,16 @@
-# CSCI_2040_final_assignment
-
-> Final assignment repository for CSCI 2040
+# <img align="left" width="45" height="45" src="https://drive.google.com/uc?export=view&id=199P9Emecj4hx9biZm4OITzwXwNOLh3P5"> ChatsApp: Instant Text Messenger
 
 
-### Project Repository:
-https://github.com/Mushfequr-Rahman/csci_2040_final_assignment
-
-### Made by:
-- Mohammad Musfequr Rahman (github: )
-    - Contribution:
-
-- Naida Tania (github:)
-     - Contribution:
-
-- Cynthia Chang (github:)
-    - Contribution:
-
-- Terry Darmawan Hosea (github: terrydarmawan)
-    - Contribution:
+__*ChatsApp*__ is an application that allows multiple users to easily communicate through locally hosted server. ChatsApp allows messages to be sent in both 1 to 1 as well as in a group environment.
 
 
-### IO SIDE
+## Features
+- Unique ID/email user identification
+- Autocomplete feature to search for other users
+- Capability to chat with as many users as you want
+- Chat history is available for future sessions
 
-(note: let's not use Firebase XD)
-
-### Registration
-- [x] Writing into CSV file (Auto-incremented ID, Email Address, Username, Password, TimeStamp)
-- [x] Validation:
-    - Null value
-    - Insufficient length
-    - Email format (xx@xx.com)
-    - Duplicate username/email
-    - Mismatch between password and re-enter password
-    - Comma (due to use of csv)
-- [ ] Encrypt password before saving to csv
-- [ ] A file that only contains id & username (?)
-- [ ] Add column for profile image (?)
-
-
-### Login
-- [x] Username/email validation
-- [x] Password validation
-
-
-
-### Chat (TBC)
-- [x] History backup (Saved into CSV file)
-- [x] One on one chat
-- [x] Group chat
-
-### Server Side
-
-
-### Client Side
+## Site Map
+- User Guide
+- Developer Guide
+- About Us
