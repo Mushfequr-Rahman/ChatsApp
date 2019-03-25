@@ -49,24 +49,25 @@ New user can create a new account by clicking the register button. You will be r
 * *Password*
 ** Password has to be 8 - 20 characters long.
 ** Password must be entered correctly twice.
+** Password cannot contain commas.
 * *Email*
 ** Email addressed enter must be valid (e.g 'aaa.com' would be considered invalid).
 
 === Login
-Once registered, you can log in to your chat account using either your *username* or your *email* and your *password*.
+Once registered, you can log in to your account using either your *username/email* and your *password*.
 
 === Adding User
-As a logged-in user, you will see the chat window displayed on your screen. To begin chatting with someone, enter a username on *Enter User ID field* and hit `[ENTER]`. If the username is valid (a registed user), you will see the username being added into your list of friends that is right below.
+After you have successfully logged in, you will see the chat window displayed on your screen. To begin chatting with someone, enter a username on *Enter User ID field* and press `[ENTER]`. If the username is valid (a registed user), you will see the username being added onto the list of your friends.
 
 === Start a Chat
-Just click on any of the user in your list of friends, and you can immediately start chatting! You will see any chat log that you may have with that person.
+Just click on any of the users in the list of your friends, and you can immediately start chatting! You will also see any chat log that you may have with that person.
 
-Now all you need to do is to enter the message that you want to send in the text field at the bottom of the window. Once you are ready to send it, hit `[ENTER]` or click the send button to the right of the textfield, and your message will be sent instantly.
+Now all you need to do is to enter the message that you want to send in the text field at the bottom of the window. Once you are ready to send it, press `[ENTER]` or click the send button to the right of the textfield, then your message will be sent instantly.
 
 
 === Creating Group Chat
-If you want to talk to more than 1 person, click `Add Group` button on the top right of the window. You will see the names of the friends that you have added to the list appear at the bottom of the window. 
+If you want to talk to more than 1 person simultanously, click the `Add Group` button that is at the top right of the window. You will see the names of the users that were added onto the friends' list at the bottom of the window.
 
-Tick the names of the members that you want to add to the group chat. Once you are satisfied with your selection, click `Set Group Chat` and a new chat window will be created for your group! 
+Click on the checkboxes to the left of the users listed that you want added into the group chat. Once you are satisfied with your selection, click on the `Set Group Chat` button and your group chat will be created!
 
-This group chat will be added to your list of friends on the rightside of the window. This way, you can easily toggle between the various group chat sessions that you have!
+This group chat will be added to the list of your friends. This way, you can easily toggle between the various group chat sessions that you have!
