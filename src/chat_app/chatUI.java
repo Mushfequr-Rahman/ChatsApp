@@ -6,9 +6,6 @@ import chat_app.server.Client;
 import chat_app.server.Message;
 import chat_app.server.messagetype;
 import javafx.application.Application;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -23,7 +20,6 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -38,7 +34,6 @@ import javafx.stage.Window;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.util.Callback;
 
 
 public class chatUI extends Application {
@@ -138,9 +133,7 @@ public class chatUI extends Application {
                     return;
                 }
 
-                 /**
-                 * Checks if username/password matches
-                 * */
+                 /** Checks if username/password matches */
                 String line = fileToString("Database.csv");
                 Scanner s = new Scanner(line).useDelimiter("\n");
                 s.nextLine(); //skip header
@@ -192,8 +185,7 @@ public class chatUI extends Application {
                         }
                     });
                 } else {
-                    //TODO: DISPLAY WARNING
-                    Alert invalid = showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "INVALID USERNAME/PASSWORD");
+                    Alert invalid = showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "Invalid username/password");
                     invalid.show();
                 }
             }
@@ -300,7 +292,6 @@ public class chatUI extends Application {
 
             setgrp.setOnAction(event -> {
                 System.out.println("Creating group conversation with:" + group_members);
-                //TODO: Update contact ListView
                 String new_contact = "";
                 for(String c : group_members)
                 {
@@ -320,20 +311,13 @@ public class chatUI extends Application {
 
                     String[] old_contacts = item.split(",");
 
-
-                    System.out.println("NEW CONTACT LENGTH: "+ new_contacts.length);
-                    System.out.println("Item " + item);
-                    System.out.println("ITEM LENGTH: " + old_contacts.length);
                   if(new_contacts.length==old_contacts.length) {
                       match = 0;
                       lengthmatch = true;
                       for (String groupmember : group_members) {
-                          System.out.println("Group members: " + groupmember);
                           if(item.contains(groupmember))
                           {
                               match++;
-                              System.out.println(">>>>>>>>>>>>>>>>>> PRESENT IS FALSE WOOOOOOO");
-                              System.out.println("Match:" + match);
                               Present = false;
                           }
                       }
@@ -356,13 +340,7 @@ public class chatUI extends Application {
             mainPane.setBottom(hbox);
         });
 
-
-
-
-        //TODO: END OF 2303 CHANGES
-
         /**chatBox properties */
-
 
         /**FieldAndButton properties */
 
@@ -405,13 +383,12 @@ public class chatUI extends Application {
         textfield.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER && textfield.getText().trim().equals("")) {
                 //No blank message
-                System.out.println("BLANK MESSAGE I WON'T LET YOU!!");
             } else if (e.getCode() == KeyCode.ENTER && !textfield.getText().trim().equals("")) {
                 //Write message
                 System.out.println("Message:" + textfield.getText());
                 client.writeToServer(textfield.getText());
                 ArrayList<String> Users = new ArrayList<>();
-                Users.add("null"); //TODO: ADD USER TO BE IMPLEMENTED
+                Users.add("null");
                 client.UpdateServer(textfield.getText(), Users);
                 Message m = new Message(client.getName(), Users, textfield.getText().trim());
                 String json = m.toJson();
@@ -569,7 +546,7 @@ public class chatUI extends Application {
 
         entry.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER && !entry.getText().trim().equals("")) {
-                //If there's a message sent, save it to json (no prob)
+                //If there's a message sent, save it to json
                 sendMessage(client, Users, entry);
                 e.consume();
             }
@@ -581,7 +558,7 @@ public class chatUI extends Application {
             Msg.SetType(messagetype.IMAGE);
             //OutputStream os ;
             System.out.println("Sending Image message");
-            Alert imageImplement = showAlert(Alert.AlertType.ERROR, buttonBox.getScene().getWindow(), "Oops!", "Under development :)");
+            Alert imageImplement = showAlert(Alert.AlertType.ERROR, buttonBox.getScene().getWindow(), "Oops!", "Under development");
             imageImplement.show();
             return;
         });
@@ -591,7 +568,7 @@ public class chatUI extends Application {
             Message Msg = new Message(client.getName(), Users, "Image");
             Msg.SetType(messagetype.VOICE);
             System.out.println("Sending Voice message");
-            Alert imageImplement = showAlert(Alert.AlertType.ERROR, buttonBox.getScene().getWindow(), "Oops!", "Under development :)");
+            Alert imageImplement = showAlert(Alert.AlertType.ERROR, buttonBox.getScene().getWindow(), "Oops!", "Under development");
             imageImplement.show();
             return;
         });
@@ -601,7 +578,6 @@ public class chatUI extends Application {
 
         entry.prefWidthProperty().bind(messageScroll.widthProperty().subtract(130));
 
-        //TODO: 2303 CHANGES
         String chatTitle = "Chatting with ";
         if(Users.size() == 1) chatTitle += Users.get(0);
         else {
@@ -613,8 +589,7 @@ public class chatUI extends Application {
 
         Text chattingWith = new Text(chatTitle);
         chattingWith.setId("chatTitle");
-        //TODO: END 2303 CHANGES
-        chattingWith.setFont(Font.font("Verdana", FontWeight.MEDIUM, 17));
+        chattingWith.setFont(Font.font("Serif", FontWeight.MEDIUM, 17));
         chattingWith.setFill(Color.WHITE);
         pane.setTop(chattingWith);
         pane.setCenter(messageScroll);
@@ -635,9 +610,7 @@ public class chatUI extends Application {
                 }
                 ArrayList<String> recipients = msg.getUsers();
 
-                //TODO: 2303 CHANGES
-                //let's first parse the 'x' out
-                //and then we use for loop to check each one
+                //parsing session id from csv
                 String[] msgsessionIDx_parsed = msg.getSession_ID().trim().split("x");
                 String cursessionID = getSessionID(client, Users);
                 String[] cursessionID_parsed = getSessionID(client, Users).trim().split("x");
@@ -668,7 +641,7 @@ public class chatUI extends Application {
                         messageTextFormat.setFill(Color.BLACK);
                     }
 
-                    messageTextFormat.setFont(Font.font("Verdana",FontWeight.BOLD,14));
+                    messageTextFormat.setFont(Font.font("Serif",FontWeight.BOLD,14));
                     messagesBox.add(messageTextFormat);
                     messageScroll.getItems().clear();
                     messageScroll.getItems().addAll(messagesBox);

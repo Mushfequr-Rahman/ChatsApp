@@ -41,7 +41,7 @@ public class register extends Application {
         Scene scene = new Scene(grid, 400, 400);
         scene.getStylesheets().add(getClass().getClassLoader().getResource("register.css").toExternalForm());
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Registration Page ");
+        primaryStage.setTitle("Registration Page");
         primaryStage.show();
 
     }
@@ -135,12 +135,10 @@ public class register extends Application {
                 }
 
                 //txt to keep track of data easier
-                FileWriter f2;
                 StringBuilder sb = new StringBuilder();
                 try {
                     if (new File(fileName).exists()) {
                         //If file exist, simply append
-                        System.out.println("File has existed please don't overwrite");
                         file = new FileWriter(new File(fileName), true);
                         //append function
                         sb.append(generateSb(getCSVID(new File(fileName)),email_entry,username_entry,password_entry));
@@ -149,7 +147,6 @@ public class register extends Application {
                         file.close();
                     } else {
                         //Create header first
-                        System.out.println("File has not existed, create new one!");
                         file = new FileWriter(new File(fileName), false);
                         sb.append("Id");
                         sb.append(',');
@@ -169,7 +166,7 @@ public class register extends Application {
 
                     }
                     chatUI c = new chatUI();
-                    //"USER HAS BEEN REGISTERED" DISPLAY before redirect.
+                    //"User has be registered" display before redirect.
                     Alert registered = showAlert(Alert.AlertType.INFORMATION, Reg.getScene().getWindow(), "Success!", username_entry.getText() + " has been registered.");
                     registered.show();
                     primaryStage.setScene(s);
