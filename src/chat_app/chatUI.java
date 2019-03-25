@@ -42,16 +42,9 @@ import javafx.util.Callback;
 
 
 public class chatUI extends Application {
-
     private ArrayList<Thread> threads;
 
-    private static Color[] pieColours = {
-            Color.BLUE, Color.RED, Color.DARKORANGE,
-            Color.GREEN, Color.BLACK, Color.BROWN, Color.DARKGREY,
-            Color.LIGHTGREEN};
-
     public static void main(String[] args) {
-
         launch(args);
     }
 
@@ -84,7 +77,6 @@ public class chatUI extends Application {
 
 
     }
-
 
     private void addUIControls(GridPane gridPane, Stage primaryStage) {
         // Add Header
@@ -146,14 +138,16 @@ public class chatUI extends Application {
                     return;
                 }
 
-                //check if username/password matches (copy pasta same code)
+                 /**
+                 * Checks if username/password matches
+                 * */
                 String line = fileToString("Database.csv");
-                //String[] sp = line.split(",");
                 Scanner s = new Scanner(line).useDelimiter("\n");
                 s.nextLine(); //skip header
                 Boolean key = false;
-                if (nameField.getText().contains("@")) {
-                    //email - password combination
+
+                /** Email - password combination */
+                 if (nameField.getText().contains("@")) {
                     while (s.hasNextLine()) {
                         String[] words = s.nextLine().split(",");
                         if (nameField.getText().equals(words[1]) && passwordField.getText().equals(words[3])) {
@@ -161,8 +155,10 @@ public class chatUI extends Application {
                             nameField.setText(words[2]); //set to username
                         }
                     }
-                } else {
-                    //username - password combination
+                }
+
+                /* Username - password combination */
+                else {
                     while (s.hasNextLine()) {
                         String[] words = s.nextLine().split(",");
                         if (nameField.getText().equals(words[2]) && passwordField.getText().equals(words[3])) {
@@ -170,6 +166,7 @@ public class chatUI extends Application {
                         }
                     }
                 }
+
                 if (key) {
                     Alert r = showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(), "Login Successful!", "Welcome " + nameField.getText());
                     r.showAndWait().ifPresent(response -> {
@@ -182,8 +179,7 @@ public class chatUI extends Application {
                                 ClientThread.setDaemon(true);
                                 ClientThread.start();
                                 threads.add(ClientThread);
-                                //primaryStage.close();
-                                primaryStage.setScene(initMainPane(client, primaryStage));
+                                primaryStage.setScene(genContactPane(client, primaryStage));
                                 primaryStage.show();
 
                             } catch (Exception ex) {
@@ -206,32 +202,27 @@ public class chatUI extends Application {
         regButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                //redirects to register page
+                //Direct to register page
                 primaryStage.setScene(RegScene(primaryStage));
             }
         });
     }
 
 
-    private Scene initMainPane(Client client, Stage primaryStage) {
-        /** Initial Variables */
-
+    private Scene genContactPane(Client client, Stage primaryStage) {
         int width = 900;
         int height = 650;
 
         /** Contact listview */
         ArrayList<String> contacts = new ArrayList<String>();
-        ListView<String> listView = new ListView<>(FXCollections.observableArrayList(contacts));
         ListView<String> contactListView = new ListView<>(FXCollections.observableArrayList(contacts));
         contactListView.setId("contacts");
 
         /** Pane for contact */
         BorderPane mainPane = new BorderPane();
-
         VBox contactPane = new VBox(10);
 
         Scene scene = new Scene(mainPane, width, height);
-
 
         /** mainPane properties */
         mainPane.setPadding(new Insets(10, 10, 10, 10));
@@ -245,50 +236,40 @@ public class chatUI extends Application {
         contactPane.setAlignment(Pos.CENTER);
 
 
-        /** Auto complete field section */
-
+        /** Auto complete addUserField section */
         AutoCompleteTextField addUserIDField = new AutoCompleteTextField();
         String line = fileToString("Database.csv");
 
         Scanner s = new Scanner(line).useDelimiter("\n");
         s.nextLine(); //skip header
+        // List of possible suggestions for the field
         ArrayList<String> suggestionList = new ArrayList<String>();
         while (s.hasNextLine()) {
             String[] words = s.nextLine().split(",");
             if (!client.getName().equals(words[2])) suggestionList.add(words[2]);
         }
-
         addUserIDField.getEntries().addAll(suggestionList);
+
         contactListView.prefWidthProperty().bind(addUserIDField.prefWidthProperty().subtract(20));
         Label addContactLabel = new Label("Enter User ID:", addUserIDField);
         addContactLabel.setContentDisplay(ContentDisplay.BOTTOM);
-
         contactPane.getChildren().add(addContactLabel);
 
-        //TODO: 2303 CHANGES
-        //make a button that allows adding members to group
+        //A button that allows adding members to group
         Button grp = new Button("Add Group");
         grp.setId("groupButton");
         Button setgrp = new Button("Set Group Chat");
         setgrp.setId("setGroupButton");
         contactPane.getChildren().addAll(grp,setgrp);
-
         contactPane.getChildren().add(contactListView);
 
         //Create a list for users selected into groups
         List<String> selected = new ArrayList<>();
-
-
-
         grp.setOnAction(e->{
-
-
-
             HBox hbox   = new HBox();
             System.out.println(contactListView.getItems());
             ArrayList<String> group_members = new ArrayList<>();
             ObservableList<String> current_contacts = contactListView.getItems();
-
 
             for(String contact: current_contacts)
             {
@@ -300,7 +281,6 @@ public class chatUI extends Application {
                 CheckBox c = new CheckBox(contact);
 
                 EventHandler<ActionEvent> event_1 = new EventHandler<ActionEvent>() {
-
                     public void handle(ActionEvent e)
                     {
                         if (c.isSelected()) {
@@ -315,12 +295,10 @@ public class chatUI extends Application {
 
                 };
                 c.setOnAction(event_1);
-
                 hbox.getChildren().add(c);
             }
 
             setgrp.setOnAction(event -> {
-
                 System.out.println("Creating group conversation with:" + group_members);
                 //TODO: Update contact ListView
                 String new_contact = "";
@@ -355,13 +333,9 @@ public class chatUI extends Application {
                           {
                               match++;
                               System.out.println(">>>>>>>>>>>>>>>>>> PRESENT IS FALSE WOOOOOOO");
-                              System.out.println("MAtch:" + match);
+                              System.out.println("Match:" + match);
                               Present = false;
-
-
-                              //break;
                           }
-
                       }
                       if(match == new_contacts.length){
                           Present = true;
@@ -369,26 +343,17 @@ public class chatUI extends Application {
                           break;
                       }
                   }
-
                 }
                 if(!Present || !lengthmatch)
                 {
                     current_contacts.add(new_contact);
                     contactListView.setItems(current_contacts);
                 }
-
-
                 mainPane.setCenter(getChatPane(client,group_members));
                 mainPane.setBottom(null);
 
-
-
             });
-
             mainPane.setBottom(hbox);
-
-
-
         });
 
 
@@ -513,7 +478,7 @@ public class chatUI extends Application {
         logout.setOnAction(e -> {
             Scene scene1 = LoginScene(primaryStage);
 
-            Alert r = showAlert(Alert.AlertType.CONFIRMATION, primaryStage.getScene().getWindow(), "Logout", "Are you sure you want to log out?");
+            Alert r = showAlert(Alert.AlertType.CONFIRMATION, primaryStage.getScene().getWindow(), "Log Out", "Log out of ChatsApp?");
             r.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
                     primaryStage.setScene(scene1);
@@ -527,24 +492,27 @@ public class chatUI extends Application {
         mainPane.setRight(contactPane);
         mainPane.setMargin(mb, new Insets(5));
         scene.getStylesheets().add(getClass().getClassLoader().getResource("chat.css").toExternalForm());
-
         return scene;
     }
 
+    /** Generates a chat pane */
     private Pane getChatPane(Client client, ArrayList<String> Users)
     {
+        /** Borderpane for chat */
         BorderPane pane = new BorderPane();
-        TextArea entry = new TextArea();
 
+        /** Initialize chatting box */
+        TextArea entry = new TextArea();
         entry.setWrapText(true);
         entry.setPrefRowCount(5);
         entry.setEditable(true);
         entry.setId("entry-field");
 
-        HBox hbox = new HBox(5);
-        VBox vbox = new VBox(5);
-        hbox.setAlignment(Pos.CENTER);
-        vbox.setAlignment(Pos.CENTER);
+        HBox entryAndButton = new HBox(5);
+        VBox buttonBox = new VBox(15);
+        entryAndButton.setAlignment(Pos.CENTER);
+        buttonBox.setAlignment(Pos.CENTER);
+
 
         Button send = new Button();
         send.setId("sendButton");
@@ -552,16 +520,13 @@ public class chatUI extends Application {
         sendImage.setFitWidth(33);
         sendImage.setFitHeight(33);
         send.setGraphic(sendImage);
-        send.setPadding(Insets.EMPTY);
 
-
-        Button image = new Button(); // Would Like to convert this to an Image Button
+        Button image = new Button();
         image.setId("imageButton");
         ImageView imageImage = new ImageView(new Image("/img/image.png"));
         imageImage.setFitWidth(33);
         imageImage.setFitHeight(33);
         image.setGraphic(imageImage);
-        image.setPadding(Insets.EMPTY);
 
         Button voice = new Button();
         voice.setId("voiceButton");
@@ -569,17 +534,14 @@ public class chatUI extends Application {
         voiceImage.setFitWidth(33);
         voiceImage.setFitHeight(33);
         voice.setGraphic(voiceImage);
-        voice.setPadding(Insets.EMPTY);
 
-        vbox.getChildren().addAll(image, voice);
-        hbox.getChildren().addAll(vbox, entry, send);
-        pane.setMargin(hbox, new Insets(10));
-
+        buttonBox.getChildren().addAll(image, voice);
+        entryAndButton.getChildren().addAll(buttonBox, entry, send);
+        pane.setMargin(entryAndButton, new Insets(10));
 
         ListView<String> listView = new ListView<>();
         listView.setItems(client.chatLog);
         jsonHandler handler = new jsonHandler("json.csv");
-
 
         /**Check if changes are made in chatlog */
         ArrayList<Text> messagesBox = new ArrayList<Text>();
@@ -608,16 +570,6 @@ public class chatUI extends Application {
                 sendMessage(client, Users, entry);
                 e.consume();
             }
-
-            /** Handle delete with backspace */
-            else if(e.getCode()==KeyCode.BACK_SPACE && entry.getText().length()>0)
-            {
-                entry.setText(entry.getText().substring(0, entry.getText().length()-1));
-                entry.requestFocus();
-                entry.end();
-                e.consume();
-            }
-
         });
 
         // Actions for Image button
@@ -626,24 +578,22 @@ public class chatUI extends Application {
             Msg.SetType(messagetype.IMAGE);
             //OutputStream os ;
             System.out.println("Sending Image message");
-            Alert imageImplement = showAlert(Alert.AlertType.ERROR, vbox.getScene().getWindow(), "Oops!", "Under development :)");
+            Alert imageImplement = showAlert(Alert.AlertType.ERROR, buttonBox.getScene().getWindow(), "Oops!", "Under development :)");
             imageImplement.show();
             return;
-
-
         });
-
 
         // Actions for Voice button
         voice.setOnAction(event -> {
             Message Msg = new Message(client.getName(), Users, "Image");
             Msg.SetType(messagetype.VOICE);
             System.out.println("Sending Voice message");
-            Alert imageImplement = showAlert(Alert.AlertType.ERROR, vbox.getScene().getWindow(), "Oops!", "Under development :)");
+            Alert imageImplement = showAlert(Alert.AlertType.ERROR, buttonBox.getScene().getWindow(), "Oops!", "Under development :)");
             imageImplement.show();
             return;
-            //OutputStream os ;
         });
+
+        /** Initialize messages from history, if exist*/
         genScrollMessage(client, Users, handler, messagesBox, messageScroll);
 
         entry.prefWidthProperty().bind(messageScroll.widthProperty().subtract(130));
@@ -657,6 +607,7 @@ public class chatUI extends Application {
                 else chatTitle += Users.get(i) + " ";
             }
         }
+
         Text chattingWith = new Text(chatTitle);
         chattingWith.setId("chatTitle");
         //TODO: END 2303 CHANGES
@@ -664,10 +615,11 @@ public class chatUI extends Application {
         chattingWith.setFill(Color.WHITE);
         pane.setTop(chattingWith);
         pane.setCenter(messageScroll);
-        pane.setBottom(hbox);
+        pane.setBottom(entryAndButton);
         return pane;
     }
 
+    /** Generates messages from history */
     private void genScrollMessage(Client client, ArrayList<String> Users, jsonHandler handler, ArrayList<Text> messagesBox, ListView<Text> messageScroll) {
         messageScroll.getItems().clear();
         messagesBox.clear();
@@ -678,11 +630,7 @@ public class chatUI extends Application {
                 if(Mess.contains("[-c-]")){
                     Mess = Mess.replace("[-c-]",",");
                 }
-
-                //String user = Users.get(0);
                 ArrayList<String> recipients = msg.getUsers();
-
-                //System.out.println("Users:" + Users);
 
                 //TODO: 2303 CHANGES
                 //let's first parse the 'x' out
@@ -690,7 +638,6 @@ public class chatUI extends Application {
                 String[] msgsessionIDx_parsed = msg.getSession_ID().trim().split("x");
                 String cursessionID = getSessionID(client, Users);
                 String[] cursessionID_parsed = getSessionID(client, Users).trim().split("x");
-                //System.out.println("From getSessionID, SessionID: " + cursessionID);
 
                 Boolean key = true;
                 for(String id:msgsessionIDx_parsed){
@@ -706,22 +653,19 @@ public class chatUI extends Application {
                         //From the person that is logged in
                         System.out.println(" Session_ID from Logs:" +msg.getSession_ID());
                         System.out.println("Message from me: " + Mess + " to " + recipients + "\n");
-
                         messageTextFormat = new Text("Me : " + Mess);
-                        messageTextFormat.setFill(pieColours[0]);
-
-
-
+                        messageTextFormat.setFill(Color.WHITE);
                     }
                     else
                     {
-                        //From anyone else but the person that is logged in
+                        //Receiving from anyone else other than the person that is logged in
                         System.out.println(" Session_ID from Logs:" +msg.getSession_ID());
                         System.out.println("Message from " + Client + ": " + Mess + "\n");
-
-                        //Client is receiver
                         messageTextFormat = new Text(Client +" : " +Mess);
+                        messageTextFormat.setFill(Color.BLACK);
                     }
+
+                    messageTextFormat.setFont(Font.font("Verdana",FontWeight.BOLD,14));
                     messagesBox.add(messageTextFormat);
                     messageScroll.getItems().clear();
                     messageScroll.getItems().addAll(messagesBox);
@@ -737,11 +681,11 @@ public class chatUI extends Application {
     private void sendMessage(Client client, ArrayList<String> Users, TextArea entry) {
         String entrystr = entry.getText();
         System.out.println("Message:" + entrystr);
-        //parse comma save as "[-c-]"
+        //Parse comma save as "[-c-]"
         if(entrystr.contains(",")){
             entrystr = entrystr.replace(",","[-c-]");
         }
-        Message m = new Message(client.getName(), Users, entry.getText().trim(),getSessionID(client,Users));
+        Message m = new Message(client.getName(), Users, entrystr,getSessionID(client,Users));
         client.UpdateMessage(m);
 
         String json = m.toJson();
@@ -759,7 +703,6 @@ public class chatUI extends Application {
         entry.clear();
         System.out.println("Outputting to server: " + client.chatLog);
     }
-
 
     private String getSessionID(Client client, ArrayList<String> users)
     {
@@ -790,12 +733,10 @@ public class chatUI extends Application {
             e.printStackTrace();
         }
 
-
         Session_ID += left_id + right_id;
         return Session_ID;
-
-
     }
+
     public String fileToString(String pathName) {
         File f = new File(pathName);
         Scanner input = null;
@@ -811,7 +752,6 @@ public class chatUI extends Application {
         input.close();
         return line;
     }
-
     private Alert showAlert(Alert.AlertType alertType, Window owner, String title, String message)
     {
         Alert alert = new Alert(alertType);
@@ -821,10 +761,11 @@ public class chatUI extends Application {
         alert.initOwner(owner);
         return alert;
     }
-    //@Override
+
+    @Override
     public void start(Stage primaryStage) {
-        //initMainPane();
-        threads = new ArrayList<Thread>();
+        threads = new ArrayList<>();
+         /** Set login as initial scene */
         primaryStage.setScene(LoginScene(primaryStage));
         primaryStage.setTitle("ChatsApp");
         primaryStage.getIcons().add(new Image("img/icon.png"));

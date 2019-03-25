@@ -54,7 +54,6 @@ public class register extends Application {
         icon.setId("icon");
         Reg.getChildren().add(icon);
 
-
         Text username_prompt = new Text("Username:"); //5-20 characters
         username_prompt.setFont(Font.font("Serif", FontWeight.BOLD, 18));
         username_prompt.setFill(Color.WHITE);
@@ -180,7 +179,7 @@ public class register extends Application {
                     //"USER HAS BEEN REGISTERED" DISPLAY before redirect.
                     Alert registered = showAlert(Alert.AlertType.INFORMATION, Reg.getScene().getWindow(), "Success!", username_entry.getText() + " has been registered.");
                     registered.show();
-                    primaryStage.setScene(c.LoginScene(primaryStage));
+                    primaryStage.setScene(s);
                 }catch (Exception e){
                     System.out.println("Dunno something caught");
                     System.exit(0);
@@ -195,111 +194,78 @@ public class register extends Application {
 
     Boolean validate(TextField u, TextField e, TextField p1, TextField p2, GridPane pane, File f) throws Exception{
         //Check textfield values against possible issues
-        Boolean key = true;
-        if(!validateEmpty(u,e,p1,p2)){
-            //DISPLAY NULL VALUE WARNING
-            Alert empty = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "NULL VALUE");
-            empty.show();
-            key = false;
-        }
-        if(!p1.getText().equals(p2.getText())){
-            //DISPLAY MISMATCH PASSWORD WARNING
-            Alert passMismatch = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "PASSWORD MISMATCH");
-            passMismatch.show();
-            key = false;
-        }
+        if (isNotValid(u, e, p1, p2, pane)) return false;
+
         if(!validateUser(u,f)){
-            //ERROR SAME USERNAME CHOOSE ANOTHER ONE
-            Alert overlap = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "OVERLAPPING USERNAME");
+            //Username exist warning
+            Alert overlap = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "Username has been taken. \n Please use another username");
             overlap.show();
-            key = false;
+            return false;
         }
         if(!validateEmail(e,f)){
-            //ERROR SAME EMAIL USE ANOTHER ONE
-            Alert sameEmail = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "EMAIL HAS BEEN USED ALREADY");
+            //Email exist warning
+            Alert sameEmail = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "Email has been taken. \n Please use another email");
             sameEmail.show();
-            key = false;
+            return false;
         }
-        if(!validateLength(u,6,20)){
-            //DISPLAY (USERNAME must be between 8-20 characters) WARNING (temporary req up to change)
-            Alert userLength = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "Username must be between 8-20 characters.");
-            userLength.show();
-            key = false;
-        }
-        if(!validateLength(p1,8,20)){
-            //DISPLAY (PASSWORD must be between 8-20 characters) WARNING (temporary req up to change)
-            Alert passLength = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "Password must be between 8-20 characters.");
-            passLength.show();
-            key = false;
-        }
-        if(p1.getText().contains(",")){
-            //DO NOT USE COMMA FOR PASSWORD THX
-            Alert noComma = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "Cannot use comma in password.");
-            noComma.show();
-            key = false;
-        }
-        if(!Pattern.matches("^(?![_.,])(?!.*[_.,]{2})[a-zA-Z0-9._]+(?<![_.,])$", u.getText())){
-            //DISPLAY WRONG USERNAME FORMAT
-            Alert userFormat = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "WRONG USERNAME FORMAT");
-            userFormat.show();
-            key = false;
-        }
-        if(!Pattern.matches("\\b[\\w.%-]+@[-.\\w]+\\.[A-Za-z]{2,4}\\b", e.getText())){
-            //DISPLAY WRONG EMAIL FORMAT
-            Alert emailFormat = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "WRONG EMAIL FORMAT");
-            emailFormat.show();
-            key = false;
-        }
-        return key;
+
+        return true;
     }
 
     //overload: very first user give this user a trophy
     Boolean validate(TextField u, TextField e, TextField p1, TextField p2, GridPane pane){
         //Check textfield values against possible issues
-        Boolean key = true;
-        if(!validateEmpty(u,e,p1,p2)){
-            //DISPLAY NULL VALUE WARNING
-            Alert empty = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "NULL VALUE");
+        if (isNotValid(u, e, p1, p2, pane)) return false;
+        return true;
+    }
+
+    private boolean isNotValid(TextField u, TextField e, TextField p1, TextField p2, GridPane pane) {
+        if (!validateEmpty(u, e, p1, p2)) {
+            //Some fields are empty warning
+            Alert empty = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "One or more fields are empty!");
             empty.show();
-            key = false;
+            return true;
         }
-        if(!p1.getText().equals(p2.getText())){
-            //DISPLAY MISMATCH PASSWORD WARNING
-            Alert passMismatch = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "PASSWORD MISMATCH");
+
+        if (!p1.getText().equals(p2.getText())) {
+            //Password does not match warning
+            Alert passMismatch = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "Password does not match!");
             passMismatch.show();
-            key = false;
+            return true;
         }
-        if(!validateLength(u,6,20)){
-            //DISPLAY (USERNAME must be between 8-20 characters) WARNING (temporary req up to change)
+
+        if (!validateLength(u, 6, 20)) {
+            //Username length warning
             Alert userLength = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "Username must be between 8-20 characters.");
             userLength.show();
-            key = false;
+            return true;
         }
-        if(!validateLength(p1,8,20)){
-            //DISPLAY (PASSWORD must be between 8-20 characters) WARNING (temporary req up to change)
+        if (!validateLength(p1, 8, 20)) {
+            //Password length warning
             Alert passLength = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "Password must be between 8-20 characters.");
             passLength.show();
-            key = false;
+            return true;
         }
-        if(!Pattern.matches("^(?![,])(?!.*[,]{2})[a-zA-Z0-9._]+(?<![,])$", p1.getText())){
-            //DO NOT USE COMMA FOR PASSWORD THX
+
+        if (p1.getText().contains(",")) {
+            //Comma in password warning
             Alert noComma = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "Cannot use comma in password.");
             noComma.show();
-            key = false;
+            return true;
         }
-        if(!Pattern.matches("^(?![_.,])(?!.*[_.,]{2})[a-zA-Z0-9._]+(?<![_.,])$", u.getText())){
-            //DISPLAY WRONG USERNAME FORMAT
-            Alert userFormat = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "WRONG USERNAME FORMAT");
+        if (!Pattern.matches("^(?![_.,])(?!.*[_.,]{2})[a-zA-Z0-9._]+(?<![_.,])$", u.getText())) {
+            //Invalid username format warning
+            Alert userFormat = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "Invalid username format");
             userFormat.show();
-            key = false;
+            return true;
         }
-        if(!Pattern.matches("\\b[\\w.%-]+@[-.\\w]+\\.[A-Za-z]{2,4}\\b", e.getText())){
-            //DISPLAY WRONG EMAIL FORMAT
-            Alert emailFormat = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "WRONG EMAIL FORMAT");
+        if (!Pattern.matches("\\b[\\w.%-]+@[-.\\w]+\\.[A-Za-z]{2,4}\\b", e.getText())) {
+            //Invalid email format warning
+            Alert emailFormat = showAlert(Alert.AlertType.ERROR, pane.getScene().getWindow(), "Error!", "Invalid email format");
             emailFormat.show();
-            key = false;
+            return true;
         }
-        return key;
+        return false;
     }
 
     Boolean validateEmpty(TextField u, TextField e, TextField p1, TextField p2){
