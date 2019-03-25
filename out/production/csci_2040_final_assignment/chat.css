@@ -1,17 +1,21 @@
+/* changes styling of window*/
 .root {
-    -fx-background-image: url("img/registration.png");
+    -fx-background-image: url("img/chatUI.png");
 }
 
+/* changes styling of text*/
 .my-text {
     -fx-text-fill: #ffffff;
 }
 
+/* changes styling of labels*/
 .label {
     -fx-font-family: Serif;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
 }
 
+/* changes styling of inputted text*/
 .text-input {
     -fx-text-fill: black;
     -fx-highlight-fill: white;
@@ -19,20 +23,174 @@
     -fx-background-color: linear-gradient(#cccccc, #666666);
 }
 
-#sendButton {
-    -fx-font-family: Serif;
-    -fx-font-weight: bold;
-    -fx-background-color: linear-gradient(lightgrey, gray);
-}
-
-#sendButton:hover {
+/* changes styling of automatic boxes*/
+#popup {
     -fx-background-color: linear-gradient(gray, lightgrey);
 }
 
-#popup {
-    -fx-background-color: black;
+/* changes styling of the right-click menu*/
+.context-menu {
+    -fx-background-color: linear-gradient(gray, lightgrey);
 }
 
-#popup:hover {
+/* changes styling of right-click menu's label*/
+.menu-item .label {
+    -fx-text-fill: black;
+}
+
+/* changes styling of sendButton*/
+#sendButton {
+    -fx-background-radius: 30;
+    -fx-background-color: black;
+    -fx-translate-x: 15;
+}
+
+/* changes styling of sendButton if you move mouse over it*/
+#sendButton:hover {
+    -fx-graphic: url("img/sendflip.png");
+}
+
+/* changes styling of imageButton*/
+#imageButton {
+    -fx-background-radius: 30;
+    -fx-background-color: black;
+    -fx-translate-x: -15;
+}
+
+/* changes styling of imageButton if you move mouse over it*/
+#imageButton:hover {
+    -fx-graphic: url("img/imageflip.png");
+}
+
+/* changes styling of voiceButton*/
+#voiceButton {
+    -fx-background-radius: 30;
+    -fx-background-color: black;
+    -fx-translate-x: -15;
+}
+
+/* changes styling of voiceButton if you move mouse over it*/
+#voiceButton:hover {
+    -fx-graphic: url("img/voiceflip.png");
+}
+
+/* changes styling of groupButton*/
+#groupButton {
+    -fx-background-color: linear-gradient(lightgrey, gray);
+    -fx-font-family: Serif;
+    -fx-font-weight: bold;
+}
+
+/* changes styling of groupButton if you move mouse over it*/
+#groupButton:hover {
+    -fx-background-color: linear-gradient(gray, lightgrey);
+}
+
+/* changes styling of setGroupButton*/
+#setGroupButton {
+    -fx-background-color: linear-gradient(lightgrey, gray);
+    -fx-font-family: Serif;
+    -fx-font-weight: bold;
+}
+
+/* changes styling of setGroupButton if you move mouse over it*/
+#setGroupButton:hover {
+    -fx-background-color: linear-gradient(gray, lightgrey);
+}
+
+/* changes styling of account menuItem if you move mouse over it*/
+#account:hover {
+    -fx-background-color: linear-gradient(gray,lightgrey);
+}
+
+/* changes styling of the menu*/
+#menu {
+    -fx-background-color: gray;
+}
+
+/* changes styling of text entry field*/
+#entry-field {
+    -fx-text-fill: white;
+}
+
+/* changes styling content of the text entry field*/
+#entry-field .content{
+    -fx-highlight-fill: white;
+    -fx-highlight-text-fill: black;
+    -fx-background-color: linear-gradient(#333333, #666666);
+}
+
+/* changes styling of contactListView*/
+#contacts {
+    -fx-background-color: transparent;
+}
+
+/* changes styling of contactListView cell once you click on it*/
+#contacts .list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: linear-gradient(gray, black);
+    -fx-text-fill: white;
+    -fx-font-family: Serif;
+    -fx-font-weight: bold;
+}
+
+/* changes styling of contactListView even cell*/
+#contacts .list-cell:even {
+    -fx-background-color: #36393f;
+    -fx-text-fill: white;
+    -fx-font-family: Serif;
+    -fx-font-weight: bold;
+}
+
+/* changes styling of contactListView odd cell*/
+#contacts .list-cell:odd {
+    -fx-background-color: #2f3136;
+    -fx-text-fill: white;
+    -fx-font-family: Serif;
+    -fx-font-weight: bold;
+}
+
+/* changes styling of contactListView cell if you move mouse over it*/
+#contacts .list-cell:filled:hover {
     -fx-background-color: grey;
+    -fx-text-fill: white;
+    -fx-font-family: Serif;
+    -fx-font-weight: bold;
+}
+/* changes styling of chatlog*/
+#chatlog {
+    -fx-background-color: #666666;
+    -fx-font-family: Serif;
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+}
+
+/* changes styling of chatlog even cell*/
+#chatlog .list-cell:even {
+    -fx-background-color: #666666;
+    -fx-text-fill: white;
+    -fx-font-family: Serif;
+}
+
+/* changes styling of chatlog odd cell*/
+#chatlog .list-cell:odd {
+    -fx-background-color: #767676;
+    -fx-text-fill: white;
+    -fx-font-family: Serif;
+}
+
+.dialog-pane .button{
+    -fx-background-color: linear-gradient(lightgrey, gray);
+    -fx-font-family: Serif;
+    -fx-font-weight: bold;
+}
+
+/* changes styling of alert window button if you move mouse over it*/
+.dialog-pane .button:hover{
+    -fx-background-color: linear-gradient(gray, lightgrey);
+}
+
+/* changes styling of the chattingWith text*/
+#chatTitle {
+    -fx-font-family: Serif;
+    -fx-font-weight: bold;
 }

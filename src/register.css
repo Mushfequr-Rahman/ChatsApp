@@ -1,10 +1,14 @@
+/* changes styling of window*/
 .root {
     -fx-background-image: url("img/registration.png");
 }
+
+/* changes styling of text*/
 .my-text {
     -fx-text-fill: #ffffff;
 }
 
+/* changes styling of labels*/
 .label {
     -fx-font-family: Serif;
     -fx-font-weight: bold;
@@ -12,6 +16,7 @@
     -fx-font-size: 18;
 }
 
+/* changes styling of inputted text*/
 .text-input {
     -fx-text-fill: black;
     -fx-highlight-fill: white;
@@ -19,25 +24,50 @@
     -fx-background-color: linear-gradient(#cccccc, #666666);
 }
 
+/* changes styling of registerButton*/
 #register_button {
     -fx-background-color: linear-gradient(lightgrey, gray);
 }
 
+/* changes styling of registerButton if you move mouse over it*/
 #register_button:hover {
     -fx-background-color: linear-gradient(gray, lightgrey);
 }
 
+/* changes styling of cancelButton*/
+#cancel_button {
+    -fx-background-color: linear-gradient(lightgrey, gray);
+}
+
+/* changes styling of cancelButton if you move mouse over it*/
+#cancel_button:hover {
+    -fx-background-color: linear-gradient(gray, lightgrey);
+}
+
+/* changes styling of the icon*/
 #icon {
     -fx-translate-x: 125;
     -fx-translate-y: -20;
 }
 
+/* changes styling of alert window button*/
 .dialog-pane .button{
     -fx-background-color: linear-gradient(lightgrey, gray);
     -fx-font-family: Serif;
     -fx-font-weight: bold;
 }
 
+/* changes styling of alert window button if you move mouse over it*/
 .dialog-pane .button:hover{
     -fx-background-color: linear-gradient(gray, lightgrey);
+}
+
+/* changes styling of the right-click menu*/
+.context-menu {
+    -fx-background-color: linear-gradient(gray, lightgrey);
+}
+
+/* changes styling of right-click menu's label*/
+.menu-item .label {
+    -fx-text-fill: black;
 }

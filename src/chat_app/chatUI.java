@@ -51,6 +51,7 @@ public class chatUI extends Application {
             Color.LIGHTGREEN};
 
     public static void main(String[] args) {
+
         launch(args);
     }
 
@@ -87,7 +88,7 @@ public class chatUI extends Application {
 
     private void addUIControls(GridPane gridPane, Stage primaryStage) {
         // Add Header
-        Label headerLabel = new Label("ChatsApp");
+        Label headerLabel = new Label("CHATSAPP");
         headerLabel.setId("header");
         gridPane.add(headerLabel, 0, 0, 2, 1);
         GridPane.setHalignment(headerLabel, HPos.CENTER);
@@ -220,11 +221,12 @@ public class chatUI extends Application {
 
         /** Contact listview */
         ArrayList<String> contacts = new ArrayList<String>();
+        ListView<String> listView = new ListView<>(FXCollections.observableArrayList(contacts));
         ListView<String> contactListView = new ListView<>(FXCollections.observableArrayList(contacts));
+        contactListView.setId("contacts");
 
         /** Pane for contact */
         BorderPane mainPane = new BorderPane();
-
 
         VBox contactPane = new VBox(10);
 
@@ -266,7 +268,9 @@ public class chatUI extends Application {
         //TODO: 2303 CHANGES
         //make a button that allows adding members to group
         Button grp = new Button("Add Group");
+        grp.setId("groupButton");
         Button setgrp = new Button("Set Group Chat");
+        setgrp.setId("setGroupButton");
         contactPane.getChildren().addAll(grp,setgrp);
 
         contactPane.getChildren().add(contactListView);
@@ -500,12 +504,14 @@ public class chatUI extends Application {
         });
 
         /**Menubar section*/
-        Menu account = new Menu("Account");
+        Menu account = new Menu("Account: " + client.getName());
+        account.setId("account");
         MenuItem logout = new MenuItem("Logout");
 
         account.getItems().addAll(logout);
 
         MenuBar mb = new MenuBar();
+        mb.setId("menu");
         mb.getMenus().add(account);
 
         logout.setOnAction(e -> {
@@ -537,6 +543,7 @@ public class chatUI extends Application {
         entry.setWrapText(true);
         entry.setPrefRowCount(5);
         entry.setEditable(true);
+        entry.setId("entry-field");
 
         HBox hbox = new HBox(5);
         VBox vbox = new VBox(5);
@@ -544,23 +551,29 @@ public class chatUI extends Application {
         vbox.setAlignment(Pos.CENTER);
 
         Button send = new Button();
+        send.setId("sendButton");
         ImageView sendImage = new ImageView(new Image("/img/send.png"));
         sendImage.setFitWidth(33);
-        sendImage.setFitHeight(27);
+        sendImage.setFitHeight(33);
         send.setGraphic(sendImage);
+        send.setPadding(Insets.EMPTY);
 
 
         Button image = new Button(); // Would Like to convert this to an Image Button
+        image.setId("imageButton");
         ImageView imageImage = new ImageView(new Image("/img/image.png"));
         imageImage.setFitWidth(33);
         imageImage.setFitHeight(33);
         image.setGraphic(imageImage);
+        image.setPadding(Insets.EMPTY);
 
         Button voice = new Button();
-        ImageView voiceImage = new ImageView(new Image("/img/voice.jpg"));
+        voice.setId("voiceButton");
+        ImageView voiceImage = new ImageView(new Image("/img/voice.png"));
         voiceImage.setFitWidth(33);
         voiceImage.setFitHeight(33);
         voice.setGraphic(voiceImage);
+        voice.setPadding(Insets.EMPTY);
 
         vbox.getChildren().addAll(image, voice);
         hbox.getChildren().addAll(vbox, entry, send);
@@ -575,6 +588,7 @@ public class chatUI extends Application {
         /**Check if changes are made in chatlog */
         ArrayList<Text> messagesBox = new ArrayList<Text>();
         ListView<Text> messageScroll = new ListView<>(FXCollections.observableArrayList(messagesBox));
+        messageScroll.setId("chatlog");
         client.chatLog.addListener((ListChangeListener<String>) change -> {
             while (change.next()) {
                 /**Update messageScroll */
@@ -648,6 +662,7 @@ public class chatUI extends Application {
             }
         }
         Text chattingWith = new Text(chatTitle);
+        chattingWith.setId("chatTitle");
         //TODO: END 2303 CHANGES
         chattingWith.setFont(Font.font("Verdana", FontWeight.MEDIUM, 17));
         chattingWith.setFill(Color.WHITE);
@@ -711,7 +726,6 @@ public class chatUI extends Application {
                         //Client is receiver
                         messageTextFormat = new Text(Client +" : " +Mess);
                     }
-                    messageTextFormat.setFont(Font.font ("Verdana",FontWeight.LIGHT, 16));
                     messagesBox.add(messageTextFormat);
                     messageScroll.getItems().clear();
                     messageScroll.getItems().addAll(messagesBox);
@@ -817,6 +831,7 @@ public class chatUI extends Application {
         threads = new ArrayList<Thread>();
         primaryStage.setScene(LoginScene(primaryStage));
         primaryStage.setTitle("ChatsApp");
+        primaryStage.getIcons().add(new Image("img/icon.png"));
         primaryStage.show();
     }
 }

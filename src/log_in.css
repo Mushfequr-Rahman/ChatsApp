@@ -1,7 +1,9 @@
+/* changes styling of window*/
 .root {
     -fx-background-image: url("img/background.png");
 }
 
+/* changes styling of labels*/
 .label {
     -fx-font-family: Serif;
     -fx-font-weight: bold;
@@ -9,11 +11,13 @@
     -fx-font-size: 18;
 }
 
+/* changes styling of the header label*/
 #header {
     -fx-font-weight: bold;
     -fx-font-size: 48;
 }
 
+/* changes styling of inputted text*/
 .text-input {
     -fx-text-fill: black;
     -fx-highlight-fill: white;
@@ -21,6 +25,7 @@
     -fx-background-color: linear-gradient(#cccccc, #666666);
 }
 
+/* changes styling of the loginButton*/
 #loginButton {
     -fx-font-family: Serif;
     -fx-font-weight: bold;
@@ -28,10 +33,12 @@
     -fx-background-color: linear-gradient(lightgrey, gray);
 }
 
+/* changes styling of the loginButton if you move mouse over it*/
 #loginButton:hover {
     -fx-background-color: linear-gradient(gray, lightgrey);
 }
 
+/* changes styling of the registerButton*/
 #registerButton {
     -fx-font-family: Serif;
     -fx-font-weight: bold;
@@ -39,16 +46,29 @@
     -fx-background-color: linear-gradient(lightgrey, gray);
 }
 
+/* changes styling of the registerButton if you move mouse over it*/
 #registerButton:hover {
     -fx-background-color: linear-gradient(gray, lightgrey);
 }
 
+/* changes styling of alert window button*/
 .dialog-pane .button{
     -fx-background-color: linear-gradient(lightgrey, gray);
     -fx-font-family: Serif;
     -fx-font-weight: bold;
 }
 
+/* changes styling of alert window button if you hover over it*/
 .dialog-pane .button:hover{
     -fx-background-color: linear-gradient(gray, lightgrey);
+}
+
+/* changes styling of the right-click menu*/
+.context-menu {
+    -fx-background-color: linear-gradient(gray, lightgrey);
+}
+
+/* changes styling of right-click menu's label*/
+.menu-item .label {
+    -fx-text-fill: black;
 }
