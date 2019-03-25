@@ -99,7 +99,7 @@ public class register extends Application {
         Button Cancel_button = new Button("Cancel");
         Cancel_button.setId("cancel_button");
         Cancel_button.setFont(Font.font("Serif", FontWeight.BOLD, 18));
-        Cancel_button.setDefaultButton(true);
+        Cancel_button.setDefaultButton(false);
 
         buttonBox.getChildren().addAll(Register_button, Cancel_button);
         Reg.add(buttonBox,1,5);
