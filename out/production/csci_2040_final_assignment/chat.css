@@ -178,6 +178,7 @@
     -fx-font-family: Serif;
 }
 
+/* changes styling of alert window button*/
 .dialog-pane .button{
     -fx-background-color: linear-gradient(lightgrey, gray);
     -fx-font-family: Serif;
@@ -200,10 +201,12 @@
     -fx-text-fill: white;
 }
 
+/* changes styling of the boxes of the checkboxes*/
 .check-box .box {
     -fx-background-color: linear-gradient(lightgrey, gray);
 }
 
+/* changes styling the boxes of the checkboxes if you move mouse over it*/
 .check-box .box:hover {
     -fx-background-color: linear-gradient(gray, lightgrey);
 }

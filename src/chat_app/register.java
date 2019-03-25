@@ -135,7 +135,6 @@ public class register extends Application {
                 }
 
                 //txt to keep track of data easier
-                String fileName2= "Database.txt";
                 FileWriter f2;
                 StringBuilder sb = new StringBuilder();
                 try {
@@ -143,19 +142,15 @@ public class register extends Application {
                         //If file exist, simply append
                         System.out.println("File has existed please don't overwrite");
                         file = new FileWriter(new File(fileName), true);
-                        f2 = new FileWriter(new File(fileName2), true);
                         //append function
                         sb.append(generateSb(getCSVID(new File(fileName)),email_entry,username_entry,password_entry));
                         //Write to file function
                         file.write(sb.toString());
-                        f2.write(sb.toString());
                         file.close();
-                        f2.close();
                     } else {
                         //Create header first
                         System.out.println("File has not existed, create new one!");
                         file = new FileWriter(new File(fileName), false);
-                        f2 = new FileWriter(new File(fileName2), false);
                         sb.append("Id");
                         sb.append(',');
                         sb.append("Email Address");
@@ -170,9 +165,7 @@ public class register extends Application {
                         sb.append(generateSb(getCSVID(1),email_entry,username_entry,password_entry));
                         //Write to file function
                         file.write(sb.toString());
-                        f2.write(sb.toString());
                         file.close();
-                        f2.close();
 
                     }
                     chatUI c = new chatUI();
