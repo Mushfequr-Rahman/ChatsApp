@@ -165,13 +165,12 @@ public class register extends Application {
                         file.close();
 
                     }
-                    chatUI c = new chatUI();
                     //"User has be registered" display before redirect.
                     Alert registered = showAlert(Alert.AlertType.INFORMATION, Reg.getScene().getWindow(), "Success!", username_entry.getText() + " has been registered.");
                     registered.show();
                     primaryStage.setScene(s);
                 }catch (Exception e){
-                    System.out.println("Dunno something caught");
+                    System.out.println("Error!");
                     System.exit(0);
                 }
 
@@ -261,7 +260,7 @@ public class register extends Application {
     Boolean validateEmpty(TextField u, TextField e, TextField p1, TextField p2){
         //Check for empty text fields
         if(u.getText().equals("") || e.getText().equals("") || p1.getText().equals("") || p2.getText().equals("")){
-            System.out.println("ONE OR MORE COLUMNS ARE EMPTY");
+            System.out.println("One or more columns are empty");
             return false;
         }
         return true;
@@ -277,7 +276,6 @@ public class register extends Application {
         Map<Integer,String> users = getUsernames(f);
         String userName = u.getText();
         for (String names: users.values()){
-            //System.out.println("Existing names:" + names);
             if(userName.equals(names)){
                 return false;
             }

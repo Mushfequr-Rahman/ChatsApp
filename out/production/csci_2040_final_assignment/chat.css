@@ -168,6 +168,7 @@
 #chatlog .list-cell:even {
     -fx-background-color: #666666;
     -fx-text-fill: white;
+    -fx-font-weight: normal;
     -fx-font-family: Serif;
 }
 
@@ -175,6 +176,7 @@
 #chatlog .list-cell:odd {
     -fx-background-color: #767676;
     -fx-text-fill: white;
+    -fx-font-weight: normal;
     -fx-font-family: Serif;
 }
 
