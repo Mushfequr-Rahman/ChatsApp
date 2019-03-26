@@ -61,20 +61,17 @@ After you have successfully logged in, you will see the chat window displayed on
 image::adduser.png[width="600"]
 Figure 3: We will help you find your friends.
 
-image::added.png[width="600"]
-Figure 4: You now have a friend!
-
 === Start a Chat
 Just click on any of the users in the list of your friends, and you can immediately start chatting! You will also see any chat log that you may have with that person.
 
 image::cynchat.png[width="600"]
-Figure 5: Prepare for chatting.
+Figure 4: Prepare for chatting.
 
 Now all you need to do is to enter the message that you want to send in the text field at the bottom of the window. Once you are ready to send it, press `[ENTER]` or click the send button to the right of the textfield, then your message will be sent instantly.
 
 
 image::chatsolo.png[width="600"]
-Figure 6: Hello ChatsApp!
+Figure 5: Hello ChatsApp!
 
 === Creating Group Chat
 If you want to talk to more than 1 person simultanously, click the `Add Group` button that is at the top right of the window. You will see the names of the users that were added onto the friends' list at the bottom of the window.
@@ -82,7 +79,7 @@ If you want to talk to more than 1 person simultanously, click the `Add Group` b
 Click on the checkboxes to the left of the users listed that you want added into the group chat. Once you are satisfied with your selection, click on the `Set Group Chat` button and your group chat will be created!
 
 image::groupchat.png[width="600"]
-Figure 7: Everyone is in ChatsApp!
+Figure 6: Everyone is in ChatsApp!
 
 This group chat will be added to the list of your friends. This way, you can easily toggle between the various group chat sessions that you have!
 
