@@ -19,24 +19,14 @@ By: `CSCI2020U Group 19`      Since: `Mar 2019`
 ChatsApp is a instant text messaging application designed for communication between one to many users. If you want a messaging application that is simple and easy-to-use, then ChatsApp is for you!
 
 == Downloads
-You can download our application through any of these methods.
-
-=== .jar file
-.  Ensure you have Java version `9` or later installed in your computer.
-.  Download the latest `chatsapp.jar` link:#[here].
-.  Copy the file to the folder you want to use as the home folder for the application.
-.  Double-click the file to start the app. The Graphical User Inteface (GUI) should appear in a few seconds.
-
-=== .zip file
 . Ensure you have IntelliJ IDEA installed in your computer.
-. Download the latest zip folder. link:https://github.com/Mushfequr-Rahman/csci_2040_final_assignment[here].
+. Download the latest zip folder link:https://github.com/Mushfequr-Rahman/csci_2040_final_assignment[here].
 . Open the `csci_2040_final_assignment` project on IntelliJ IDEA.
 . Go to *File* -> *Project Structure*. Under *Project Setting* -> *Project*, make sure your *Project SDK* is set to `1.8` and your *Project Language Level* is set to `8 - Lambdas, type annotations etc.`.
 . Now select *Project Setting* -> *Modules* and also make sure that your *Project Language Level* is set to `8 - Lambdas, type annotations etc.`.
 . First, run `ServerTest`.
 . Next, run `ChatUI`.
 
-//image::zip.png[width="800"]
 
 == Features
 === Registration
@@ -53,21 +43,46 @@ New user can create a new account by clicking the register button. You will be r
 * *Email*
 ** Email addressed enter must be valid (e.g 'aaa.com' would be considered invalid).
 
+//image::warning.png[width="600" height="700"]
+//Figure 1: Failed registration!
+
+image::registered.png[width="600"]
+Figure 1: Congratulations! You now have a ChatsApp account!
+
 === Login
 Once registered, you can log in to your account using either your *username/email* and your *password*.
+
+image::logined.png[width="600"]
+Figure 2: Welcome to your account!
 
 === Adding User
 After you have successfully logged in, you will see the chat window displayed on your screen. To begin chatting with someone, enter a username on *Enter User ID field* and press `[ENTER]`. If the username is valid (a registed user), you will see the username being added onto the list of your friends.
 
+image::adduser.png[width="600"]
+Figure 3: We will help you find your friends.
+
+image::added.png[width="600"]
+Figure 4: You now have a friend!
+
 === Start a Chat
 Just click on any of the users in the list of your friends, and you can immediately start chatting! You will also see any chat log that you may have with that person.
 
+image::cynchat.png[width="600"]
+Figure 5: Prepare for chatting.
+
 Now all you need to do is to enter the message that you want to send in the text field at the bottom of the window. Once you are ready to send it, press `[ENTER]` or click the send button to the right of the textfield, then your message will be sent instantly.
 
+
+image::chatsolo.png[width="600"]
+Figure 6: Hello ChatsApp!
 
 === Creating Group Chat
 If you want to talk to more than 1 person simultanously, click the `Add Group` button that is at the top right of the window. You will see the names of the users that were added onto the friends' list at the bottom of the window.
 
 Click on the checkboxes to the left of the users listed that you want added into the group chat. Once you are satisfied with your selection, click on the `Set Group Chat` button and your group chat will be created!
 
+image::groupchat.png[width="600"]
+Figure 7: Everyone is in ChatsApp!
+
 This group chat will be added to the list of your friends. This way, you can easily toggle between the various group chat sessions that you have!
+
