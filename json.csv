@@ -5,3 +5,6 @@ Cynthia,3x5, {university.},Hello,TEXT,2019.03.25.20.15.18
 university,5x3, {Cynthia.},Hi,TEXT,2019.03.25.20.15.55
 Cynthia,3x5, {university.},how are you?,TEXT,2019.03.25.20.16.07
 university,5x3, {Cynthia.},fine thank you,TEXT,2019.03.25.20.16.13
+Terong,2x5, {university.},Hi UOIT,TEXT,2019.03.25.20.42.13
+Terong,2x5, {university.},I have a question regarding tuition fee,TEXT,2019.03.25.20.42.19
+university,5x2, {Terong.},Hi! How can I help you? :),TEXT,2019.03.25.20.42.26

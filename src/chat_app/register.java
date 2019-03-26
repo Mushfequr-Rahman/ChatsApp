@@ -41,7 +41,7 @@ public class register extends Application {
         Scene scene = new Scene(grid, 400, 400);
         scene.getStylesheets().add(getClass().getClassLoader().getResource("register.css").toExternalForm());
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Registration Page");
+        primaryStage.setTitle("Registration Page ");
         primaryStage.show();
 
     }
@@ -135,10 +135,12 @@ public class register extends Application {
                 }
 
                 //txt to keep track of data easier
+                FileWriter f2;
                 StringBuilder sb = new StringBuilder();
                 try {
                     if (new File(fileName).exists()) {
                         //If file exist, simply append
+                        System.out.println("File has existed please don't overwrite");
                         file = new FileWriter(new File(fileName), true);
                         //append function
                         sb.append(generateSb(getCSVID(new File(fileName)),email_entry,username_entry,password_entry));
@@ -147,6 +149,7 @@ public class register extends Application {
                         file.close();
                     } else {
                         //Create header first
+                        System.out.println("File has not existed, create new one!");
                         file = new FileWriter(new File(fileName), false);
                         sb.append("Id");
                         sb.append(',');
@@ -165,12 +168,14 @@ public class register extends Application {
                         file.close();
 
                     }
-                    //"User has be registered" display before redirect.
+                    chatUI c = new chatUI();
+                    //"USER HAS BEEN REGISTERED" DISPLAY before redirect.
                     Alert registered = showAlert(Alert.AlertType.INFORMATION, Reg.getScene().getWindow(), "Success!", username_entry.getText() + " has been registered.");
                     registered.show();
                     primaryStage.setScene(s);
                 }catch (Exception e){
-                    System.out.println("Error!");
+                    System.out.println("Dunno something caught");
+                    e.printStackTrace();
                     System.exit(0);
                 }
 
@@ -260,7 +265,7 @@ public class register extends Application {
     Boolean validateEmpty(TextField u, TextField e, TextField p1, TextField p2){
         //Check for empty text fields
         if(u.getText().equals("") || e.getText().equals("") || p1.getText().equals("") || p2.getText().equals("")){
-            System.out.println("One or more columns are empty");
+            System.out.println("ONE OR MORE COLUMNS ARE EMPTY");
             return false;
         }
         return true;
@@ -312,7 +317,7 @@ public class register extends Application {
     String getCSVID(int id){
         //Generate first ID(id=1) or given ID in csv format
         String str = "";
-        str += Integer.toString(id) + ",";
+        str += id + ",";
         return str;
     }
 
@@ -349,14 +354,12 @@ public class register extends Application {
     Map<Integer,String> getUsernames(File f)throws Exception {
         //get all usernames for validation
         String data = readAll(f);
-        //System.out.println("DATA:\n" + data);
         String[] splitted = data.split(",");
         Map<Integer,String> users = new HashMap<Integer,String>(); //unique id and username
         Scanner s = new Scanner(data).useDelimiter("\n");
         s.nextLine(); //skip header
         while(s.hasNextLine()){
             String[] words = s.nextLine().split(",");
-            //System.out.println("ID:" + words[0] + "Name:" + words[2]);
             users.put(Integer.parseInt(words[0]),words[2]);
         }
         return users;
@@ -366,9 +369,11 @@ public class register extends Application {
         //get all emails for validation too
         String data = readAll(f);
         String[] splitted = data.split(",");
-        Map<Integer,String> users = new HashMap<Integer,String>(); //unique id and email
+        //unique id and email
+        Map<Integer,String> users = new HashMap<Integer,String>();
         Scanner s = new Scanner(data).useDelimiter("\n");
-        s.nextLine(); //skip header
+        //skip header
+        s.nextLine();
         while(s.hasNextLine()){
             String[] words = s.nextLine().split(",");
             users.put(Integer.parseInt(words[0]),words[1]);
