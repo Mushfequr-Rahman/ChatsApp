@@ -31,7 +31,7 @@ Responsibilities: Graphic User Interface
 
 === Terry Darmawan Hosea
 image::t.png[width="150", align="left"]
-{empty}https://github.com/terrydarmawan[github]
+{empty}https://github.com/terryhosea[github]
 
 Responsibilities: Front-end Developer
 
